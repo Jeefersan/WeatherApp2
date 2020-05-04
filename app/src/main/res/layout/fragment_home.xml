@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.jeefersan.weatherapp.presentation.home.viewmodels.HomeViewModelImpl" />
+
+        <variable
+            name="currentWeatherModel"
+            type="com.jeefersan.weatherapp.models.CurrentWeatherModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_home_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_default"
+        app:isSunset="@{vm.isSunset()}"
+        tools:background="@drawable/bg_night">
+
+        <TextView
+            android:id="@+id/tv_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:fontFamily="sans-serif-condensed"
+            android:gravity="center_horizontal"
+            android:text="@{vm.currentLocationLiveData.cityName}"
+            android:textColor="#FFFFFF"
+            android:textSize="48sp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Den Haag" />
+
+        <TextView
+            android:id="@+id/tv_temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="24dp"
+            android:text="@{@string/binding_celsius(currentWeatherModel.currentTemp)}"
+            android:textColor="#FFFFFF"
+            android:textSize="48sp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintTop_toBottomOf="@+id/tv_city"
+            tools:text="23 °C" />
+
+        <TextView
+            android:id="@+id/tv_wind"
+            style="@style/def_style"
+            dayNightTextColor="@{vm.isSunset()}"
+            android:layout_marginTop="12dp"
+            android:text="@{`Windspeed: ` + currentWeatherModel.windSpeed}"
+            app:layout_constraintStart_toStartOf="@+id/tv_humidity"
+            app:layout_constraintTop_toBottomOf="@+id/tv_humidity"
+            tools:text="Windspeed: 3" />
+
+        <TextView
+            android:id="@+id/tv_cloudiness"
+            style="@style/def_style"
+            dayNightTextColor="@{vm.isSunset()}"
+            android:layout_marginTop="12dp"
+            android:text="@{`Cloudiness: ` + currentWeatherModel.cloudiness + `%`}"
+            app:layout_constraintStart_toStartOf="@+id/tv_wind"
+            app:layout_constraintTop_toBottomOf="@+id/tv_wind"
+            tools:text="Cloudiness: 25%" />
+
+        <TextView
+            android:id="@+id/tv_humidity"
+            style="@style/def_style"
+            dayNightTextColor="@{vm.isSunset()}"
+            android:layout_marginTop="32dp"
+            android:text="@{`Humidity: ` + currentWeatherModel.humidity + `%`}"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintTop_toBottomOf="@+id/tv_temperature"
+            tools:text="Humidity: 12%" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateDrawable="@drawable/ic_progress_anim"
+            android:progressDrawable="@drawable/ic_progress_anim"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:progressbarVisibility="@{vm.loadingStatus}" />
+
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:text="@string/next_12_hours"
+            android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toTopOf="@+id/rv_hourly_weather"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_hourly_weather"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
+            android:layoutAnimation="@anim/anim_layout"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:itemCount="7"
+            tools:listitem="@layout/item_hourly_weather" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/materialButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/semiTransparent"
+            android:elevation="0dp"
+            android:onClick="@{() -> vm.onShowForecastButtonClick()}"
+            android:text="@string/show_weekly_forecast"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            app:cornerRadius="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/rv_hourly_weather"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="textView2,materialButton, iv_weather, tv_temperature, tv_city"
+            app:viewVisibility="@{vm.loadingStatus}" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="16dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="16dp" />
+
+        <ImageView
+            android:id="@+id/iv_weather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/tv_temperature"
+            app:layout_constraintTop_toBottomOf="@+id/tv_city"
+            tools:src="@drawable/ic_02d" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group"
+            viewVisibility="@{vm.loadingStatus}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="tv_humidity,tv_wind,tv_cloudiness" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.jeefersan.weatherapp.presentation.home.viewmodels.HomeViewModel" />
+
+
+    </data>
+
+
+    <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="72dp"
+        android:layout_height="96dp"
+        android:layout_margin="4dp"
+        android:elevation="4dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_time"
+                style="@style/style_item_hourly"
+                tools:text="12:00" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_weather_icon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_horizontal"
+                android:tint="#FFFFFF"
+                tools:src="@drawable/ic_weather_cloud_storm" />
+
+            <TextView
+                android:id="@+id/tv_temperature"
+                style="@style/style_item_hourly"
+                tools:text="23°C" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

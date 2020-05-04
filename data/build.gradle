@@ -1,0 +1,33 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+apply plugin: 'kotlin-kapt'
+
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    def room_version = "2.2.5"
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation project(path: ':domain')
+    implementation project(path: ':util')
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.4"
+
+    implementation "com.squareup.retrofit2:retrofit:2.7.2"
+    implementation "com.squareup.retrofit2:converter-moshi:2.7.2"
+
+    implementation("com.squareup.moshi:moshi-kotlin:1.9.2")
+
+    implementation "com.squareup.okhttp3:okhttp:4.4.0"
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
+
+    //Room
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    // For Kotlin use kapt instead of annotationProcessor
+    implementation "androidx.room:room-ktx:$room_version"
+}
+
+sourceCompatibility = "7"
+targetCompatibility = "7"

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.jeefersan.weatherapp.presentation.home.HomeFragment">
+        <action
+            android:id="@+id/action_homeFragment_to_weeklyForecastFragment"
+            app:destination="@id/nav_weekly_forecast"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_weekly_forecast"
+        android:name="com.jeefersan.weatherapp.presentation.weeklyforecast.WeeklyForecastFragment">
+        <argument
+            android:name="weeklyForecastModel"
+            app:argType="com.jeefersan.weatherapp.models.WeeklyForecastModel" />
+        <argument
+            android:name="locationName"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_nav_weekly_forecast_to_nav_home"
+            app:destination="@id/nav_home"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.jeefersan.weatherapp.presentation.settings.SettingsFragment" />
+    <fragment
+        android:id="@+id/nav_favorites"
+        android:name="com.jeefersan.weatherapp.presentation.favorites.FavoritesFragment" />
+</navigation>
