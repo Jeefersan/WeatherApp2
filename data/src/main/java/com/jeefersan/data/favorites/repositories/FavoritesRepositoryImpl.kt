@@ -2,7 +2,6 @@ package com.jeefersan.data.favorites.repositories
 
 import com.jeefersan.data.favorites.datasources.local.datasources.FavoritesLocalDataSource
 import com.jeefersan.domain.Favorite
-import com.jeefersan.domain.Location
 import com.jeefersan.util.Result
 
 /**
@@ -12,7 +11,7 @@ class FavoritesRepositoryImpl(private val favoritesLocalDataSource: FavoritesLoc
     FavoritesRepository {
     override suspend fun addFavorite(favorite: Favorite): Result<Unit> =
         try {
-            Result.Success(favoritesLocalDataSource.addFavorite(favorite)).data
+            Result.Success(favoritesLocalDataSource.insertFavorite(favorite)).data
         } catch (throwable: Throwable) {
             Result.Failure(throwable)
         }
@@ -26,7 +25,7 @@ class FavoritesRepositoryImpl(private val favoritesLocalDataSource: FavoritesLoc
 
     override suspend fun removeFavoriteById(favoriteId: Long): Result<Unit> =
         try {
-            favoritesLocalDataSource.removeFavoriteById(favoriteId)
+            favoritesLocalDataSource.deleteFavoriteById(favoriteId)
             Result.Success(Unit)
         } catch (throwable: Throwable) {
             Result.Failure(throwable)

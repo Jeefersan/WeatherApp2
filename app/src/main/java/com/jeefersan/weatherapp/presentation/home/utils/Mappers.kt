@@ -8,15 +8,16 @@ import com.jeefersan.weatherapp.models.*
  */
 
 
-fun WeatherForecast.mapToWeatherForecastModel(): WeatherForecastModel =
-    WeatherForecastModel(currentWeather.mapToWeatherModel(),
-    hourlyForecast.mapToHourlyForecastModel(),
-    weeklyForecast.mapToWeeklyForecastModel())
+fun WeatherForecast.mapToPresentation(): WeatherForecastModel =
+    WeatherForecastModel(
+        currentWeather.mapToWeatherModel(),
+        hourlyForecast.mapToHourlyForecastModel(),
+        weeklyForecast.mapToWeeklyForecastModel()
+    )
 
 fun CurrentWeather.mapToWeatherModel(): CurrentWeatherModel =
     CurrentWeatherModel(
-        cityName = location?.cityName,
-        cityId = location?.cityId,
+        id = id,
         sunset = sunset,
         currentTemp = currentTemp,
         timestamp = timestamp,
@@ -27,7 +28,7 @@ fun CurrentWeather.mapToWeatherModel(): CurrentWeatherModel =
         description = description
     )
 
-fun HourlyForecast.mapToHourlyForecastModel() : HourlyForecastModel =
+fun HourlyForecast.mapToHourlyForecastModel(): HourlyForecastModel =
     HourlyForecastModel(hourlyWeatherEntity.map { it.mapToHourlyWeatherModel() })
 
 fun WeeklyForecast.mapToWeeklyForecastModel(): WeeklyForecastModel =

@@ -9,7 +9,7 @@ import com.jeefersan.util.Result
 
 class FavoritesLocalDataSourceImpl(private val favoritesDao: FavoritesDao) :
     FavoritesLocalDataSource {
-    override suspend fun addFavorite(favorite: Favorite): Result<Unit> =
+    override suspend fun insertFavorite(favorite: Favorite): Result<Unit> =
         try {
             favoritesDao.insertOrUpdateFavorite(favorite.mapToFavoriteEntity())
             Result.Success(Unit)
@@ -25,7 +25,7 @@ class FavoritesLocalDataSourceImpl(private val favoritesDao: FavoritesDao) :
             Result.Failure(throwable)
         }
 
-    override suspend fun removeFavoriteById(favoriteId: Long): Result<Unit> =
+    override suspend fun deleteFavoriteById(favoriteId: Long): Result<Unit> =
         try {
             favoritesDao.deleteFavoriteById(favoriteId)
             Result.Success(Unit)

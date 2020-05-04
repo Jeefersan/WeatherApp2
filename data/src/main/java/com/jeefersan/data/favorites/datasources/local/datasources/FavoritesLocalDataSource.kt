@@ -11,10 +11,10 @@ import com.jeefersan.util.Result
  */
 interface FavoritesLocalDataSource {
 
-    suspend fun addFavorite(favorite: Favorite): Result<Unit>
+    suspend fun insertFavorite(favorite: Favorite): Result<Unit>
 
     suspend fun getFavorites(): Result<List<Favorite>>
 
-    suspend fun removeFavoriteById(favoriteId: Long): Result<Unit>
+    suspend fun deleteFavoriteById(favoriteId: Long): Result<Unit>
 
 }

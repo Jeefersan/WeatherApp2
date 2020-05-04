@@ -29,6 +29,7 @@ fun ForecastResponse.mapToForecast(): Forecast {
 
 fun Hourly.mapToHourlyWeather(): HourlyWeather =
     HourlyWeather(
+        id = 0,
         temperature = temp.roundToInt(),
         timeStamp = dt.toLong(),
         weatherIcon = weather.first().icon,

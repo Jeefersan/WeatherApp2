@@ -3,25 +3,19 @@ package com.jeefersan.weatherapp.framework.di
 import androidx.room.Room
 import com.jeefersan.data.unused.currentweather.datasources.remote.WeatherRemoteDataSource
 import com.jeefersan.data.unused.currentweather.datasources.remote.WeatherRemoteDataSourceImpl
-import com.jeefersan.data.unused.currentweather.repositories.WeatherRepository
-import com.jeefersan.data.unused.currentweather.repositories.WeatherRepositoryImpl
 import com.jeefersan.data.flowlocation.FlowLocationProvider
-import com.jeefersan.data.unused.location.datasources.LocationProvider
 import com.jeefersan.data.weatherforecast.datasources.local.WeatherForecastLocalDataSource
 import com.jeefersan.data.weatherforecast.datasources.local.WeatherForecastLocalDataSourceImpl
 import com.jeefersan.data.weatherforecast.datasources.remote.WeatherForecastRemoteDataSource
 import com.jeefersan.data.weatherforecast.datasources.remote.WeatherForecastRemoteDataSourceImpl
 import com.jeefersan.data.weatherforecast.repositories.WeatherForecastRepository
 import com.jeefersan.data.weatherforecast.repositories.WeatherForecastRepositoryImpl
-import com.jeefersan.usecases.currentweather.getweatherforcurrentlocation.GetWeatherForCurrentLocationUseCaseImpl
-import com.jeefersan.usecases.currentweather.getweatherforcurrentlocation.GetWeatherForCurrentLocationUseCase
 import com.jeefersan.usecases.forecast.getweatherforecastfromlocation.GetWeatherForecastFromLocationUseCase
 import com.jeefersan.usecases.forecast.getweatherforecastfromlocation.GetWeatherForecastFromLocationUsecaseImpl
 import com.jeefersan.usecases.location.GetCurrentLocationUseCase
 import com.jeefersan.usecases.location.GetCurrentLocationUseCaseImpl
 import com.jeefersan.weatherapp.framework.db.LocalDatabase
 import com.jeefersan.weatherapp.framework.location.FlowLocationProviderImpl
-import com.jeefersan.weatherapp.framework.location.LocationProviderImpl
 import com.jeefersan.weatherapp.framework.network.api.provideApiService
 import com.jeefersan.weatherapp.framework.network.api.provideInterceptor
 import com.jeefersan.weatherapp.framework.network.api.provideOkHttpClient
@@ -66,26 +60,26 @@ val flowModule = module {
 
 @ExperimentalCoroutinesApi
 val useCaseModule = module {
-    factory<GetWeatherForCurrentLocationUseCase> {
-        GetWeatherForCurrentLocationUseCaseImpl(
-            get(),
-            get()
-        )
-    }
+//    factory<GetWeatherForCurrentLocationUseCase> {
+//        GetWeatherForCurrentLocationUseCaseImpl(
+//            get(),
+//            get()
+//        )
+//    }
     factory<GetWeatherForecastFromLocationUseCase> { GetWeatherForecastFromLocationUsecaseImpl(get()) }
     factory<GetCurrentLocationUseCase> { GetCurrentLocationUseCaseImpl(get()) }
 }
 
 val weatherModule = module {
     single<WeatherRemoteDataSource> { WeatherRemoteDataSourceImpl(get()) }
-    single<WeatherRepository> { WeatherRepositoryImpl(get(), get(), get()) }
+//    single<WeatherRepository> { WeatherRepositoryImpl(get(), get(), get()) }
     single<WeatherForecastRepository> { WeatherForecastRepositoryImpl(get(), get()) }
     single<WeatherForecastRemoteDataSource> {
         WeatherForecastRemoteDataSourceImpl(
             get()
         )
     }
-    single<LocationProvider> { LocationProviderImpl(androidContext()) }
+//    single<LocationProvider> { LocationProviderImpl(androidContext()) }
     single <WeatherForecastLocalDataSource>{ WeatherForecastLocalDataSourceImpl(get()) }
 }
 
@@ -94,8 +88,8 @@ val viewModelModule = module {
     viewModel {
         HomeViewModelImpl(
             get(),
-            get(),
             get()
+
         )
 
     }
@@ -119,6 +113,7 @@ val databaseModule = module {
     }
     single { get<LocalDatabase>().favoritesDao() }
     single { get<LocalDatabase>().weatherForecastDao() }
+    single { get<LocalDatabase>().favoriteWithForecastDao() }
 }
 
 val sharedPreferencesModule = module {

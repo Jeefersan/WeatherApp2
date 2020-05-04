@@ -6,8 +6,7 @@ import java.time.LocalTime
  * Created by JeeferSan on 20-4-20.
  */
 data class CurrentWeather(
-    val id: Long ?= 0,
-    val location: Location ?= null,
+    val id: Long = 0,
     val sunset: Long,
     val currentTemp: Int,
     val timestamp: Long,

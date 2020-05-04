@@ -2,7 +2,12 @@ package com.jeefersan.weatherappFavoriteEntity
 
 import com.jeefersan.data.favorites.datasources.local.models.FavoriteEntity
 import com.jeefersan.data.weatherforecast.datasources.local.db.models.*
+import com.jeefersan.data.weatherforecast.datasources.local.db.models.currentweather.CurrentWeatherEntity
+import com.jeefersan.data.weatherforecast.datasources.local.db.models.hourlyforecast.HourlyForecastWithFavoriteEntity
+import com.jeefersan.data.weatherforecast.datasources.local.db.models.hourlyforecast.HourlyWeatherEntity
 import com.jeefersan.data.weatherforecast.datasources.local.db.models.tmp.LocationEntity
+import com.jeefersan.data.weatherforecast.datasources.local.db.models.weeklyforecast.DailyWeatherEntity
+import com.jeefersan.data.weatherforecast.datasources.local.db.models.weeklyforecast.WeeklyForecastWithFavoriteEntity
 
 /**
  * Created by JeeferSan on 3-5-20.
@@ -14,16 +19,41 @@ import com.jeefersan.data.weatherforecast.datasources.local.db.models.tmp.Locati
             LocationEntity(cityName = "Rotterdam", latitude = 5.0265, longitude = 3.4569)
         val lastUpdateTime = System.currentTimeMillis()
 
-        val currentWeatherEntity = CurrentWeatherEntity(
-            22,
-            856595625, 54953256, 4, 50, 70, 12345, 45454,"Amsterdam", "10d", "cloudy"
-        )
+        val currentWeatherEntity =
+            CurrentWeatherEntity(
+                22,
+                856595625, 54953256, 4, 50, 70, 12345, 45454, "Amsterdam", "10d", "cloudy"
+            )
 
         val hourlyForecastEntity =
-            HourlyForecastEntity(listOf(HourlyWeatherEntity(23, 858566, "50d", 40, 5, 322)))
+            HourlyForecastWithFavoriteEntity(
+                listOf(
+                    HourlyWeatherEntity(
+                        23,
+                        858566,
+                        "50d",
+                        40,
+                        5,
+                        322
+                    )
+                )
+            )
 
         val weeklyForecastEntity =
-            WeeklyForecastEntity(123, listOf(DailyWeatherEntity(15, 20, 5484955, 5, 50, "50d", "sun")))
+            WeeklyForecastWithFavoriteEntity(
+                123,
+                listOf(
+                    DailyWeatherEntity(
+                        15,
+                        20,
+                        5484955,
+                        5,
+                        50,
+                        "50d",
+                        "sun"
+                    )
+                )
+            )
 
         val weatherForecastEntity = WeatherForecastEntity(99, currentWeatherEntity, hourlyForecastEntity, weeklyForecastEntity)
 

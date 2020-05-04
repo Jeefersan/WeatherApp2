@@ -11,15 +11,15 @@ import com.jeefersan.data.weatherforecast.datasources.local.db.models.WeatherFor
 @Dao
 interface WeatherForecastDao {
 
-    @Insert (onConflict = OnConflictStrategy.REPLACE)
-    fun insertOrUpdateWeatherForecast(weatherForecastEntity: WeatherForecastEntity)
+//    @Insert (onConflict = OnConflictStrategy.REPLACE)
+//    fun insertOrUpdateWeatherForecast(weatherForecastEntity: WeatherForecastEntity)
 
-    @Query("SELECT * FROM weather_forecast WHERE id = :id")
-    fun getWeatherForecastById(id: Long): WeatherForecastEntity
+//    @Query("SELECT * FROM weather_forecast WHERE id = :id")
+//    fun getWeatherForecastById(id: Long): WeatherForecastEntity
 
 //    @Transaction
 //    @Query("SELECT * FROM favorites")
-//    fun getFavoritesWithForecasts(): List<FavoriteForecastEntity>
+//    fun getFavoritesWithForecasts(): List<FavoriteWithForecastEntity>
 //
 //
 

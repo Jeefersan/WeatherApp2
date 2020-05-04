@@ -16,7 +16,6 @@ import kotlin.math.roundToInt
 fun ForecastResponse.mapToWeatherForecast(): WeatherForecast {
 
     val currentWeather = CurrentWeather(
-        location = null,
         currentTemp = current.temp.roundToInt(),
         timestamp = current.dt.toLong(),
         windSpeed = current.windSpeed.roundToInt(),
@@ -24,8 +23,7 @@ fun ForecastResponse.mapToWeatherForecast(): WeatherForecast {
         cloudiness = current.clouds,
         sunset = current.sunset.toLong(),
         icon = current.weather.first().icon,
-        description = current.weather.first().description,
-        id = null
+        description = current.weather.first().description
     )
 
     val hourlyForecast = hourly.take(12)
@@ -52,7 +50,8 @@ fun Hourly.mapToHourlyWeather(): HourlyWeather =
         weatherIcon = weather.first().icon,
         humidity = humidity,
         windSpeed = windSpeed.roundToInt(),
-        weatherCode = weather.first().id
+        weatherCode = weather.first().id,
+        id = 0
     )
 
 fun Daily.mapToDailyWeather(): DailyWeather =

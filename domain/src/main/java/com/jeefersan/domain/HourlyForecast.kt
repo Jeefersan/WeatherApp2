@@ -7,7 +7,7 @@ package com.jeefersan.domain
 data class HourlyForecast(val hourlyWeatherEntity: List<HourlyWeather>)
 
 data class HourlyWeather(
-    val id: Long? = 0,
+    val id: Long,
     val temperature: Int,
     val timeStamp: Long,
     val weatherIcon: String,

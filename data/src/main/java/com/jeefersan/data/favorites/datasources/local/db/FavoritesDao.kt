@@ -11,14 +11,13 @@ import com.jeefersan.data.weatherforecast.datasources.local.db.models.WeatherFor
 @Dao
 interface FavoritesDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertOrUpdateFavorite(favoriteEntity: FavoriteEntity)
 
-    @Transaction
     @Query("SELECT * FROM favorites")
     fun getAllFavorites(): List<FavoriteEntity>
 
 
-    @Query("DELETE FROM favorites WHERE favoriteId = :favoriteId")
+    @Query("DELETE FROM favorites WHERE id = :favoriteId")
     fun deleteFavoriteById(favoriteId: Long)
 }

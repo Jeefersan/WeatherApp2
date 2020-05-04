@@ -10,10 +10,11 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "favorites")
 data class FavoriteEntity(
     @PrimaryKey(autoGenerate = true)
-    val favoriteId: Long,
+    var id: Long,
     val cityName: String,
     val latitude: Double,
     val longitude: Double,
     val lastUpdateTime: Long
 )
+
 

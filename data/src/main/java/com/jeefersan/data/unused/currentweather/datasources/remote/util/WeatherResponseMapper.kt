@@ -19,7 +19,6 @@ fun WeatherResponse.mapToWeather(): CurrentWeather {
     )
 
     return CurrentWeather(
-        location = location,
         currentTemp = main.temp.roundToInt(),
         timestamp = dt,
         windSpeed = wind.speed.roundToInt(),

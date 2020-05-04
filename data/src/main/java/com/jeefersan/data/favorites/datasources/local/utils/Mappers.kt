@@ -11,4 +11,4 @@ fun Favorite.mapToFavoriteEntity() : FavoriteEntity =
     FavoriteEntity(favoriteId, cityName, latitude, longitude, lastUpdateTime)
 
 fun FavoriteEntity.mapToFavorite() : Favorite =
-    Favorite(favoriteId, cityName, latitude, longitude, lastUpdateTime)
+    Favorite(id, cityName, latitude, longitude, lastUpdateTime)

@@ -2,7 +2,6 @@ package com.jeefersan.weatherapp.presentation.home.viewmodels
 
 import androidx.lifecycle.*
 import com.jeefersan.domain.Location
-import com.jeefersan.usecases.currentweather.getweatherforcurrentlocation.GetWeatherForCurrentLocationUseCase
 import com.jeefersan.usecases.forecast.getweatherforecastfromlocation.GetWeatherForecastFromLocationUseCase
 import com.jeefersan.usecases.location.GetCurrentLocationUseCase
 import com.jeefersan.util.Result
@@ -10,7 +9,7 @@ import com.jeefersan.weatherapp.presentation.base.BaseViewModel
 import com.jeefersan.weatherapp.presentation.base.LoadingStatus
 import com.jeefersan.weatherapp.presentation.home.HomeFragmentDirections
 import com.jeefersan.weatherapp.models.*
-import com.jeefersan.weatherapp.presentation.home.utils.mapToWeatherForecastModel
+import com.jeefersan.weatherapp.presentation.home.utils.mapToPresentation
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -22,7 +21,7 @@ import kotlinx.coroutines.launch
 @ExperimentalCoroutinesApi
 class HomeViewModelImpl
     (
-    private val getCurrentWeatherForCurrentLocationUseCase: GetWeatherForCurrentLocationUseCase,
+//    private val getCurrentWeatherForCurrentLocationUseCase: GetWeatherForCurrentLocationUseCase,
     private val getCurrentLocationUseCase: GetCurrentLocationUseCase,
     private val getWeatherForecastFromLocationUseCase: GetWeatherForecastFromLocationUseCase
 ) : HomeViewModel, BaseViewModel() {
@@ -65,7 +64,7 @@ class HomeViewModelImpl
         viewModelScope.launch {
             when (val result = getWeatherForecastFromLocationUseCase(location)) {
                 is Result.Success -> {
-                    _currentLocationForecast.value = result.data.mapToWeatherForecastModel()
+                    _currentLocationForecast.value = result.data.mapToPresentation()
 //                    _currentWeather.value = result.data.currentWeather.mapToWeatherModel()
 //                    _hourlyForecast.value =
 //                        result.data.hourlyForecast.map { it.mapToHourlyWeatherModel() }
