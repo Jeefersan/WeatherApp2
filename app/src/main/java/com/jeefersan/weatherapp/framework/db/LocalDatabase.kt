@@ -4,8 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.jeefersan.data.favorites.datasources.local.db.FavoritesDao
 import com.jeefersan.data.favorites.datasources.local.models.FavoriteEntity
-import com.jeefersan.data.weatherforecast.datasources.local.db.dao.FavoriteWithForecastDao
-import com.jeefersan.data.weatherforecast.datasources.local.db.dao.WeatherForecastDao
+import com.jeefersan.data.weatherforecast.datasources.local.db.dao.*
 import com.jeefersan.data.weatherforecast.datasources.local.db.models.currentweather.CurrentWeatherEntity
 import com.jeefersan.data.weatherforecast.datasources.local.db.models.hourlyforecast.HourlyWeatherEntity
 import com.jeefersan.data.weatherforecast.datasources.local.db.models.weeklyforecast.DailyWeatherEntity
@@ -23,8 +22,11 @@ import com.jeefersan.data.weatherforecast.datasources.local.db.models.weeklyfore
 //  CurrentWeatherEntity::class, HourlyForecastWithFavoriteEntity::class, WeeklyForecastWithFavoriteEntity::class, HourlyWeatherEntity::class, DailyWeatherEntity::class]
 abstract class LocalDatabase : RoomDatabase() {
     abstract fun favoritesDao(): FavoritesDao
-    abstract fun weatherForecastDao(): WeatherForecastDao
-    abstract fun favoriteWithForecastDao(): FavoriteWithForecastDao
+
+    abstract fun currentWeatherDao(): CurrentWeatherDao
+    abstract fun hourlyForecastDao(): HourlyForecastDao
+    abstract fun weeklyForecastDao(): WeeklyForecastDao
+
 }
 
 //private lateinit var INSTANCE: LocalDatabase

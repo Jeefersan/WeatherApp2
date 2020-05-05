@@ -1,5 +1,6 @@
 package com.jeefersan.data.weatherforecast.datasources.remote
 
+import com.jeefersan.domain.Coordinates
 import com.jeefersan.domain.Location
 import com.jeefersan.domain.WeatherForecast
 import com.jeefersan.util.Result
@@ -10,5 +11,5 @@ import kotlinx.coroutines.flow.Flow
  */
 
 interface WeatherForecastRemoteDataSource {
-    suspend fun getWeatherForecast(location: Location) : Result<WeatherForecast>
+    suspend fun getWeatherForecast(coordinates: Coordinates) : Result<WeatherForecast>
 }

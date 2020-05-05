@@ -3,21 +3,22 @@ package com.jeefersan.data.favorites.datasources.local.db
 import androidx.room.*
 import com.jeefersan.data.favorites.datasources.local.models.FavoriteEntity
 import com.jeefersan.data.weatherforecast.datasources.local.db.models.WeatherForecastEntity
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Created by JeeferSan on 3-5-20.
  */
 
 @Dao
-interface FavoritesDao {
+abstract class FavoritesDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertOrUpdateFavorite(favoriteEntity: FavoriteEntity)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    abstract fun insertOrUpdateFavorite(favoriteEntity: FavoriteEntity)
 
     @Query("SELECT * FROM favorites")
-    fun getAllFavorites(): List<FavoriteEntity>
+    abstract fun getAllFavorites(): Flow<List<FavoriteEntity>>
 
 
     @Query("DELETE FROM favorites WHERE id = :favoriteId")
-    fun deleteFavoriteById(favoriteId: Long)
+    abstract fun deleteFavoriteById(favoriteId: Long)
 }

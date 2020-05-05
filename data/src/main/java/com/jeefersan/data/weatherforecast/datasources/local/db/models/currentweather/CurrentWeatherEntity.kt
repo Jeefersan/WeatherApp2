@@ -8,11 +8,20 @@ import com.jeefersan.data.favorites.datasources.local.models.FavoriteEntity
  * Created by JeeferSan on 4-5-20.
  */
 
-@Entity(tableName = "current_weather")
+@Entity(
+    tableName = "current_weathers", foreignKeys = [
+        ForeignKey(
+            entity = FavoriteEntity::class,
+            parentColumns = arrayOf("id"),
+            childColumns = ["favorite_id"],
+            onDelete = ForeignKey.CASCADE
+        )
+    ]
+)
 data class CurrentWeatherEntity(
     @PrimaryKey
-    @ColumnInfo(name = "id")
-    val id: Long,
+    @ColumnInfo(name = "favorite_id")
+    val favoriteId: Long,
     val currentTemp: Int,
     val timestamp: Long,
     val sunset: Long,

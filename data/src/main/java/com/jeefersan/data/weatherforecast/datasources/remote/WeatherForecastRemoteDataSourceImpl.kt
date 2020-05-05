@@ -3,6 +3,7 @@ package com.jeefersan.data.weatherforecast.datasources.remote
 
 import com.jeefersan.data.weatherforecast.datasources.remote.api.WeatherApiService
 import com.jeefersan.data.weatherforecast.util.mapToWeatherForecast
+import com.jeefersan.domain.Coordinates
 import com.jeefersan.domain.Location
 import com.jeefersan.domain.WeatherForecast
 import com.jeefersan.util.Result
@@ -12,11 +13,11 @@ import com.jeefersan.util.Result
  */
 class WeatherForecastRemoteDataSourceImpl(private val weatherApi: WeatherApiService) :
     WeatherForecastRemoteDataSource {
-    override suspend fun getWeatherForecast(location: Location): Result<WeatherForecast> =
+    override suspend fun getWeatherForecast(coordinates: Coordinates): Result<WeatherForecast> =
         try {
             val result = weatherApi.getForecastByCoordinates(
-                location.coordinates.lat,
-                location.coordinates.long
+                coordinates.lat,
+                coordinates.long
             )
             Result.Success(result.mapToWeatherForecast())
 

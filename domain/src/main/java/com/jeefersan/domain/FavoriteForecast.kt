@@ -6,6 +6,6 @@ package com.jeefersan.domain
 
 
 data class FavoriteForecast(
-    val cityName: String,
+    val favorite: Favorite,
     val weatherForecast: WeatherForecast
 )

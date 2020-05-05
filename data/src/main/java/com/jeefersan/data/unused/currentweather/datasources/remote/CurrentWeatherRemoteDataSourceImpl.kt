@@ -8,8 +8,8 @@ import com.jeefersan.data.unused.currentweather.datasources.remote.util.mapToWea
 /**
  * Created by JeeferSan on 21-4-20.
  */
-class WeatherRemoteDataSourceImpl(private val weatherApi: WeatherApiService) :
-    WeatherRemoteDataSource {
+class CurrentWeatherRemoteDataSourceImpl(private val weatherApi: WeatherApiService) :
+    CurrentWeatherRemoteDataSource {
 
     override suspend fun getWeatherByCoordinates(lat: Double, long: Double): Result<CurrentWeather> =
         try {

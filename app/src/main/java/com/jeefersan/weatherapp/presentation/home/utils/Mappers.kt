@@ -39,3 +39,18 @@ fun HourlyWeather.mapToHourlyWeatherModel(): HourlyWeatherModel =
 
 fun DailyWeather.mapToDailyWeatherModel(): DailyWeatherModel =
     DailyWeatherModel(minTemp, maxTemp, date, wind, humidity, icon, description)
+
+fun Favorite.mapToPresentation() : FavoriteModel =
+    FavoriteModel(favoriteId, cityName, latitude, longitude, lastUpdateTime)
+
+fun FavoriteForecast.mapToPresentation() : FavoriteForecastModel =
+    FavoriteForecastModel(favorite.mapToPresentation(), weatherForecast.mapToPresentation())
+
+fun FavoriteModel.mapToDomain() : Favorite =
+    Favorite(favoriteId, cityName, latitude, longitude, lastUpdateTime)
+
+fun List<FavoriteModel>.mapToDomain() : List<Favorite> =
+    this.map { it.mapToDomain() }
+
+fun List<FavoriteForecast>.mapToPresentation() : List<FavoriteForecastModel> =
+    this.map { it.mapToPresentation() }

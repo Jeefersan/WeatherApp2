@@ -1,6 +1,7 @@
 package com.jeefersan.usecases.forecast.getweatherforecastfromlocation
 
 import com.jeefersan.data.weatherforecast.repositories.WeatherForecastRepository
+import com.jeefersan.domain.Coordinates
 import com.jeefersan.domain.Location
 import com.jeefersan.domain.WeatherForecast
 import com.jeefersan.util.Result
@@ -13,9 +14,9 @@ import com.jeefersan.util.Result
 class GetWeatherForecastFromLocationUsecaseImpl(
     private val weatherForecastRepository: WeatherForecastRepository
 ) : GetWeatherForecastFromLocationUseCase {
-    override suspend fun invoke(location: Location): Result<WeatherForecast> =
+    override suspend fun invoke(coordinates: Coordinates): Result<WeatherForecast> =
         try {
-            when (val result = weatherForecastRepository.getWeatherForecastFromRemote(location)) {
+            when (val result = weatherForecastRepository.getWeatherForecastFromRemote(coordinates)) {
                 is Result.Success -> Result.Success(result.data)
                 is Result.Failure -> result
             }

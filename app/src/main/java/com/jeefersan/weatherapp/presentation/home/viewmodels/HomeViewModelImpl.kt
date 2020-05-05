@@ -62,7 +62,7 @@ class HomeViewModelImpl
 
     private suspend fun retrieveWeatherForecast(location: Location) {
         viewModelScope.launch {
-            when (val result = getWeatherForecastFromLocationUseCase(location)) {
+            when (val result = getWeatherForecastFromLocationUseCase(location.coordinates)) {
                 is Result.Success -> {
                     _currentLocationForecast.value = result.data.mapToPresentation()
 //                    _currentWeather.value = result.data.currentWeather.mapToWeatherModel()

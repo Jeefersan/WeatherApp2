@@ -10,7 +10,12 @@ import com.jeefersan.data.favorites.datasources.local.models.FavoriteEntity
  */
 
 
-data class CurrentWeatherWithFavoriteEntity(@Embedded val favoriteEntity: FavoriteEntity){
-    @Relation(parentColumn = "id", entityColumn = "id", entity = CurrentWeatherEntity::class)
+class CurrentWeatherWithFavoriteEntity {
+
+
+    @Embedded
+    lateinit var favoriteEntity: FavoriteEntity
+
+    @Embedded
     lateinit var currentWeatherEntity: CurrentWeatherEntity
 }

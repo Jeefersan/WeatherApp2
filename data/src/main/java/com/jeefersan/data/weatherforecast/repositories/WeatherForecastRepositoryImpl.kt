@@ -2,6 +2,7 @@ package com.jeefersan.data.weatherforecast.repositories
 
 import com.jeefersan.data.weatherforecast.datasources.local.WeatherForecastLocalDataSource
 import com.jeefersan.data.weatherforecast.datasources.remote.WeatherForecastRemoteDataSource
+import com.jeefersan.domain.Coordinates
 import com.jeefersan.domain.Location
 import com.jeefersan.domain.WeatherForecast
 import com.jeefersan.util.Result
@@ -18,9 +19,9 @@ class WeatherForecastRepositoryImpl(
     override suspend fun insertOrUpdate(weatherForecast: WeatherForecast): Result<Unit> =
         weatherForecastLocalDataSource.insertWeatherForecast(weatherForecast)
 
-    override suspend fun getWeatherForecastFromRemote(location: Location): Result<WeatherForecast> =
+    override suspend fun getWeatherForecastFromRemote(coordinates: Coordinates): Result<WeatherForecast> =
         try {
-            when (val result = weatherForecastRemoteDataSource.getWeatherForecast(location)) {
+            when (val result = weatherForecastRemoteDataSource.getWeatherForecast(coordinates)) {
                 is Result.Success -> Result.Success(result.data)
                 else -> result
             }

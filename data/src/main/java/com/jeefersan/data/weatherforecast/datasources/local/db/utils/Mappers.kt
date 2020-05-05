@@ -1,11 +1,12 @@
 package com.jeefersan.data.weatherforecast.datasources.local.db.utils
 
-import com.jeefersan.data.weatherforecast.datasources.local.db.models.*
+import com.jeefersan.data.favorites.datasources.local.models.FavoriteEntity
+import com.jeefersan.data.favorites.datasources.local.utils.mapToFavorite
+import com.jeefersan.data.weatherforecast.datasources.local.db.models.WeatherForecastEntity
 import com.jeefersan.data.weatherforecast.datasources.local.db.models.currentweather.CurrentWeatherEntity
-import com.jeefersan.data.weatherforecast.datasources.local.db.models.hourlyforecast.HourlyForecastWithFavoriteEntity
 import com.jeefersan.data.weatherforecast.datasources.local.db.models.hourlyforecast.HourlyWeatherEntity
 import com.jeefersan.data.weatherforecast.datasources.local.db.models.weeklyforecast.DailyWeatherEntity
-import com.jeefersan.data.weatherforecast.datasources.local.db.models.weeklyforecast.WeeklyForecastWithFavoriteEntity
+
 import com.jeefersan.domain.*
 
 /**
@@ -23,13 +24,13 @@ fun CurrentWeatherEntity.mapToDomain(): CurrentWeather =
         icon = icon,
         description = description,
         sunset = sunset,
-        id = id
+        id = favoriteId
     )
 
 
 fun CurrentWeather.mapToLocal(): CurrentWeatherEntity =
     CurrentWeatherEntity(
-        id = id,
+        favoriteId = id,
         currentTemp = currentTemp,
         timestamp = timestamp,
         sunset = sunset,
@@ -53,10 +54,10 @@ fun CurrentWeather.mapToLocal(): CurrentWeatherEntity =
 //        description
     )
 
-fun HourlyForecastWithFavoriteEntity.mapToDomain(): HourlyForecast {
-    return HourlyForecast(hourlyForecast.map { it.mapToHourlyWeather() })
-}
-
+//fun HourlyForecastWithFavoriteEntity.mapToDomain(): HourlyForecast {
+//    return HourlyForecast(hourlyForecast.map { it.mapToHourlyWeather() })
+//}
+//
 //fun HourlyForecast.mapToLocal(): HourlyForecastWithFavoriteEntity =
 //    HourlyForecastWithFavoriteEntity(
 //        hourlyWeatherEntity.map { it.mapToHourlyWeatherEntity() })
@@ -64,16 +65,16 @@ fun HourlyForecastWithFavoriteEntity.mapToDomain(): HourlyForecast {
 fun HourlyWeatherEntity.mapToHourlyWeather(): HourlyWeather =
     HourlyWeather(
 //        hourlyWeatherId,
-        0, temperature, timeStamp, weatherIcon, humidity, windSpeed, weatherCode
+        favoriteId, temperature, timeStamp, weatherIcon, humidity, windSpeed, weatherCode
     )
 
-fun WeeklyForecastWithFavoriteEntity.mapToWeeklyForecast(): WeeklyForecast =
-    WeeklyForecast(0, weeklyForecast.map { it.mapToDailyWeather() })
+//fun WeeklyForecastWithFavoriteEntity.mapToWeeklyForecast(): WeeklyForecast =
+//    WeeklyForecast(0, weeklyForecast.map { it.mapToDailyWeather() })
 
 fun DailyWeatherEntity.mapToDailyWeather(): DailyWeather =
     DailyWeather(minTemp, maxTemp, date, wind, humidity, icon, description)
 
-fun DailyWeather.mapToDailyWeatherEntity(): DailyWeatherEntity =
+fun DailyWeather.mapToLocal(): DailyWeatherEntity =
     DailyWeatherEntity(
         0,
         0,
@@ -104,15 +105,18 @@ fun WeatherForecast.mapToWeatherForecastEntity(): WeatherForecastEntity =
 //        weeklyForecast.mapToWeeklyForecastEntity()
         currentWeather.mapToLocal(),
         hourlyForecast.hourlyWeatherEntity.map { it.mapToLocal() },
-        weeklyForecast.weeklyForecast.map { it.mapToDailyWeatherEntity() }
+        weeklyForecast.weeklyForecast.map { it.mapToLocal() }
     )
 
 fun HourlyWeather.mapToLocal(): HourlyWeatherEntity =
     HourlyWeatherEntity(
         id,
-        temperature, timeStamp, weatherIcon, humidity, windSpeed, weatherCode
+        0, temperature, timeStamp, weatherIcon, humidity, windSpeed, weatherCode
     )
 
 //fun WeeklyForecast.mapToWeeklyForecastEntity(): WeeklyForecastWithFavoriteEntity =
 //    WeeklyForecastWithFavoriteEntity(
 //        weeklyForecast.map { it.mapToDailyWeatherEntity() })
+
+fun FavoriteEntity.mapToDomain(): Favorite =
+    Favorite(id, cityName, latitude, longitude, lastUpdateTime)

@@ -1,5 +1,6 @@
 package com.jeefersan.usecases.favorites
 
+import com.jeefersan.domain.Favorite
 import com.jeefersan.domain.FavoriteForecast
 import com.jeefersan.util.Result
 
@@ -8,6 +9,6 @@ import com.jeefersan.util.Result
  */
 interface GetWeatherForecastForFavorites {
 
-    suspend operator fun invoke(): Result<List<FavoriteForecast>>
+    suspend operator fun invoke(favorites: List<Favorite>): Result<List<FavoriteForecast>>
 
 }

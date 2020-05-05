@@ -1,8 +1,12 @@
 package com.jeefersan.weatherapp.framework.di
 
 import androidx.room.Room
-import com.jeefersan.data.unused.currentweather.datasources.remote.WeatherRemoteDataSource
-import com.jeefersan.data.unused.currentweather.datasources.remote.WeatherRemoteDataSourceImpl
+import com.jeefersan.data.favorites.datasources.local.datasources.FavoritesLocalDataSource
+import com.jeefersan.data.favorites.datasources.local.datasources.FavoritesLocalDataSourceImpl
+import com.jeefersan.data.favorites.repositories.FavoritesRepository
+import com.jeefersan.data.favorites.repositories.FavoritesRepositoryImpl
+import com.jeefersan.data.unused.currentweather.datasources.remote.CurrentWeatherRemoteDataSource
+import com.jeefersan.data.unused.currentweather.datasources.remote.CurrentWeatherRemoteDataSourceImpl
 import com.jeefersan.data.flowlocation.FlowLocationProvider
 import com.jeefersan.data.weatherforecast.datasources.local.WeatherForecastLocalDataSource
 import com.jeefersan.data.weatherforecast.datasources.local.WeatherForecastLocalDataSourceImpl
@@ -10,6 +14,8 @@ import com.jeefersan.data.weatherforecast.datasources.remote.WeatherForecastRemo
 import com.jeefersan.data.weatherforecast.datasources.remote.WeatherForecastRemoteDataSourceImpl
 import com.jeefersan.data.weatherforecast.repositories.WeatherForecastRepository
 import com.jeefersan.data.weatherforecast.repositories.WeatherForecastRepositoryImpl
+import com.jeefersan.usecases.favorites.GetWeatherForecastForFavorites
+import com.jeefersan.usecases.favorites.GetWeatherForecastForFavoritesImpl
 import com.jeefersan.usecases.forecast.getweatherforecastfromlocation.GetWeatherForecastFromLocationUseCase
 import com.jeefersan.usecases.forecast.getweatherforecastfromlocation.GetWeatherForecastFromLocationUsecaseImpl
 import com.jeefersan.usecases.location.GetCurrentLocationUseCase
@@ -68,10 +74,11 @@ val useCaseModule = module {
 //    }
     factory<GetWeatherForecastFromLocationUseCase> { GetWeatherForecastFromLocationUsecaseImpl(get()) }
     factory<GetCurrentLocationUseCase> { GetCurrentLocationUseCaseImpl(get()) }
+    factory<GetWeatherForecastForFavorites>{ GetWeatherForecastForFavoritesImpl(get(), get()) }
 }
 
 val weatherModule = module {
-    single<WeatherRemoteDataSource> { WeatherRemoteDataSourceImpl(get()) }
+    single<CurrentWeatherRemoteDataSource> { CurrentWeatherRemoteDataSourceImpl(get()) }
 //    single<WeatherRepository> { WeatherRepositoryImpl(get(), get(), get()) }
     single<WeatherForecastRepository> { WeatherForecastRepositoryImpl(get(), get()) }
     single<WeatherForecastRemoteDataSource> {
@@ -80,7 +87,12 @@ val weatherModule = module {
         )
     }
 //    single<LocationProvider> { LocationProviderImpl(androidContext()) }
-    single <WeatherForecastLocalDataSource>{ WeatherForecastLocalDataSourceImpl(get()) }
+    single <WeatherForecastLocalDataSource>{ WeatherForecastLocalDataSourceImpl(get(), get(), get()) }
+}
+
+val favoritesModule = module {
+    single<FavoritesRepository>{FavoritesRepositoryImpl(get())}
+    single<FavoritesLocalDataSource> { FavoritesLocalDataSourceImpl(get()) }
 }
 
 @ExperimentalCoroutinesApi
@@ -112,8 +124,9 @@ val databaseModule = module {
         ).build()
     }
     single { get<LocalDatabase>().favoritesDao() }
-    single { get<LocalDatabase>().weatherForecastDao() }
-    single { get<LocalDatabase>().favoriteWithForecastDao() }
+    single { get<LocalDatabase>().currentWeatherDao() }
+    single { get<LocalDatabase>().hourlyForecastDao() }
+    single { get<LocalDatabase>().weeklyForecastDao() }
 }
 
 val sharedPreferencesModule = module {

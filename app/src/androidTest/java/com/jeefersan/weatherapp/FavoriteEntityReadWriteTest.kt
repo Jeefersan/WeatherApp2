@@ -11,7 +11,7 @@
 //import com.jeefersan.data.favorites.repositories.FavoritesRepositoryImpl
 //import com.jeefersan.util.Result
 //import com.jeefersan.weatherapp.framework.db.LocalDatabase
-//import com.jeefersan.weatherappFavoriteEntity.provideFakeFavoriteEntity
+//import com.jeefersan.weatherapp.provideFakeFavoriteEntity
 //import kotlinx.coroutines.runBlocking
 //import org.hamcrest.core.IsEqual
 //import org.junit.After

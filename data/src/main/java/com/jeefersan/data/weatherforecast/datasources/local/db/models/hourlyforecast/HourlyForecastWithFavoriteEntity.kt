@@ -4,11 +4,9 @@ import androidx.room.*
 import com.jeefersan.data.favorites.datasources.local.models.FavoriteEntity
 
 
-
-data class HourlyForecastWithFavoriteEntity(
-    @Embedded val favoriteEntity: FavoriteEntity
-) {
-    @Relation(parentColumn = "id", entityColumn = "id", entity = HourlyWeatherEntity::class)
-    lateinit var hourlyForecast: List<HourlyWeatherEntity>
-}
-
+//data class HourlyForecastWithFavoriteEntity(
+//    @Embedded var favoriteEntity: FavoriteEntity,
+//
+//    @Relation(parentColumn = "id", entityColumn = "id", entity = HourlyWeatherEntity::class)
+//    val hourlyForecast: List<HourlyWeatherEntity>
+//)

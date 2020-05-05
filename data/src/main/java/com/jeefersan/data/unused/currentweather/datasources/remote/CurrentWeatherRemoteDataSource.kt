@@ -7,7 +7,7 @@ import com.jeefersan.util.Result
  * Created by JeeferSan on 20-4-20.
  */
 
-interface WeatherRemoteDataSource {
+interface CurrentWeatherRemoteDataSource {
     suspend fun getWeatherByCoordinates(lat: Double, long: Double): Result<CurrentWeather>
 
 
