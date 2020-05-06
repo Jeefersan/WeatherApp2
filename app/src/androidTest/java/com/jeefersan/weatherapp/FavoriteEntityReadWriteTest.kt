@@ -3,7 +3,7 @@
 //import androidx.room.Room
 //import androidx.test.ext.junit.runners.AndroidJUnit4
 //import androidx.test.platform.app.InstrumentationRegistry
-//import com.jeefersan.data.favorites.datasources.local.datasources.FavoritesLocalDataSourceImpl
+//import com.jeefersan.data.favorites.datasources.local.FavoritesLocalDataSourceImpl
 //import com.jeefersan.data.favorites.datasources.local.db.FavoritesDao
 //import com.jeefersan.data.favorites.datasources.local.models.FavoriteEntity
 //import com.jeefersan.data.favorites.datasources.local.utils.mapToFavorite

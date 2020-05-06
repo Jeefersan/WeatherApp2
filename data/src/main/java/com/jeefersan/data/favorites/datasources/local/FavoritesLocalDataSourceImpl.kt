@@ -1,4 +1,4 @@
-package com.jeefersan.data.favorites.datasources.local.datasources
+package com.jeefersan.data.favorites.datasources.local
 
 import com.jeefersan.data.favorites.datasources.local.db.FavoritesDao
 import com.jeefersan.data.favorites.datasources.local.utils.mapToLocal

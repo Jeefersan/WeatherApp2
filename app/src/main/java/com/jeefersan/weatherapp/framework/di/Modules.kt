@@ -1,8 +1,8 @@
 package com.jeefersan.weatherapp.framework.di
 
 import androidx.room.Room
-import com.jeefersan.data.favorites.datasources.local.datasources.FavoritesLocalDataSource
-import com.jeefersan.data.favorites.datasources.local.datasources.FavoritesLocalDataSourceImpl
+import com.jeefersan.data.favorites.datasources.local.FavoritesLocalDataSource
+import com.jeefersan.data.favorites.datasources.local.FavoritesLocalDataSourceImpl
 import com.jeefersan.data.favorites.repositories.FavoritesRepository
 import com.jeefersan.data.favorites.repositories.FavoritesRepositoryImpl
 import com.jeefersan.data.location.datasources.LocationLocalDataSource
@@ -131,7 +131,11 @@ val locationModule = module {
 
 val favoritesModule = module {
     single<FavoritesRepository> { FavoritesRepositoryImpl(get()) }
-    single<FavoritesLocalDataSource> { FavoritesLocalDataSourceImpl(get()) }
+    single<FavoritesLocalDataSource> {
+        FavoritesLocalDataSourceImpl(
+            get()
+        )
+    }
 }
 
 @ExperimentalCoroutinesApi

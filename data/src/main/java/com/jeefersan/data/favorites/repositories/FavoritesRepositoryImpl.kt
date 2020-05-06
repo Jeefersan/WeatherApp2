@@ -1,6 +1,6 @@
 package com.jeefersan.data.favorites.repositories
 
-import com.jeefersan.data.favorites.datasources.local.datasources.FavoritesLocalDataSource
+import com.jeefersan.data.favorites.datasources.local.FavoritesLocalDataSource
 import com.jeefersan.domain.Favorite
 import com.jeefersan.util.Result
 import kotlinx.coroutines.flow.Flow
