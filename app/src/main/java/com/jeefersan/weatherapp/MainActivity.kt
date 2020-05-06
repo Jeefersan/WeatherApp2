@@ -1,17 +1,14 @@
 package com.jeefersan.weatherapp
 
 import android.os.Bundle
-import android.view.Menu
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.jeefersan.weatherapp.databinding.ActivityMainBinding
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
@@ -24,12 +21,10 @@ class MainActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
         super.onCreate(savedInstanceState)
-
         setupBinding()
         setupNavcontroller()
         setupBottomNav()
         setupAppbar()
-//        checkPermissions()
     }
 
 
@@ -54,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
+
+
 }
 
-
-//TODO: when inserting or updating weatherforecast repository, ignore id = null

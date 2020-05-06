@@ -11,6 +11,7 @@ import org.koin.core.context.startKoin
 /**
  * Created by JeeferSan on 23-4-20.
  */
+@ExperimentalCoroutinesApi
 open class WeatherApp : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
@@ -18,7 +19,7 @@ open class WeatherApp : MultiDexApplication() {
 
     }
 
-    @ExperimentalCoroutinesApi
+
     private fun initKoin() {
         startKoin {
             androidContext(this@WeatherApp)

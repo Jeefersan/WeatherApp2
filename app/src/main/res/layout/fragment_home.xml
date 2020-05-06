@@ -120,7 +120,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:itemCount="7"
-            tools:listitem="@layout/item_hourly_weather" />
+            tools:listitem="@layout/list_item_hourly_weather" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/materialButton"

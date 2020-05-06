@@ -10,10 +10,7 @@ import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import com.jeefersan.weatherapp.R
 import com.jeefersan.weatherapp.databinding.FragmentHomeBinding
-import com.jeefersan.weatherapp.misc.LOCATION_REQUEST_CODE
-import com.jeefersan.weatherapp.misc.PermissionUtils
-import com.jeefersan.weatherapp.misc.WeatherUtils
-import com.jeefersan.weatherapp.misc.setAnimation
+import com.jeefersan.weatherapp.misc.*
 import com.jeefersan.weatherapp.presentation.base.BaseFragment
 import com.jeefersan.weatherapp.presentation.base.BaseViewModel
 import com.jeefersan.weatherapp.presentation.home.adapters.HourlyWeatherAdapter
@@ -78,8 +75,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
 
     private fun checkPermissions() {
-        if (!PermissionUtils.isAccessCoarseLocationGranted(requireContext())) {
-            PermissionUtils.requestAccessCoarseLocationPermission(
+        if (!isAccessCoarseLocationGranted(requireContext())) {
+            requestAccessCoarseLocationPermission(
                 requireActivity(),
                 LOCATION_REQUEST_CODE
             )
@@ -107,3 +104,5 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
 
 }
+
+// TODO: move permissions to activity

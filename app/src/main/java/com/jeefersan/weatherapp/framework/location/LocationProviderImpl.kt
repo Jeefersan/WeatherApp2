@@ -1,68 +1,103 @@
 package com.jeefersan.weatherapp.framework.location
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.content.SharedPreferences
-import android.util.Log
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
-import com.jeefersan.data.THRESHOLD
-import com.jeefersan.data.shouldUpdate
-import com.jeefersan.data.unused.location.datasources.LocationProvider
+import android.location.Geocoder
+import android.os.Looper
+import com.google.android.gms.location.*
+import com.jeefersan.data.location.LocationProvider
 import com.jeefersan.domain.Coordinates
+import com.jeefersan.domain.Location
 import com.jeefersan.util.Result
-import com.jeefersan.weatherapp.misc.Constants
-import kotlinx.coroutines.tasks.await
+import com.jeefersan.weatherapp.misc.isDistanceGreaterThan5Km
+import com.jeefersan.weatherapp.misc.mapToCoordinates
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.channels.ConflatedBroadcastChannel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
+import java.util.*
+import java.util.concurrent.TimeUnit
 
 /**
- * Created by JeeferSan on 24-4-20.
+ * Created by JeeferSan on 28-4-20.
  */
+
+@ExperimentalCoroutinesApi
 class LocationProviderImpl(
-    private val context: Context
+    context: Context
 ) : LocationProvider {
-    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-    private lateinit var lastCoordinates: Coordinates
+    private var mostRecentLocation: android.location.Location? = null
 
-    private val sharedPreferences: SharedPreferences =
-        context.getSharedPreferences("PREFERENCES", Context.MODE_PRIVATE)
+    private lateinit var locationCallback: LocationCallback
 
-
-    private var lastUpdateTime = sharedPreferences.getLong(
-        Constants.Keys.LOCATION_LAST_UPDATE,
-        System.currentTimeMillis()
-    )
+    private val fusedLocationProviderClient: FusedLocationProviderClient =
+        LocationServices.getFusedLocationProviderClient(context)
+    private val geocoder: Geocoder = Geocoder(context, Locale.getDefault())
 
 
-    @SuppressLint("CommitPrefEdits")
-    override suspend fun getCurrentCoordinates(): Result<Coordinates> {
-        try {
+    private val channel = ConflatedBroadcastChannel<Result<Location>>()
 
-            if (!shouldUpdate(lastUpdateTime) && this::lastCoordinates.isInitialized) {
-                return Result.Success(lastCoordinates)
-            }
-
-            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context)
-            val location = fusedLocationProviderClient.lastLocation.await()
-            Log.d("locationprovider", "and ${location.longitude + location.latitude}")
-
-            lastCoordinates = Coordinates(location.latitude, location.longitude)
-            sharedPreferences.edit().apply {
-                putLong(Constants.Keys.LOCATION_LAST_UPDATE, System.currentTimeMillis())
-            }.apply()
-
-            return Result.Success(lastCoordinates)
-        } catch (throwable: Throwable) {
-            return Result.Failure(throwable)
-
-        }
+    init {
+        startLocationUpdates()
     }
 
-//    private fun shouldUpdate(lastUpdateTime: Long): Boolean {
-//        return (System.currentTimeMillis() - lastUpdateTime) >= THRESHOLD
-//    }
+    private lateinit var locationRequest: LocationRequest
 
-//    companion object {
-//        const val TRESHOLD = 3 * 10 * 60 * 1000
-//    }
+
+    private fun getLocationFromCoordinates(coordinates: Coordinates) {
+        val location = geocoder.getFromLocation(coordinates.lat, coordinates.long, 1)
+            .filter { it.locality != null }
+            .map {
+                Location(
+                    cityId = null,
+                    cityName = it.locality,
+                    coordinates = coordinates
+                )
+            }
+            .first()
+        if (!channel.isClosedForSend) {
+            channel.offer(Result.Success(location))
+        }
+
+    }
+
+    private fun startLocationUpdates() {
+        locationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult) {
+                val newLocation = locationResult.lastLocation
+                if (hasLocationChanged(newLocation)) {
+                    mostRecentLocation = newLocation
+                    getLocationFromCoordinates(newLocation.mapToCoordinates())
+                }
+            }
+        }
+
+        locationRequest = LocationRequest().apply {
+            interval = TimeUnit.MINUTES.toMinutes(15)
+            fastestInterval = TimeUnit.MINUTES.toMinutes(10)
+            maxWaitTime = TimeUnit.MINUTES.toMinutes(3)
+            priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
+        }
+
+        fusedLocationProviderClient.requestLocationUpdates(
+            locationRequest,
+            locationCallback,
+            Looper.getMainLooper()
+        )
+    }
+
+
+    @FlowPreview
+    override fun getLocation(): Flow<Result<Location>> {
+        return channel.asFlow()
+    }
+
+    private fun hasLocationChanged(currentLocation: android.location.Location): Boolean {
+        if (mostRecentLocation != null) {
+            return mostRecentLocation!!.isDistanceGreaterThan5Km(currentLocation)
+        }
+        return true
+    }
+
 
 }

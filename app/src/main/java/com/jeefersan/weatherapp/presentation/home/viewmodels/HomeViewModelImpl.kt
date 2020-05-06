@@ -90,4 +90,5 @@ class HomeViewModelImpl
     }
 }
 
+//TODO: remove current, hourly and weekly
 

@@ -17,7 +17,7 @@ import com.jeefersan.weatherapp.R
  * Created by JeeferSan on 27-4-20.
  */
 
-object PermissionUtils {
+
 
     fun requestAccessCoarseLocationPermission(activity: Activity, requestId: Int) {
         ActivityCompat.requestPermissions(
@@ -42,4 +42,3 @@ object PermissionUtils {
                 || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
     }
 
-}

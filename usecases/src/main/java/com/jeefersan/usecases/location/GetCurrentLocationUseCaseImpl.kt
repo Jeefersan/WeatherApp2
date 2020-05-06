@@ -1,6 +1,6 @@
 package com.jeefersan.usecases.location
 
-import com.jeefersan.data.flowlocation.FlowLocationProvider
+import com.jeefersan.data.location.LocationProvider
 import com.jeefersan.domain.Location
 import com.jeefersan.util.Result
 import kotlinx.coroutines.Dispatchers
@@ -12,10 +12,10 @@ import kotlinx.coroutines.flow.*
  */
 
 @ExperimentalCoroutinesApi
-class GetCurrentLocationUseCaseImpl(private val flowLocationProvider: FlowLocationProvider) :
+class GetCurrentLocationUseCaseImpl(private val locationProvider: LocationProvider) :
     GetCurrentLocationUseCase {
     override fun invoke(): Flow<Result<Location>> =
-        flowLocationProvider.getLocation().map { result ->
+        locationProvider.getLocation().map { result ->
             if (result is Result.Success) {
                 Result.Success(result.data)
             } else {

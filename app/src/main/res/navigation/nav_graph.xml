@@ -37,5 +37,12 @@
         android:name="com.jeefersan.weatherapp.presentation.settings.SettingsFragment" />
     <fragment
         android:id="@+id/nav_favorites"
-        android:name="com.jeefersan.weatherapp.presentation.favorites.FavoritesFragment" />
+        android:name="com.jeefersan.weatherapp.presentation.favorites.FavoritesFragment" >
+        <action
+            android:id="@+id/action_nav_favorites_to_searchFragment"
+            app:destination="@id/searchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.jeefersan.weatherapp.presentation.search.SearchFragment" />
 </navigation>

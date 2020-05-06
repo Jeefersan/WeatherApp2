@@ -15,7 +15,8 @@ fun WeatherResponse.mapToWeather(): CurrentWeather {
     val location = Location(
         cityId = id,
         cityName = name,
-        coordinates = Coordinates(coord.lat, coord.lon)
+        coordinates = Coordinates(coord.lat, coord.lon),
+        country = null
     )
 
     return CurrentWeather(

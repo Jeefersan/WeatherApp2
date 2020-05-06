@@ -6,6 +6,7 @@ package com.jeefersan.domain
 data class Location(
     val cityId: Long? = null,
     val cityName: String?,
+    val country: String?,
     val coordinates: Coordinates
 )
 

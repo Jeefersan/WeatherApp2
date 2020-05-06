@@ -49,6 +49,10 @@ class FavoritesViewModelImpl(
                 }
             }
         }
+
+    fun onClick(){
+        navigate(FavoritesFragmentDirections.actionNavFavoritesToSearchFragment())
+    }
 }
 
 
