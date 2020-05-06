@@ -17,6 +17,7 @@ abstract class BaseViewModel : ViewModel() {
     val loadingStatus = _loadingStatus
 
     val navigation = SingleLiveEvent<NavigationCommand>()
+    val snackbar = SingleLiveEvent<String>()
 
     fun setStatus(status: LoadingStatus){
         _loadingStatus.value = status
@@ -26,5 +27,6 @@ abstract class BaseViewModel : ViewModel() {
         navigation.postValue(NavigationCommand.To(directions))
     }
 
+    fun showSnackbar(message: String) = snackbar.postValue(message)
 
 }

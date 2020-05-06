@@ -9,7 +9,10 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.snackbar.Snackbar.LENGTH_SHORT
 import com.jeefersan.weatherapp.misc.NavigationCommand
+import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * Created by JeeferSan on 23-4-20.
@@ -52,6 +55,13 @@ abstract class BaseFragment<DataBinding : ViewDataBinding> : Fragment() {
                 is NavigationCommand.Back -> findNavController().navigateUp()
             }
         })
+        getViewModel().snackbar.observe(viewLifecycleOwner, Observer { message ->
+            showSnackbar(message)
+        })
+    }
+
+    open fun showSnackbar(message: String){
+        Snackbar.make(binding.root, message, LENGTH_SHORT).show()
     }
 
     fun getBinding() = binding

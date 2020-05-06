@@ -7,18 +7,22 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.jeefersan.domain.Location
 import com.jeefersan.weatherapp.databinding.ListItemSearchLocationBinding
+import com.jeefersan.weatherapp.presentation.base.BaseItemListener
 
 /**
  * Created by JeeferSan on 6-5-20.
  */
 
-class LocationsAdapter : ListAdapter<Location, LocationsAdapter.LocationViewHolder>(LocationItemDiffCallback()) {
+class LocationsAdapter(
+    private val listener: LocationItemListener
+) : ListAdapter<Location, LocationsAdapter.LocationViewHolder>(LocationItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LocationViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ListItemSearchLocationBinding.inflate(inflater, parent, false)
         return LocationViewHolder(binding)
     }
+
 
 
     override fun onBindViewHolder(holder: LocationViewHolder, position: Int) {
@@ -30,6 +34,7 @@ class LocationsAdapter : ListAdapter<Location, LocationsAdapter.LocationViewHold
         fun bind(locationItem: Location) {
             binding.apply {
                 location = locationItem
+                root.setOnClickListener { listener.onItemClick(locationItem) }
                 executePendingBindings()
             }
 
@@ -48,6 +53,8 @@ class LocationsAdapter : ListAdapter<Location, LocationsAdapter.LocationViewHold
             return oldItem == newItem
         }
     }
+
+    interface LocationItemListener : BaseItemListener<Location>
 
 
 }

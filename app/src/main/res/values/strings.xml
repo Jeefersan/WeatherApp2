@@ -12,9 +12,18 @@
     <string name="binding_humidity">Humidity: %s`%`</string>
     <string name="binding_celsius">%s °C</string>
 
+    <string name="placeholder_wind">Wind: 5</string>
+    <string name="placeholder_humidty">Humidity: 20%</string>
+    <string name="placeholder_clouds">Cloudiness: 30%</string>
+
+    <string name="placeholder_temp">22°</string>
+    <string name="placeholder_temp_min">▼ 13°</string>
+    <string name="placeholder_temp_max">△ 26°</string>
+
     <string name="ALGOLIA_APP_ID">plA2HD70HUT8</string>
     <string name="ALGOLIA_API_KEY">94134bf29dd613c3f1052eb7888d8158</string>
     <string name="ALGOLIA_INDEX_NAME">Locations</string>
+
     <string name="search_for_a_location_and_add_it_to_your_favorites_by_clicking_the_button">Search for a location and add it to your favorites by clicking the + button</string>
     <string name="uh_oh_much_emptiness">uh-oh much emptiness</string>
 

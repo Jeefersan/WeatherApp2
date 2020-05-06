@@ -50,4 +50,12 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="style_tv_favorite_current_attributes">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">serif-monospace</item>
+        <item name="android:paddingStart">64dp</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
 </resources>

@@ -2,6 +2,8 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
         <item>@font/abril_fatface</item>
+        <item>@font/hammersmith_one</item>
+        <item>@font/mandali</item>
         <item>@font/maven_pro_bold</item>
     </array>
 </resources>
