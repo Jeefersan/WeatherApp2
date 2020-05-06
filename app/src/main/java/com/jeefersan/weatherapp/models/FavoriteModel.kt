@@ -9,7 +9,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class FavoriteModel(
-    val favoriteId: Long,
+    val favoriteId: Long ?= 0,
     val cityName: String,
     val latitude: Double,
     val longitude: Double,

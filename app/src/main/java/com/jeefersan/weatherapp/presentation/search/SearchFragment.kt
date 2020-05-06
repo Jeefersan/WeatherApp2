@@ -31,7 +31,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(), LocationsAdapter.L
     }
 
     override fun onItemClick(item: Location) {
-        viewModel.onLocationSelect(item)
+       viewModel.onLocationSelect(item)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

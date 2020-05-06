@@ -11,7 +11,3 @@ data class Location(
     val coordinates: Coordinates
 )
 
-
-fun Location.mapToCoordinates() = Coordinates(
-    coordinates.lat, coordinates?.long
-)

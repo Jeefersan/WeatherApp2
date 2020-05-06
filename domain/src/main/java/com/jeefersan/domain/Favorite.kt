@@ -5,7 +5,7 @@ package com.jeefersan.domain
  */
 
 data class Favorite(
-    val favoriteId: Long,
+    val favoriteId: Long = 0,
     val cityName: String,
     val latitude: Double,
     val longitude: Double,

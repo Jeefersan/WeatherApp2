@@ -19,6 +19,8 @@ import com.jeefersan.data.weatherforecast.repositories.WeatherForecastRepository
 import com.jeefersan.data.weatherforecast.repositories.WeatherForecastRepositoryImpl
 import com.jeefersan.usecases.favorites.GetWeatherForecastForFavorites
 import com.jeefersan.usecases.favorites.GetWeatherForecastForFavoritesImpl
+import com.jeefersan.usecases.favorites.addfavorite.AddFavoriteUseCase
+import com.jeefersan.usecases.favorites.addfavorite.AddFavoriteUseCaseImpl
 import com.jeefersan.usecases.favorites.getfavorites.GetFavoritesUseCase
 import com.jeefersan.usecases.favorites.getfavorites.GetFavoritesUseCaseImpl
 import com.jeefersan.usecases.weatherforecast.GetWeatherForecastFromLocationUseCase
@@ -79,6 +81,7 @@ val useCaseModule = module {
 //            get()
 //        )
 //    }
+    factory<AddFavoriteUseCase> { AddFavoriteUseCaseImpl(get()) }
     factory<GetWeatherForecastFromLocationUseCase> {
         GetWeatherForecastFromLocationUsecaseImpl(
             get()
@@ -154,6 +157,7 @@ val viewModelModule = module {
     viewModel { SettingsViewModelImpl() }
     viewModel {
         FavoritesViewModelImpl(
+            get(),
             get(),
             get()
         )

@@ -5,7 +5,9 @@ import com.jeefersan.domain.Location
 import com.jeefersan.usecases.location.retrievelocations.RetrieveLocationsUseCase
 import com.jeefersan.usecases.location.searchlocations.SearchLocationsUseCase
 import com.jeefersan.util.Result
+import com.jeefersan.weatherapp.misc.mapToFavoriteModel
 import com.jeefersan.weatherapp.presentation.base.BaseViewModel
+import com.jeefersan.weatherapp.presentation.search.SearchFragmentDirections
 import kotlinx.coroutines.flow.collect
 
 class SearchViewModelImpl(private val searchLocationsUseCase: SearchLocationsUseCase,
@@ -33,7 +35,7 @@ class SearchViewModelImpl(private val searchLocationsUseCase: SearchLocationsUse
 
 
     override fun onLocationSelect(location: Location) {
-        TODO("Not yet implemented")
+        navigate(SearchFragmentDirections.actionSearchFragmentToNavFavorites(location.mapToFavoriteModel()))
     }
 }
 

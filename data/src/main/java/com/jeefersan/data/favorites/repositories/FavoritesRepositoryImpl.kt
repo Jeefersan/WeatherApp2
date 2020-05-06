@@ -13,7 +13,8 @@ class FavoritesRepositoryImpl(private val favoritesLocalDataSource: FavoritesLoc
     FavoritesRepository {
     override suspend fun addFavorite(favorite: Favorite): Result<Unit> =
         try {
-            Result.Success(favoritesLocalDataSource.insertFavorite(favorite)).data
+            favoritesLocalDataSource.insertFavorite(favorite)
+            Result.Success(Unit)
         } catch (throwable: Throwable) {
             Result.Failure(throwable)
         }

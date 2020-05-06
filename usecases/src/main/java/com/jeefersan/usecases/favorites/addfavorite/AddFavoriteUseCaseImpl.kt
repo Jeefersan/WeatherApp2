@@ -13,6 +13,7 @@ class AddFavoriteUseCaseImpl(private val favoritesRepository: FavoritesRepositor
     override suspend fun invoke(favorite: Favorite): Result<Unit> =
         try {
             favoritesRepository.addFavorite(favorite)
+            Result.Success(Unit)
         } catch (throwable: Throwable) {
             Result.Failure(throwable)
         }

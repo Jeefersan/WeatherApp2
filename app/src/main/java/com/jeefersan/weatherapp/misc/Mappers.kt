@@ -47,10 +47,16 @@ fun FavoriteForecast.mapToPresentation() : FavoriteForecastModel =
     FavoriteForecastModel(favorite.mapToPresentation(), weatherForecast.mapToPresentation())
 
 fun FavoriteModel.mapToDomain() : Favorite =
-    Favorite(favoriteId, cityName, latitude, longitude, lastUpdateTime)
+    Favorite(favoriteId ?: 0, cityName, latitude, longitude, lastUpdateTime)
 
 fun List<FavoriteModel>.mapToDomain() : List<Favorite> =
     this.map { it.mapToDomain() }
 
 fun List<FavoriteForecast>.mapToPresentation() : List<FavoriteForecastModel> =
     this.map { it.mapToPresentation() }
+
+fun Location.mapToFavoriteModel() : FavoriteModel =
+        FavoriteModel(0, cityName ?: "", coordinates.lat, coordinates.long, 0)
+
+fun Location.mapToFavorite() : Favorite =
+    Favorite(0, cityName ?: "", coordinates.lat, coordinates.long, 0)
