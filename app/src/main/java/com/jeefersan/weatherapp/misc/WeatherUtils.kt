@@ -6,7 +6,7 @@ import com.jeefersan.weatherapp.R
  * Created by JeeferSan on 29-4-20.
  */
 
-object WeatherUtils {
+
 
     fun getWeatherIconRes(id: Int) = when (id) {
         in 200..232 -> R.drawable.ic_weather_cloud_bolt_rain
@@ -49,4 +49,3 @@ object WeatherUtils {
         sunsetTimestamp <= System.currentTimeMillis()
 
 
-}

@@ -1,7 +1,7 @@
 package com.jeefersan.weatherapp.models
 
 import android.os.Parcelable
-import com.jeefersan.weatherapp.misc.WeatherUtils
+import com.jeefersan.weatherapp.misc.getWeatherIconRes
 import kotlinx.android.parcel.Parcelize
 
 /**
@@ -22,5 +22,5 @@ data class HourlyWeatherModel(
 
 
 fun HourlyWeatherModel.getIconRes(): Int =
-    WeatherUtils.getWeatherIconRes(weatherCode)
+    getWeatherIconRes(weatherCode)
 

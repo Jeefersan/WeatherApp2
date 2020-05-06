@@ -1,9 +1,14 @@
 package com.jeefersan.weatherapp.presentation.search
 
+import android.os.Bundle
+import android.view.View
+import androidx.lifecycle.Observer
+import com.algolia.instantsearch.helper.android.list.autoScrollToStart
 import com.jeefersan.weatherapp.R
 import com.jeefersan.weatherapp.databinding.FragmentSearchBinding
 import com.jeefersan.weatherapp.presentation.base.BaseFragment
 import com.jeefersan.weatherapp.presentation.base.BaseViewModel
+import com.jeefersan.weatherapp.presentation.search.viewmodels.SearchViewModelImpl
 import org.koin.android.ext.android.inject
 
 /**
@@ -11,6 +16,7 @@ import org.koin.android.ext.android.inject
  */
 class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     private val viewModel: SearchViewModelImpl by inject()
+    private lateinit var locationsAdapter: LocationsAdapter
 
     override val layoutId: Int = R.layout.fragment_search
 
@@ -23,6 +29,22 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         }
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        locationsAdapter = LocationsAdapter()
+        getBinding().rvSuggestions.let {
+            it.adapter = locationsAdapter
+            it.itemAnimator = null
+            it.autoScrollToStart(locationsAdapter)
+        }
+        initObservers()
+    }
+
+    private fun initObservers() {
+        viewModel.locationSuggestions.observe(viewLifecycleOwner, Observer { locations ->
+            locationsAdapter.submitList(locations)
+        })
+    }
 
 
 }

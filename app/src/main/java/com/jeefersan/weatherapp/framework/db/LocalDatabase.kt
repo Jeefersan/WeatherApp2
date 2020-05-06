@@ -28,18 +28,3 @@ abstract class LocalDatabase : RoomDatabase() {
     abstract fun weeklyForecastDao(): WeeklyForecastDao
 
 }
-
-//private lateinit var INSTANCE: LocalDatabase
-//
-//fun getDatabase(context: Context): LocalDatabase {
-//    synchronized(LocalDatabase::class.java) {
-//        if (!::INSTANCE.isInitialized) {
-//            INSTANCE = Room.databaseBuilder(
-//                context.applicationContext,
-//                LocalDatabase::class.java,
-//                "weather-db"
-//            ).build()
-//        }
-//    }
-//    return INSTANCE
-//}

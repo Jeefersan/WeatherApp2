@@ -53,7 +53,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         viewModel.currentWeather.observe(viewLifecycleOwner, Observer {
             getBinding().apply {
                 currentWeatherModel = it
-                ivWeather.setImageResource(WeatherUtils.getOpenWeatherIconRes(it.icon))
+                ivWeather.setImageResource(getOpenWeatherIconRes(it.icon))
             }
         })
 
@@ -105,4 +105,4 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
 }
 
-// TODO: move permissions to activity
+//TODO: move permissions to activity

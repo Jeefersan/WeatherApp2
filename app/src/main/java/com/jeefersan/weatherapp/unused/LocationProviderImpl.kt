@@ -6,7 +6,7 @@ import android.content.SharedPreferences
 import android.util.Log
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.jeefersan.data.shouldUpdate
+import com.jeefersan.data.weatherforecast.util.shouldUpdate
 import com.jeefersan.data.unused.location.datasources.LocationProvider
 import com.jeefersan.domain.Coordinates
 import com.jeefersan.util.Result
@@ -36,7 +36,9 @@ class LocationProviderImpl(
     override suspend fun getCurrentCoordinates(): Result<Coordinates> {
         try {
 
-            if (!shouldUpdate(lastUpdateTime) && this::lastCoordinates.isInitialized) {
+            if (!shouldUpdate(
+                    lastUpdateTime
+                ) && this::lastCoordinates.isInitialized) {
                 return Result.Success(lastCoordinates)
             }
 

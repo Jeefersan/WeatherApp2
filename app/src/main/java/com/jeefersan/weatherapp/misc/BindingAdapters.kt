@@ -1,28 +1,18 @@
 package com.jeefersan.weatherapp.misc
 
-import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
-import android.annotation.SuppressLint
-import android.content.pm.PackageManager
-import android.content.res.Resources
 import android.graphics.Color
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.constraintlayout.widget.Group
-import androidx.core.widget.TextViewCompat
 import androidx.databinding.BindingAdapter
-import androidx.databinding.InverseMethod
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import com.jeefersan.weatherapp.BuildConfig
-import com.jeefersan.weatherapp.R
-import com.jeefersan.weatherapp.R.*
-import com.jeefersan.weatherapp.misc.WeatherUtils.getOpenWeatherIconRes
-import com.jeefersan.weatherapp.misc.WeatherUtils.getWeatherIconRes
+import com.jeefersan.domain.Location
+import com.jeefersan.weatherapp.R.drawable
 import com.jeefersan.weatherapp.presentation.base.LoadingStatus
+import java.lang.String.format
+import java.text.DateFormat
 import java.util.*
 
 /**
@@ -88,20 +78,15 @@ object BindingAdapters {
         }
     }
 
-    @BindingAdapter("rotateAnimation")
+    @BindingAdapter("visibleIfEmpty")
     @JvmStatic
-    fun setRotate(view: ImageView, long: Long) {
-
-        view.setOnClickListener {
-            var rotater = ObjectAnimator.ofFloat(view, View.ROTATION, -360f, 0f)
-                .apply {
-                    duration = long
-                    start()
-                }
-
+    fun visibleIf(view: View, list: List<Any>) {
+        if(list.isNullOrEmpty()){ view.visibility = View.VISIBLE}
+        else {
+            view.visibility = View.GONE
         }
-
     }
+
 }
 
     object Converter {
@@ -109,8 +94,7 @@ object BindingAdapters {
         @BindingAdapter("dateToWeekDay")
         @JvmStatic
         fun dateToWeekDay(tv: TextView, timestamp: Long) {
-
-            tv.text = String.format(Locale.getDefault(), "%tA", timestamp * 1000L)
+            tv.text = String.format(Locale.getDefault(), "%tA", timestamp * 1000L).subSequence(0,3)
 
         }
 

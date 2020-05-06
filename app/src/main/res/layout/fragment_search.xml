@@ -8,7 +8,7 @@
 
         <variable
             name="vm"
-            type="com.jeefersan.weatherapp.presentation.search.SearchViewModelImpl" />
+            type="com.jeefersan.weatherapp.presentation.search.viewmodels.SearchViewModelImpl" />
     </data>
 
 
@@ -21,48 +21,54 @@
             android:id="@+id/iv_search"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginBottom="32dp"
             android:background="@drawable/ic_search_black_24dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toTopOf="@+id/guideline5"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline5"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintStart_toEndOf="@+id/iv_search">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_input"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="28dp"
+                android:layout_height="38dp"
+                android:text="@={vm.searchInputText}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iv_search"
                 tools:layout_editor_absoluteY="5dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-
-
-
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_places_list"
-            android:layout_width="355dp"
-            android:layout_height="557dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+            android:id="@+id/rv_suggestions"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
             android:layout_marginBottom="32dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.49"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideline5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.2" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

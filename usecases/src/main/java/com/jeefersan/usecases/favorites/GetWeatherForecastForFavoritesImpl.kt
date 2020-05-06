@@ -1,8 +1,7 @@
 package com.jeefersan.usecases.favorites
 
 import com.jeefersan.data.favorites.repositories.FavoritesRepository
-import com.jeefersan.data.shouldUpdate
-import com.jeefersan.data.weatherforecast.datasources.local.WeatherForecastLocalDataSource
+import com.jeefersan.data.weatherforecast.util.shouldUpdate
 import com.jeefersan.data.weatherforecast.repositories.WeatherForecastRepository
 import com.jeefersan.domain.*
 import com.jeefersan.util.Result
@@ -25,7 +24,10 @@ class GetWeatherForecastForFavoritesImpl(
             val favoriteForecastList = mutableListOf<FavoriteForecast>()
 
             favorites.forEach { favorite ->
-                if (!shouldUpdate(favorite.lastUpdateTime)) {
+                if (!shouldUpdate(
+                        favorite.lastUpdateTime
+                    )
+                ) {
                     when (val result =
                         weatherForecastRepository.getWeatherForecastByIdFromLocal(favorite.favoriteId)) {
                         is Result.Failure -> return@forEach

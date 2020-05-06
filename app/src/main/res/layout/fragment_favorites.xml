@@ -8,7 +8,7 @@
 
         <variable
             name="vm"
-            type="com.jeefersan.weatherapp.presentation.favorites.FavoritesViewModelImpl" />
+            type="com.jeefersan.weatherapp.presentation.favorites.viewmodels.FavoritesViewModelImpl" />
     </data>
 
 
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:fontFamily="@font/maven_pro_bold"
-            android:text="uh-oh much emptiness"
+            android:text="@string/uh_oh_much_emptiness"
             android:textAllCaps="true"
             app:layout_constraintBottom_toTopOf="@+id/textView7"
             app:layout_constraintEnd_toEndOf="parent"
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="256dp"
             android:fontFamily="@font/maven_pro_bold"
-            android:text="Search for a location and add it to your favorites by clicking the + button"
+            android:text="@string/search_for_a_location_and_add_it_to_your_favorites_by_clicking_the_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
@@ -69,6 +69,7 @@
         <androidx.constraintlayout.widget.Group
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:visibleIfEmpty="@{vm.favoritesList}"
             app:constraint_referenced_ids="textView7, textView8"
             tools:layout_editor_absoluteX="172dp"
             tools:layout_editor_absoluteY="279dp"
@@ -81,18 +82,11 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:clickable="true"
+            android:onClick="@{() -> vm.onFabClick()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/ic_add_circle_white_24dp" />
 
-        <Button
-            android:id="@+id/button"
-            android:onClick="@{() -> vm.onClick()}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

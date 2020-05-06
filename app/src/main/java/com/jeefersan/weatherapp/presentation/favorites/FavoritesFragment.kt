@@ -1,12 +1,9 @@
 package com.jeefersan.weatherapp.presentation.favorites
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.jeefersan.weatherapp.databinding.FragmentFavoritesBinding
 import com.jeefersan.weatherapp.presentation.base.BaseFragment
 import com.jeefersan.weatherapp.presentation.base.BaseViewModel
+import com.jeefersan.weatherapp.presentation.favorites.viewmodels.FavoritesViewModelImpl
 import org.koin.android.viewmodel.ext.android.viewModel
 
 /**
@@ -25,19 +22,5 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-    }
 }

@@ -1,7 +1,6 @@
 package com.jeefersan.data.weatherforecast.datasources.local.db.utils
 
 import com.jeefersan.data.favorites.datasources.local.models.FavoriteEntity
-import com.jeefersan.data.favorites.datasources.local.utils.mapToFavorite
 import com.jeefersan.data.weatherforecast.datasources.local.db.models.WeatherForecastEntity
 import com.jeefersan.data.weatherforecast.datasources.local.db.models.currentweather.CurrentWeatherEntity
 import com.jeefersan.data.weatherforecast.datasources.local.db.models.hourlyforecast.HourlyWeatherEntity

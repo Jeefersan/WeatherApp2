@@ -9,6 +9,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.jeefersan.weatherapp.databinding.ActivityMainBinding
+import com.jeefersan.weatherapp.misc.TOP_LEVEL_DESTINATIONS
 
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
@@ -41,7 +42,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupAppbar(){
-        appBarConfiguration = AppBarConfiguration(navController.graph)
+        appBarConfiguration = AppBarConfiguration.Builder(TOP_LEVEL_DESTINATIONS)
+            .build()
+
+
+
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
     }
 

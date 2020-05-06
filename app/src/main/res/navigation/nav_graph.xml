@@ -40,9 +40,15 @@
         android:name="com.jeefersan.weatherapp.presentation.favorites.FavoritesFragment" >
         <action
             android:id="@+id/action_nav_favorites_to_searchFragment"
-            app:destination="@id/searchFragment" />
+            app:destination="@id/searchFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.jeefersan.weatherapp.presentation.search.SearchFragment" />
+        android:name="com.jeefersan.weatherapp.presentation.search.SearchFragment" >
+        <action
+            android:id="@+id/action_searchFragment_to_nav_favorites"
+            app:destination="@id/nav_favorites" />
+    </fragment>
 </navigation>
