@@ -5,7 +5,6 @@ package com.jeefersan.domain
  */
 
 data class Forecast(
-    val coordinates: Coordinates,
     val hourlyForecast: List<HourlyWeather>,
     val weeklyForecast: List<DailyWeather>
 )

@@ -3,10 +3,12 @@ package com.jeefersan.weatherapp.presentation.search
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DiffUtil
 import com.algolia.instantsearch.helper.android.list.autoScrollToStart
 import com.jeefersan.domain.Location
 import com.jeefersan.weatherapp.R
 import com.jeefersan.weatherapp.databinding.FragmentSearchBinding
+import com.jeefersan.weatherapp.models.LocationModel
 import com.jeefersan.weatherapp.presentation.base.BaseFragment
 import com.jeefersan.weatherapp.presentation.base.BaseViewModel
 import com.jeefersan.weatherapp.presentation.search.viewmodels.SearchViewModelImpl
@@ -45,10 +47,12 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(), LocationsAdapter.L
         initObservers()
     }
 
-    private fun initObservers() {
+    override fun initObservers() {
+        super.initObservers()
         viewModel.locationSuggestions.observe(viewLifecycleOwner, Observer { locations ->
             locationsAdapter.submitList(locations)
         })
+
     }
 
 

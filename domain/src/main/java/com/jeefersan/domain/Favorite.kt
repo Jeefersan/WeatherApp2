@@ -5,10 +5,10 @@ package com.jeefersan.domain
  */
 
 data class Favorite(
-    val favoriteId: Long = 0,
+    var favoriteId: Int=0,
     val cityName: String,
     val latitude: Double,
     val longitude: Double,
-    val lastUpdateTime: Long
+    var lastCurrentUpdate: Long = 0,
+    var lastForecastUpdate: Long = 0
 )
-

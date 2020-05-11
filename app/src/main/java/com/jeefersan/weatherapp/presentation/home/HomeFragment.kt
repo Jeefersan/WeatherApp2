@@ -2,6 +2,7 @@ package com.jeefersan.weatherapp.presentation.home
 
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,20 +40,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        checkPermissions()
-        return super.onCreateView(inflater, container, savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initObservers()
     }
 
-
-    private fun initObservers() {
+    override fun initObservers() {
+        super.initObservers()
         viewModel.currentWeather.observe(viewLifecycleOwner, Observer {
             getBinding().apply {
                 currentWeatherModel = it
+                Log.d("Home", "icon = ${it.icon}")
                 ivWeather.setImageResource(getOpenWeatherIconRes(it.icon))
             }
         })
@@ -74,35 +72,4 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
 
-    private fun checkPermissions() {
-        if (!isAccessCoarseLocationGranted(requireContext())) {
-            requestAccessCoarseLocationPermission(
-                requireActivity(),
-                LOCATION_REQUEST_CODE
-            )
-        } else {
-            initObservers()
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == LOCATION_REQUEST_CODE && grantResults.first() == PackageManager.PERMISSION_GRANTED) {
-            initObservers()
-        } else {
-            Snackbar.make(
-                layout_home_fragment,
-                getString(R.string.no_location_permission),
-                Snackbar.LENGTH_SHORT
-            )
-        }
-    }
-
-
 }
-
-//TODO: move permissions to activity

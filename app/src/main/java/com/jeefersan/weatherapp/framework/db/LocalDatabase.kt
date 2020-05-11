@@ -22,7 +22,6 @@ import com.jeefersan.data.weatherforecast.datasources.local.db.models.weeklyfore
 //  CurrentWeatherEntity::class, HourlyForecastWithFavoriteEntity::class, WeeklyForecastWithFavoriteEntity::class, HourlyWeatherEntity::class, DailyWeatherEntity::class]
 abstract class LocalDatabase : RoomDatabase() {
     abstract fun favoritesDao(): FavoritesDao
-
     abstract fun currentWeatherDao(): CurrentWeatherDao
     abstract fun hourlyForecastDao(): HourlyForecastDao
     abstract fun weeklyForecastDao(): WeeklyForecastDao

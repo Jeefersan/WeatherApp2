@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_SHORT
 import com.jeefersan.weatherapp.misc.NavigationCommand
-import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * Created by JeeferSan on 23-4-20.
@@ -32,9 +31,7 @@ abstract class BaseFragment<DataBinding : ViewDataBinding> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
-
         return binding.root
     }
 
@@ -45,10 +42,11 @@ abstract class BaseFragment<DataBinding : ViewDataBinding> : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        observeNavigation(getViewModel())
+        initObservers()
     }
 
-    private fun observeNavigation(viewModel: BaseViewModel){
+
+    open fun initObservers(){
         getViewModel().navigation.observe(viewLifecycleOwner, Observer { command ->
             when (command){
                 is NavigationCommand.To -> findNavController().navigate(command.directions)
@@ -60,7 +58,7 @@ abstract class BaseFragment<DataBinding : ViewDataBinding> : Fragment() {
         })
     }
 
-    open fun showSnackbar(message: String){
+    fun showSnackbar(message: String){
         Snackbar.make(binding.root, message, LENGTH_SHORT).show()
     }
 

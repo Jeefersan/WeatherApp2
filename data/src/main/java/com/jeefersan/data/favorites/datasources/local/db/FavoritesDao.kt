@@ -1,8 +1,10 @@
 package com.jeefersan.data.favorites.datasources.local.db
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.jeefersan.data.favorites.datasources.local.models.FavoriteEntity
-import com.jeefersan.data.weatherforecast.datasources.local.db.models.WeatherForecastEntity
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -10,15 +12,23 @@ import kotlinx.coroutines.flow.Flow
  */
 
 @Dao
-abstract class FavoritesDao {
+interface FavoritesDao {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    abstract fun insertOrUpdateFavorite(favoriteEntity: FavoriteEntity)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertOrUpdateFavorite(favoriteEntity: FavoriteEntity)
+
+    @Query("SELECT * FROM favorites WHERE id = :favoriteId")
+    suspend fun getFavoriteById(favoriteId: Int): FavoriteEntity
 
     @Query("SELECT * FROM favorites")
-    abstract fun getAllFavorites(): Flow<List<FavoriteEntity>>
+    suspend fun getAllFavorites(): List<FavoriteEntity>
 
+    @Query("UPDATE favorites SET lastCurrentUpdate=:lastCurrentUpdate WHERE id = :favoriteId ")
+    suspend fun setLastCurrentUpdate(lastCurrentUpdate: Long, favoriteId: Int)
+
+    @Query("UPDATE favorites SET lastForecastUpdate=:lastForecastUpdate WHERE id = :favoriteId ")
+    suspend fun setLastForecastUpdate(lastForecastUpdate: Long, favoriteId: Int)
 
     @Query("DELETE FROM favorites WHERE id = :favoriteId")
-    abstract fun deleteFavoriteById(favoriteId: Long)
+    suspend fun deleteFavoriteById(favoriteId: Int)
 }

@@ -21,7 +21,7 @@ import com.jeefersan.data.favorites.datasources.local.models.FavoriteEntity
 data class CurrentWeatherEntity(
     @PrimaryKey
     @ColumnInfo(name = "favorite_id")
-    val favoriteId: Long,
+    val favoriteId: Int,
     val currentTemp: Int,
     val timestamp: Long,
     val sunset: Long,

@@ -1,8 +1,9 @@
 package com.jeefersan.weatherapp.presentation.home.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.jeefersan.domain.Location
-import com.jeefersan.usecases.weatherforecast.GetWeatherForecastFromLocationUseCase
+import com.jeefersan.usecases.weatherforecast.GetCompleteWeatherForecastUseCase
 import com.jeefersan.usecases.location.getcurrentlocation.GetCurrentLocationUseCase
 import com.jeefersan.util.Result
 import com.jeefersan.weatherapp.presentation.base.BaseViewModel
@@ -23,7 +24,7 @@ class HomeViewModelImpl
     (
 //    private val getCurrentWeatherForCurrentLocationUseCase: GetWeatherForCurrentLocationUseCase,
     private val getCurrentLocationUseCase: GetCurrentLocationUseCase,
-    private val getWeatherForecastFromLocationUseCase: GetWeatherForecastFromLocationUseCase
+    private val getCompleteWeatherForecastUseCase: GetCompleteWeatherForecastUseCase
 ) : HomeViewModel, BaseViewModel() {
 
     private val _currentLocationForecast = MutableLiveData<WeatherForecastModel>()
@@ -38,41 +39,40 @@ class HomeViewModelImpl
     override val weeklyForecast: LiveData<WeeklyForecastModel> =
         currentLocationForecast.map { it.weeklyForecast }
 
-    private val _currentLocationLiveData = MutableLiveData<Location>()
-    override val currentLocationLiveData: LiveData<Location> = _currentLocationLiveData
+    override val currentLocationLiveData: LiveData<Location> =
+        liveData {
+            getCurrentLocationUseCase().collect { result ->
+                if (result is Result.Success) {
+                    Log.d("HomeViewModel", " Success + ${result.data.cityName}")
+                    emit(result.data)
+                    retrieveWeatherForecast(result.data)
+                }
+                else{
+//                    setStatus(LoadingStatus.ERROR)
+                    Log.d("HomeViewModel", "Failure")
+                }
+            }
+        }
 
     override val isSunset: LiveData<Boolean> = currentWeather.map { currentWeather ->
-        currentWeather.timestamp >= currentWeather.sunset
+        System.currentTimeMillis() <= currentWeather.sunset
     }
 
     init {
         setStatus(LoadingStatus.LOADING)
-        viewModelScope.launch {
-            getCurrentLocationUseCase().collect {
-                if (it is Result.Success) {
-                    _currentLocationLiveData.value = it.data
-                    retrieveWeatherForecast(it.data)
-                } else {
-                    setStatus(LoadingStatus.ERROR)
-                }
-            }
-        }
     }
 
 
     private suspend fun retrieveWeatherForecast(location: Location) {
         viewModelScope.launch {
-            when (val result = getWeatherForecastFromLocationUseCase(location.coordinates)) {
+            when (val result = getCompleteWeatherForecastUseCase(location.coordinates)) {
                 is Result.Success -> {
+                    Log.d("HomeViewModel", "OSucceed")
                     _currentLocationForecast.value = result.data.mapToPresentation()
-//                    _currentWeather.value = result.data.currentWeather.mapToWeatherModel()
-//                    _hourlyForecast.value =
-//                        result.data.hourlyForecast.map { it.mapToHourlyWeatherModel() }
-//                    _weeklyForecast.value =
-//                        result.data.weeklyForecast.map { it.mapToDailyWeatherModel() }
                     setStatus(LoadingStatus.DONE)
                 }
-                else -> {
+                is Result.Failure -> {
+                    Log.d("HomeViewModel", "Failure + ${result.throwable.toString()}")
                     setStatus(LoadingStatus.ERROR)
                 }
             }
@@ -84,11 +84,9 @@ class HomeViewModelImpl
         navigate(
             HomeFragmentDirections.actionHomeFragmentToWeeklyForecastFragment(
                 currentLocationForecast.value!!.weeklyForecast,
-                currentLocationLiveData.value!!.cityName!!
+                currentLocationLiveData.value!!.cityName
             )
         )
     }
 }
-
-//TODO: remove current, hourly and weekly
 

@@ -41,13 +41,20 @@
         <action
             android:id="@+id/action_nav_favorites_to_searchFragment"
             app:destination="@id/nav_search"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit" />
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
         <argument
-            android:name="favorite"
-            app:argType="com.jeefersan.weatherapp.models.FavoriteModel"
+            android:name="location"
+            app:argType="com.jeefersan.weatherapp.models.LocationModel"
             app:nullable="true"
             android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_nav_favorites_to_nav_favorite_forecast"
+            app:destination="@id/nav_favorite_forecast"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit" />
     </fragment>
     <fragment
         android:id="@+id/nav_search"
@@ -57,5 +64,17 @@
             app:destination="@id/nav_favorites"
             app:enterAnim="@anim/fragment_fade_enter"
             app:exitAnim="@anim/fragment_fade_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_favorite_forecast"
+        android:name="com.jeefersan.weatherapp.presentation.favoriteweatherforecast.FavoriteForecastFragment" >
+        <action
+            android:id="@+id/action_nav_favorite_forecast_to_nav_favorites"
+            app:destination="@id/nav_favorites"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit" />
+        <argument
+            android:name="favoriteId"
+            app:argType="integer" />
     </fragment>
 </navigation>

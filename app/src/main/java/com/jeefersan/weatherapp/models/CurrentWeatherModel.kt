@@ -9,7 +9,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class CurrentWeatherModel(
-    val id: Long,
+    val id: Int,
     val currentTemp: Int,
     val timestamp: Long,
     val sunset: Long,

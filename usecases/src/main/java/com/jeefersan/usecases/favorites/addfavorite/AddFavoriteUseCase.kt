@@ -9,5 +9,5 @@ import com.jeefersan.util.Result
  */
 
 interface AddFavoriteUseCase {
-    suspend operator fun invoke(favorite: Favorite): Result<Unit>
+    suspend operator fun invoke(location: Location): Result<Unit>
 }

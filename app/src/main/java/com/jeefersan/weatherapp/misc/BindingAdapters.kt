@@ -39,6 +39,15 @@ object BindingAdapters {
 
     }
 
+    @BindingAdapter("setWeatherIcon")
+    @JvmStatic
+    fun setIcon(view: ImageView, icon: String) {
+        Glide.with(view.context)
+            .load(getWeatherIconResFromInt(icon))
+            .centerCrop()
+            .into(view)
+    }
+
 
     @BindingAdapter("dayNightTextColor")
     @JvmStatic
@@ -86,6 +95,8 @@ object BindingAdapters {
             view.visibility = View.GONE
         }
     }
+
+
 
 }
 

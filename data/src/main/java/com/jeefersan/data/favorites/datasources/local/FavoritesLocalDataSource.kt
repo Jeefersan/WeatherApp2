@@ -14,8 +14,14 @@ interface FavoritesLocalDataSource {
 
     suspend fun insertFavorite(favorite: Favorite): Result<Unit>
 
-    suspend fun getFavorites(): Flow<List<Favorite>>
+    suspend fun setLastCurrentUpdate(favoriteId: Int): Result<Unit>
 
-    suspend fun deleteFavoriteById(favoriteId: Long): Result<Unit>
+    suspend fun setLastForecastUpdate(favoriteId: Int): Result<Unit>
+
+    suspend fun getFavoriteById(favoriteId: Int): Result<Favorite>
+
+    suspend fun getAllFavorites(): Result<List<Favorite>>
+
+    suspend fun deleteFavoriteById(favoriteId: Int): Result<Unit>
 
 }

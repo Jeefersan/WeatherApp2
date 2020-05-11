@@ -5,34 +5,36 @@ import com.jeefersan.data.favorites.datasources.local.FavoritesLocalDataSource
 import com.jeefersan.data.favorites.datasources.local.FavoritesLocalDataSourceImpl
 import com.jeefersan.data.favorites.repositories.FavoritesRepository
 import com.jeefersan.data.favorites.repositories.FavoritesRepositoryImpl
-import com.jeefersan.data.location.datasources.LocationLocalDataSource
+import com.jeefersan.data.location.datasources.LocationProvider
 import com.jeefersan.data.location.datasources.LocationRemoteDataSource
 import com.jeefersan.data.location.repositories.LocationRepository
-import com.jeefersan.data.location.repositories.LocationRepositoryImpl
-import com.jeefersan.data.unused.currentweather.datasources.remote.CurrentWeatherRemoteDataSource
-import com.jeefersan.data.unused.currentweather.datasources.remote.CurrentWeatherRemoteDataSourceImpl
-import com.jeefersan.data.weatherforecast.datasources.local.WeatherForecastLocalDataSource
-import com.jeefersan.data.weatherforecast.datasources.local.WeatherForecastLocalDataSourceImpl
-import com.jeefersan.data.weatherforecast.datasources.remote.WeatherForecastRemoteDataSource
-import com.jeefersan.data.weatherforecast.datasources.remote.WeatherForecastRemoteDataSourceImpl
-import com.jeefersan.data.weatherforecast.repositories.WeatherForecastRepository
-import com.jeefersan.data.weatherforecast.repositories.WeatherForecastRepositoryImpl
-import com.jeefersan.usecases.favorites.GetWeatherForecastForFavorites
-import com.jeefersan.usecases.favorites.GetWeatherForecastForFavoritesImpl
+import com.jeefersan.weatherapp.framework.location.LocationRepositoryImpl
+import com.jeefersan.data.weatherforecast.datasources.local.WeatherLocalDataSource
+import com.jeefersan.data.weatherforecast.datasources.local.WeatherLocalDataSourceImpl
+import com.jeefersan.data.weatherforecast.datasources.remote.WeatherRemoteDataSource
+import com.jeefersan.data.weatherforecast.datasources.remote.WeatherRemoteDataSourceImpl
+import com.jeefersan.data.weatherforecast.repositories.WeatherRepository
+import com.jeefersan.data.weatherforecast.repositories.WeatherRepositoryImpl
+import com.jeefersan.usecases.favorites.GetCurrentWeathersForFavorites
+import com.jeefersan.usecases.favorites.GetCurrentWeathersForFavoritesImpl
 import com.jeefersan.usecases.favorites.addfavorite.AddFavoriteUseCase
 import com.jeefersan.usecases.favorites.addfavorite.AddFavoriteUseCaseImpl
-import com.jeefersan.usecases.favorites.getfavorites.GetFavoritesUseCase
-import com.jeefersan.usecases.favorites.getfavorites.GetFavoritesUseCaseImpl
-import com.jeefersan.usecases.weatherforecast.GetWeatherForecastFromLocationUseCase
-import com.jeefersan.usecases.weatherforecast.GetWeatherForecastFromLocationUsecaseImpl
+import com.jeefersan.usecases.favorites.getallfavorites.GetAllFavoritesUseCase
+import com.jeefersan.usecases.favorites.getallfavorites.GetAllFavoritesUseCaseImpl
+import com.jeefersan.usecases.favorites.removefavorite.RemoveFavoriteUseCase
+import com.jeefersan.usecases.favorites.removefavorite.RemoveFavoriteUseCaseImpl
+import com.jeefersan.usecases.weatherforecast.GetCompleteWeatherForecastUseCase
+import com.jeefersan.usecases.weatherforecast.GetCompleteWeatherForecastUseCaseUsecaseImpl
 import com.jeefersan.usecases.location.getcurrentlocation.GetCurrentLocationUseCase
 import com.jeefersan.usecases.location.getcurrentlocation.GetCurrentLocationUseCaseImpl
 import com.jeefersan.usecases.location.retrievelocations.RetrieveLocationsUseCase
 import com.jeefersan.usecases.location.retrievelocations.RetrieveLocationsUseCaseImpl
 import com.jeefersan.usecases.location.searchlocations.SearchLocationsUseCase
 import com.jeefersan.usecases.location.searchlocations.SearchLocationsUseCaseImpl
+import com.jeefersan.usecases.weatherforecast.GetCompleteWeatherForecastForFavoriteUseCase
+import com.jeefersan.usecases.weatherforecast.GetCompleteWeatherForecastForFavoriteUseCaseImpl
 import com.jeefersan.weatherapp.framework.db.LocalDatabase
-import com.jeefersan.weatherapp.framework.location.LocationLocalDataSourceImpl
+import com.jeefersan.weatherapp.framework.location.LocationProviderImpl
 import com.jeefersan.weatherapp.framework.location.LocationRemoteDataSourceImpl
 import com.jeefersan.weatherapp.framework.network.api.provideApiService
 import com.jeefersan.weatherapp.framework.network.api.provideInterceptor
@@ -40,6 +42,7 @@ import com.jeefersan.weatherapp.framework.network.api.provideOkHttpClient
 import com.jeefersan.weatherapp.framework.network.api.provideRetrofit
 import com.jeefersan.weatherapp.models.WeeklyForecastModel
 import com.jeefersan.weatherapp.presentation.favorites.viewmodels.FavoritesViewModelImpl
+import com.jeefersan.weatherapp.presentation.favoriteweatherforecast.viewmodels.FavoriteForecastViewModelImpl
 import com.jeefersan.weatherapp.presentation.home.viewmodels.HomeViewModelImpl
 import com.jeefersan.weatherapp.presentation.search.viewmodels.SearchViewModelImpl
 import com.jeefersan.weatherapp.presentation.settings.SettingsViewModelImpl
@@ -75,15 +78,9 @@ val networkModule = module {
 
 @ExperimentalCoroutinesApi
 val useCaseModule = module {
-//    factory<GetWeatherForCurrentLocationUseCase> {
-//        GetWeatherForCurrentLocationUseCaseImpl(
-//            get(),
-//            get()
-//        )
-//    }
     factory<AddFavoriteUseCase> { AddFavoriteUseCaseImpl(get()) }
-    factory<GetWeatherForecastFromLocationUseCase> {
-        GetWeatherForecastFromLocationUsecaseImpl(
+    factory<GetCompleteWeatherForecastUseCase> {
+        GetCompleteWeatherForecastUseCaseUsecaseImpl(
             get()
         )
     }
@@ -92,30 +89,37 @@ val useCaseModule = module {
             get()
         )
     }
-    factory<GetWeatherForecastForFavorites> { GetWeatherForecastForFavoritesImpl(get(), get()) }
-    factory<GetFavoritesUseCase> { GetFavoritesUseCaseImpl(get()) }
-    single<SearchLocationsUseCase> {
+    factory<GetCurrentWeathersForFavorites> { GetCurrentWeathersForFavoritesImpl(get(), get()) }
+    factory<GetAllFavoritesUseCase> { GetAllFavoritesUseCaseImpl(get()) }
+    factory<SearchLocationsUseCase> {
         SearchLocationsUseCaseImpl(
             get()
         )
     }
-    single<RetrieveLocationsUseCase> {
+    factory<RetrieveLocationsUseCase> {
         RetrieveLocationsUseCaseImpl(
             get()
         )
     }
+    factory<RemoveFavoriteUseCase> { RemoveFavoriteUseCaseImpl(get(), get()) }
+    factory<GetCompleteWeatherForecastForFavoriteUseCase> { GetCompleteWeatherForecastForFavoriteUseCaseImpl(get(), get()) }
 }
 
 val weatherModule = module {
-    single<CurrentWeatherRemoteDataSource> { CurrentWeatherRemoteDataSourceImpl(get()) }
-    single<WeatherForecastRepository> { WeatherForecastRepositoryImpl(get(), get()) }
-    single<WeatherForecastRemoteDataSource> {
-        WeatherForecastRemoteDataSourceImpl(
+//    single<CurrentWeatherRemoteDataSource> { CurrentWeatherRemoteDataSourceImpl(get()) }
+    single<WeatherRepository>{
+        WeatherRepositoryImpl(
+            get(),
             get()
         )
     }
-    single<WeatherForecastLocalDataSource> {
-        WeatherForecastLocalDataSourceImpl(
+    single<WeatherRemoteDataSource> {
+        WeatherRemoteDataSourceImpl(
+            get()
+        )
+    }
+    single<WeatherLocalDataSource> {
+        WeatherLocalDataSourceImpl(
             get(),
             get(),
             get()
@@ -126,8 +130,13 @@ val weatherModule = module {
 @FlowPreview
 @ExperimentalCoroutinesApi
 val locationModule = module {
-    single<LocationRepository> { LocationRepositoryImpl(get(), get()) }
-    single<LocationLocalDataSource> { LocationLocalDataSourceImpl(androidContext()) }
+    single<LocationRepository> {
+        LocationRepositoryImpl(
+            get(),
+            get()
+        )
+    }
+    single<LocationProvider> { LocationProviderImpl(androidContext()) }
     single<LocationRemoteDataSource> { LocationRemoteDataSourceImpl(get()) }
     single { providePlacesClient() }
 }
@@ -159,6 +168,7 @@ val viewModelModule = module {
         FavoritesViewModelImpl(
             get(),
             get(),
+            get(),
             get()
         )
     }
@@ -168,6 +178,7 @@ val viewModelModule = module {
             get()
         )
     }
+    viewModel {(id: Int) -> FavoriteForecastViewModelImpl(get(), id) }
 }
 
 val databaseModule = module {

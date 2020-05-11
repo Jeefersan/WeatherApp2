@@ -3,6 +3,7 @@ package com.jeefersan.data.weatherforecast.datasources.remote.util
 import com.jeefersan.data.weatherforecast.datasources.remote.models.Daily
 import com.jeefersan.data.weatherforecast.datasources.remote.models.ForecastResponse
 import com.jeefersan.data.weatherforecast.datasources.remote.models.Hourly
+import com.jeefersan.data.weatherforecast.datasources.remote.models.WeatherResponse
 import com.jeefersan.domain.*
 import kotlin.math.roundToInt
 
@@ -12,20 +13,6 @@ import kotlin.math.roundToInt
 
 
 
-fun ForecastResponse.mapToForecast(): Forecast {
-    val coordinates = Coordinates(lat, lon)
-    val hourlyForecast = hourly.take(12)
-        .map {
-            it.mapToHourlyWeather()
-        }
-    val weeklyForecast = daily.map { it.mapToDailyWeather() }
-
-    return Forecast(
-        coordinates,
-        hourlyForecast = hourlyForecast,
-        weeklyForecast = weeklyForecast
-    )
-}
 
 fun Hourly.mapToHourlyWeather(): HourlyWeather =
     HourlyWeather(
@@ -49,3 +36,16 @@ fun Daily.mapToDailyWeather(): DailyWeather =
         description = weather.first().description
     )
 
+fun WeatherResponse.mapToWeather(): CurrentWeather =
+
+    CurrentWeather(
+        currentTemp = main.temp.roundToInt(),
+        timestamp = dt,
+        windSpeed = wind.speed.roundToInt(),
+        humidity = main.humidity,
+        cloudiness = clouds.all,
+        icon = weather.first().icon,
+        description = weather.first().description,
+        sunset = sys.sunset.toLong(),
+        id = 0
+    )

@@ -2,7 +2,6 @@ package com.jeefersan.data.weatherforecast.datasources.local.db.dao
 
 import androidx.room.*
 import com.jeefersan.data.weatherforecast.datasources.local.db.models.currentweather.CurrentWeatherEntity
-import com.jeefersan.data.weatherforecast.datasources.local.db.models.currentweather.CurrentWeatherWithFavoriteEntity
 
 
 /**
@@ -13,12 +12,15 @@ import com.jeefersan.data.weatherforecast.datasources.local.db.models.currentwea
 interface CurrentWeatherDao {
 
     @Query("SELECT * FROM current_weathers WHERE favorite_id = :favoriteId LIMIT 1")
-    abstract fun getCurrentWeatherById(favoriteId: Long): CurrentWeatherEntity
+    suspend fun getCurrentWeatherById(favoriteId: Int): CurrentWeatherEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertOrUpdateCurrentWeather(currentWeatherEntity: CurrentWeatherEntity)
+    suspend fun insertOrUpdateCurrentWeather(currentWeatherEntity: CurrentWeatherEntity)
 
     @Query("DELETE FROM current_weathers WHERE favorite_id = :favoriteId")
-    abstract fun deleteCurrentWeather(favoriteId: Long)
+    suspend fun deleteCurrentWeather(favoriteId: Int)
+
+    @Query("SELECT * FROM current_weathers")
+    suspend fun getAllFromCurrentWeathers() : List<CurrentWeatherEntity>
 
 }

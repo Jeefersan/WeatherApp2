@@ -8,5 +8,5 @@ import com.jeefersan.util.Result
  * Created by JeeferSan on 21-4-20.
  */
 interface RemoveFavoriteUseCase {
-    suspend operator fun invoke(favorite: Favorite): Result<Unit>
+    suspend operator fun invoke(id: Int): Result<Unit>
 }

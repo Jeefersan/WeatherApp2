@@ -23,7 +23,8 @@ fun ForecastResponse.mapToWeatherForecast(): WeatherForecast {
         cloudiness = current.clouds,
         sunset = current.sunset.toLong(),
         icon = current.weather.first().icon,
-        description = current.weather.first().description
+        description = current.weather.first().description,
+        id = 0
     )
 
     val hourlyForecast = hourly.take(12)
@@ -38,10 +39,13 @@ fun ForecastResponse.mapToWeatherForecast(): WeatherForecast {
     return WeatherForecast(
         currentWeather = currentWeather,
         hourlyForecast = HourlyForecast(hourlyForecast),
-        weeklyForecast = WeeklyForecast(null,weeklyForecast),
+        weeklyForecast = WeeklyForecast(null, weeklyForecast),
         id = -1
     )
 }
+
+fun ForecastResponse.mapToForecast(): Forecast =
+    Forecast(hourly.map { it.mapToHourlyWeather() }, daily.take(7).map { it.mapToDailyWeather() })
 
 fun Hourly.mapToHourlyWeather(): HourlyWeather =
     HourlyWeather(

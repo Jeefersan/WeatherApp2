@@ -24,6 +24,6 @@ class RetrieveLocationsUseCaseImpl(private val locationRepository: LocationRepos
                 }
             }
             .catch { t -> emit(Result.Failure(t)) }
-            .flowOn(Dispatchers.Main)
+            .flowOn(Dispatchers.Default)
 
 }

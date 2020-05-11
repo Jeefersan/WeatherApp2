@@ -9,8 +9,13 @@
 
     <string name="binding_show">Weekly forecast for %s</string>
     <string name="binding_wind_speed">Windspeed: %s</string>
-    <string name="binding_humidity">Humidity: %s`%`</string>
+    <string name="binding_humidity">Humidity: %s %</string>
+    <string name="binding_clouds">Cloudiness: %s %</string>
     <string name="binding_celsius">%s °C</string>
+
+    <string name="binding_temp">%s°</string>
+    <string name="binding_temp_min">▼ %s °</string>
+    <string name="binding_temp_max">△ %s °</string>
 
     <string name="placeholder_wind">Wind: 5</string>
     <string name="placeholder_humidty">Humidity: 20%</string>
@@ -26,5 +31,8 @@
 
     <string name="search_for_a_location_and_add_it_to_your_favorites_by_clicking_the_button">Search for a location and add it to your favorites by clicking the + button</string>
     <string name="uh_oh_much_emptiness">uh-oh much emptiness</string>
+    <string name="show_details">Show details</string>
+    <string name="weather_condition">Weather condition</string>
+    <string name="remove">Remove</string>
 
 </resources>

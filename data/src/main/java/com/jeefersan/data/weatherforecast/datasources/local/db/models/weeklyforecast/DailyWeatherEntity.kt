@@ -23,8 +23,7 @@ import com.jeefersan.data.favorites.datasources.local.models.FavoriteEntity
 data class DailyWeatherEntity(
     @PrimaryKey
     @ColumnInfo(name = "favorite_id")
-    val favoriteId: Long,
-    val favoriteOwnerId: Long,
+    val favoriteId: Int,
     val minTemp: Int,
     val maxTemp: Int,
     val date: Long,

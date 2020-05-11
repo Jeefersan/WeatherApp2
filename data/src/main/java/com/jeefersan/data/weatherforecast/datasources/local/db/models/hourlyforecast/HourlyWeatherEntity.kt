@@ -24,8 +24,7 @@ import com.jeefersan.data.favorites.datasources.local.models.FavoriteEntity
 data class HourlyWeatherEntity(
     @PrimaryKey
     @ColumnInfo(name="favorite_id")
-    val favoriteId: Long,
-    val favoriteOwnerId: Long,
+    val favoriteId: Int,
     val temperature: Int,
     val timeStamp: Long,
     val weatherIcon: String,

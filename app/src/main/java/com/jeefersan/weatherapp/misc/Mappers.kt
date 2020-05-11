@@ -25,11 +25,11 @@ fun CurrentWeather.mapToWeatherModel(): CurrentWeatherModel =
         humidity = humidity,
         cloudiness = cloudiness,
         icon = icon,
-        description = description
+        description = description ?: ""
     )
 
 fun HourlyForecast.mapToHourlyForecastModel(): HourlyForecastModel =
-    HourlyForecastModel(hourlyWeatherEntity.map { it.mapToHourlyWeatherModel() })
+    HourlyForecastModel(hourlyForecast.map { it.mapToHourlyWeatherModel() })
 
 fun WeeklyForecast.mapToWeeklyForecastModel(): WeeklyForecastModel =
     WeeklyForecastModel(weeklyForecast.map { it.mapToDailyWeatherModel() })
@@ -40,23 +40,18 @@ fun HourlyWeather.mapToHourlyWeatherModel(): HourlyWeatherModel =
 fun DailyWeather.mapToDailyWeatherModel(): DailyWeatherModel =
     DailyWeatherModel(minTemp, maxTemp, date, wind, humidity, icon, description)
 
-fun Favorite.mapToPresentation() : FavoriteModel =
-    FavoriteModel(favoriteId, cityName, latitude, longitude, lastUpdateTime)
+fun Favorite.mapToPresentation(): FavoriteModel =
+    FavoriteModel(favoriteId, cityName)
 
-fun FavoriteForecast.mapToPresentation() : FavoriteForecastModel =
-    FavoriteForecastModel(favorite.mapToPresentation(), weatherForecast.mapToPresentation())
+fun FavoriteCurrentWeather.mapToPresentation() =
+    FavoriteCurrentWeatherModel(
+        id = favorite.favoriteId,
+        cityName = favorite.cityName,
+        wind = currentWeather.windSpeed,
+        cloudiness = currentWeather.cloudiness,
+        currentTemp = currentWeather.currentTemp,
+        humidity = currentWeather.humidity,
+        icon = currentWeather.icon,
+        isExpanded = false
+    )
 
-fun FavoriteModel.mapToDomain() : Favorite =
-    Favorite(favoriteId ?: 0, cityName, latitude, longitude, lastUpdateTime)
-
-fun List<FavoriteModel>.mapToDomain() : List<Favorite> =
-    this.map { it.mapToDomain() }
-
-fun List<FavoriteForecast>.mapToPresentation() : List<FavoriteForecastModel> =
-    this.map { it.mapToPresentation() }
-
-fun Location.mapToFavoriteModel() : FavoriteModel =
-        FavoriteModel(0, cityName ?: "", coordinates.lat, coordinates.long, 0)
-
-fun Location.mapToFavorite() : Favorite =
-    Favorite(0, cityName ?: "", coordinates.lat, coordinates.long, 0)

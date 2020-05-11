@@ -12,11 +12,12 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "favorites", indices = [Index("cityName", unique = true)])
 data class FavoriteEntity(
     @PrimaryKey(autoGenerate = true)
-    var id: Long = 0,
+    val id: Int,
     val cityName: String,
     val latitude: Double,
     val longitude: Double,
-    val lastUpdateTime: Long
+    val lastCurrentUpdate: Long,
+    val lastForecastUpdate: Long
 )
 
 

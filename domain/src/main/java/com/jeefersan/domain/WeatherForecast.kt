@@ -10,3 +10,4 @@ data class WeatherForecast(
     val hourlyForecast: HourlyForecast,
     val weeklyForecast: WeeklyForecast
 )
+

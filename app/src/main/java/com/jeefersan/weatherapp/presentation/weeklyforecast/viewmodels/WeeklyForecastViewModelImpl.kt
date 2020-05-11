@@ -24,4 +24,6 @@ class WeeklyForecastViewModelImpl(
     init {
         _weeklyForecast.value = forecast.weeklyForecast
     }
+
+
 }

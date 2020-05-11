@@ -1,7 +1,7 @@
 package com.jeefersan.data.weatherforecast.datasources.remote.models
 
 
-import com.jeefersan.data.unused.currentweather.datasources.remote.models.Weather
+
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 

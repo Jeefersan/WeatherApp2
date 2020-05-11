@@ -12,8 +12,14 @@ interface FavoritesRepository {
 
     suspend fun addFavorite(favorite: Favorite): Result<Unit>
 
-    suspend fun getAllFavorites(): Flow<Result<List<Favorite>>>
+    suspend fun setCurrentUpdate(favoriteId: Int): Result<Unit>
 
-    suspend fun removeFavoriteById(favoriteId: Long): Result<Unit>
+    suspend fun setForecastUpdate(favoriteId: Int): Result<Unit>
+
+    suspend fun getFavoriteById(favoriteId: Int): Result<Favorite>
+
+    suspend fun getAllFavorites(): Result<List<Favorite>>
+
+    suspend fun removeFavoriteById(favoriteId: Int): Result<Unit>
 
 }

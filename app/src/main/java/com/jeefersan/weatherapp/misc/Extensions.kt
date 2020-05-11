@@ -29,7 +29,16 @@ fun Long.toHourlyDate(): String {
 
 }
 
-fun Long.toWeekDay(): String{
+fun Long.toWeekDay(): String {
     return String.format(Locale.getDefault(), "%tA", this * 1000L)
+}
+
+
+fun Long.toTimestamp(value: Long?): Date? {
+    return if (value == null) null else Date(value)
+}
+
+fun Date.toTimestamp(date: Date?): Long? {
+    return date?.time
 }
 

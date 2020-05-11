@@ -18,27 +18,33 @@ import com.jeefersan.weatherapp.R
  */
 
 
+fun requestAccessCoarseLocationPermission(activity: Activity, requestId: Int) {
+    ActivityCompat.requestPermissions(
+        activity,
+        arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION),
+        requestId
+    )
+}
 
-    fun requestAccessCoarseLocationPermission(activity: Activity, requestId: Int) {
-        ActivityCompat.requestPermissions(
-            activity,
-            arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
-            requestId
-        )
-    }
+fun isAccessCoarseLocationGranted(context: Context): Boolean {
+    return ContextCompat
+        .checkSelfPermission(
+            context,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
+}
 
-    fun isAccessCoarseLocationGranted(context: Context): Boolean {
-        return ContextCompat
-            .checkSelfPermission(
-                context,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-    }
+fun isAccessFineLocationGranted(context: Context): Boolean {
+    return ContextCompat.checkSelfPermission(
+        context,
+        Manifest.permission.ACCESS_FINE_LOCATION
+    ) == PackageManager.PERMISSION_GRANTED
+}
 
-    fun isLocationEnabled(context: Context): Boolean {
-        val locationManager: LocationManager =
-            context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-                || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
-    }
+fun isLocationEnabled(context: Context): Boolean {
+    val locationManager: LocationManager =
+        context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+    return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+            || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+}
 

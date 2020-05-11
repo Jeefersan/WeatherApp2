@@ -3,6 +3,7 @@ package com.jeefersan.data.weatherforecast.datasources.local.db.dao
 import androidx.room.*
 import com.jeefersan.data.weatherforecast.datasources.local.db.models.hourlyforecast.HourlyWeatherEntity
 import com.jeefersan.data.weatherforecast.datasources.local.db.models.weeklyforecast.DailyWeatherEntity
+import kotlinx.coroutines.flow.Flow
 
 
 /**
@@ -13,13 +14,16 @@ import com.jeefersan.data.weatherforecast.datasources.local.db.models.weeklyfore
 interface WeeklyForecastDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertWeeklyForecast(weeklyForecast: List<DailyWeatherEntity>)
+   suspend fun insertWeeklyForecast(weeklyForecast: List<DailyWeatherEntity>)
 
     @Query("DELETE FROM weekly_forecast WHERE favorite_id = :favoriteId")
-    abstract fun deleteWeeklyForecastById(favoriteId: Long)
+    suspend fun deleteWeeklyForecastById(favoriteId: Int)
 
     @Query("SELECT * FROM weekly_forecast WHERE favorite_id = :favoriteId ORDER BY date")
-    abstract fun getWeeklyForecastById(favoriteId: Long) : List<DailyWeatherEntity>
+    suspend fun getWeeklyForecastById(favoriteId: Int) : List<DailyWeatherEntity>
+
+    @Query("SELECT * FROM weekly_forecast")
+    suspend fun getAllDailyForecasts(): List<DailyWeatherEntity>
 
 
 }

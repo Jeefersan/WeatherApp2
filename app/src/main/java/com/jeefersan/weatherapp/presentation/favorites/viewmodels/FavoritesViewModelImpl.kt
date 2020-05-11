@@ -1,21 +1,23 @@
 package com.jeefersan.weatherapp.presentation.favorites.viewmodels
 
+import android.util.Log
+import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.liveData
-import androidx.lifecycle.switchMap
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.jeefersan.usecases.favorites.GetWeatherForecastForFavorites
+import com.jeefersan.domain.Coordinates
+import com.jeefersan.domain.Location
+import com.jeefersan.usecases.favorites.GetCurrentWeathersForFavorites
 import com.jeefersan.usecases.favorites.addfavorite.AddFavoriteUseCase
-import com.jeefersan.usecases.favorites.getfavorites.GetFavoritesUseCase
+import com.jeefersan.usecases.favorites.getallfavorites.GetAllFavoritesUseCase
+import com.jeefersan.usecases.favorites.removefavorite.RemoveFavoriteUseCase
 import com.jeefersan.util.Result
-import com.jeefersan.weatherapp.misc.mapToDomain
 import com.jeefersan.weatherapp.misc.mapToPresentation
-import com.jeefersan.weatherapp.models.FavoriteForecastModel
-import com.jeefersan.weatherapp.models.FavoriteModel
+import com.jeefersan.weatherapp.models.FavoriteCurrentWeatherModel
+import com.jeefersan.weatherapp.models.LocationModel
 import com.jeefersan.weatherapp.presentation.base.BaseViewModel
 import com.jeefersan.weatherapp.presentation.base.LoadingStatus
 import com.jeefersan.weatherapp.presentation.favorites.FavoritesFragmentDirections
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 /**
@@ -24,66 +26,95 @@ import kotlinx.coroutines.launch
 
 class FavoritesViewModelImpl(
     private val addFavoriteUseCase: AddFavoriteUseCase,
-    private val getFavoritesUseCase: GetFavoritesUseCase,
-    private val getWeatherForecastForFavorites: GetWeatherForecastForFavorites
+    private val getAllFavoritesUseCase: GetAllFavoritesUseCase,
+    private val getCurrentWeathersForFavorites: GetCurrentWeathersForFavorites,
+    private val removeFavoriteUseCase: RemoveFavoriteUseCase
 ) :
     BaseViewModel(),
     FavoritesViewModel {
 
-    init {
-        setStatus(LoadingStatus.LOADING)
-    }
+    override val isLoading = ObservableBoolean()
 
-    override val favoritesList: LiveData<List<FavoriteModel>> = liveData {
-        emit(emptyList())
-        getFavoritesUseCase().collect { result ->
-            if (result is Result.Success) {
-                emit(result.data.map { it.mapToPresentation() })
-                setStatus(LoadingStatus.DONE)
-            } else {
-                emit(emptyList())
-                setStatus(LoadingStatus.ERROR)
-            }
+    init {
+        viewModelScope.launch {
+            retrieveForecasts()
         }
     }
 
 
-    override val favoriteForecasts: LiveData<List<FavoriteForecastModel>> =
-        favoritesList.switchMap { favorites ->
-            liveData {
-                when (val result = getWeatherForecastForFavorites(favorites.mapToDomain())) {
-                    is Result.Failure -> {
-                        setStatus(LoadingStatus.ERROR)
-                        emit(emptyList())
-                    }
-                    is Result.Success -> {
-                        emit(result.data.mapToPresentation())
-                        setStatus(LoadingStatus.DONE)
-                    }
+    private suspend fun retrieveForecasts() {
+        setStatus(LoadingStatus.LOADING)
+        viewModelScope.launch {
+            when (val result = getCurrentWeathersForFavorites()) {
+                is Result.Failure -> {
+                    setStatus(LoadingStatus.ERROR)
+                    Log.d("FavoritesViewModel", "retrieveForecasts failed")
+                }
+                is Result.Success -> {
+                    setStatus(LoadingStatus.DONE)
+                    _favoriteCurrentWeatherModels.value =
+                        result.data.map { it.mapToPresentation() }
+                    isLoading.set(false)
                 }
             }
         }
+    }
+
+    private val _favoriteCurrentWeatherModels = MutableLiveData<List<FavoriteCurrentWeatherModel>>()
+    override val favoriteCurrentWeatherModels: LiveData<List<FavoriteCurrentWeatherModel>> =
+        _favoriteCurrentWeatherModels
+
 
     override fun onFabClick() {
         navigate(FavoritesFragmentDirections.actionNavFavoritesToSearchFragment())
     }
 
-    fun onNewFavorite(favoriteModel: FavoriteModel) {
-        addNewFavorite(favoriteModel)
+    fun onNewLocationSelected(location: LocationModel) {
+        addNewFavorite(location)
     }
 
-    private fun addNewFavorite(favoriteModel: FavoriteModel) {
+    private fun addNewFavorite(location: LocationModel) {
         viewModelScope.launch {
-            when(val result = addFavoriteUseCase(favoriteModel.mapToDomain())){
-                is Result.Failure -> showSnackbar("There was a problem with adding a new location to your favorites")
-                is Result.Success -> showSnackbar("Added ${favoriteModel.cityName} to your favorites")
+            when (val result = addFavoriteUseCase(
+                Location(
+                    cityName = location.cityName,
+                    country = location.country,
+                    coordinates = Coordinates(location.lat, location.long)
+                )
+            )) {
+                is Result.Failure -> {
+                    showSnackbar("There was a problem with adding a new location to your favorites")
+                    Log.d("FavoritesViewModel", " Failure = ${result.throwable}")
+                }
+                is Result.Success -> {
+                    showSnackbar("Added ${location.cityName} to your favorites")
+                    retrieveForecasts()
+                }
             }
         }
     }
 
+    fun onRefresh() = viewModelScope.launch { retrieveForecasts() }
+
+    override fun onShowDetailsClick(id: Int) =
+        navigate(FavoritesFragmentDirections.actionNavFavoritesToNavFavoriteForecast(id))
+
+
+    override fun onRemoveClick(id: Int) {
+        val favoriteToBeRemoved = _favoriteCurrentWeatherModels.value!!.find { it.id == id }!!
+        viewModelScope.launch {
+            when (val result = removeFavoriteUseCase(id)) {
+                is Result.Failure -> Log.d(
+                    "Favorites",
+                    "removeFavorite failed + ${result.throwable}"
+                )
+                is Result.Success -> {
+                    val newList = _favoriteCurrentWeatherModels.value!!.minus(favoriteToBeRemoved)
+                    _favoriteCurrentWeatherModels.value = newList
+                    showSnackbar("Removed ${favoriteToBeRemoved.cityName} from your list.")
+                }
+            }
+        }
+    }
 }
-
-
-
-
 

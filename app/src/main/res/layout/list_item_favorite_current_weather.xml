@@ -1,0 +1,181 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="favorite"
+            type="com.jeefersan.weatherapp.models.FavoriteCurrentWeatherModel" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="24dp"
+        android:background="?attr/selectableItemBackground"
+        android:backgroundTint="@color/semiTransparentWhite"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="4dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/semiTransparent"
+            android:paddingBottom="4dp">
+
+
+            <ImageView
+                android:id="@+id/iv_icon"
+                android:layout_width="128dp"
+                android:layout_height="64dp"
+                android:layout_marginTop="4dp"
+                app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/linearLayout"
+                app:layout_constraintTop_toTopOf="parent"
+                app:setWeatherIcon="@{favorite.icon}"
+                android:contentDescription="@string/weather_condition"
+                tools:srcCompat="@drawable/ic_weather_cloud_bolt_rain" />
+
+            <TextView
+                android:id="@+id/tv_temp_current"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="8dp"
+                android:text="@{@string/binding_temp(favorite.currentTemp)}"
+                android:textColor="#696969"
+                android:textSize="40sp"
+                app:fontFamily="monospace"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_icon"
+                tools:text="@string/placeholder_temp" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="8dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/hammersmith_one"
+                    android:gravity="center_horizontal"
+                    android:paddingStart="24dp"
+                    android:text="@{favorite.cityName}"
+                    android:textColor="#808080"
+                    android:textSize="24sp"
+                    tools:text="The Hague"
+                    tools:ignore="RtlSymmetry" />
+
+                <View
+                    android:layout_width="180dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginBottom="4dp"
+                    android:background="@android:color/darker_gray" />
+
+                <TextView
+                    android:id="@+id/tv_wind"
+                    style="@style/style_tv_favorite_current_attributes"
+                    android:text="@{`Windspeed: `+ favorite.wind}"
+                    tools:text="@string/placeholder_wind" />
+
+                <TextView
+                    android:id="@+id/tv_humidity"
+                    style="@style/style_tv_favorite_current_attributes"
+                    android:text="@{`Humidity: ` + favorite.humidity}"
+                    tools:text="@string/placeholder_humidty" />
+
+                <TextView
+                    android:id="@+id/tv_cloudiness"
+                    style="@style/style_tv_favorite_current_attributes"
+                    android:text="@{`Cloudiness: ` + favorite.cloudiness}"
+                    tools:text="@string/placeholder_clouds" />
+
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/btn_expand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp" />
+
+            <LinearLayout
+                android:id="@+id/layout_expander"
+                style="?android:attr/buttonBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:background="?attr/selectableItemBackground"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_temp_current"
+                tools:visibility="visible">
+
+                <Button
+                    android:id="@+id/btn_show_details"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackground"
+                    android:backgroundTint="@color/transparent"
+                    android:text="@string/show_details"
+                    android:textColor="@android:color/darker_gray" />
+
+                <LinearLayout
+                    android:id="@+id/btn_remove"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackground"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#0000"
+                        android:clickable="false"
+                        android:src="@drawable/ic_delete_black_24dp" />
+
+                    <TextView
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#0000"
+                        android:clickable="false"
+                        android:text="@string/remove"
+                        android:textColor="@android:color/darker_gray" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

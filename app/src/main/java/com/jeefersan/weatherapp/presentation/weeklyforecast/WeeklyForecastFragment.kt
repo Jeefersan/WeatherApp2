@@ -31,8 +31,6 @@ class WeeklyForecastFragment : BaseFragment<FragmentWeeklyForecastBinding>() {
             vm = viewModel
             rvWeeklyForecast.adapter = DailyWeatherAdapter()
         }
-
-
     }
 
 

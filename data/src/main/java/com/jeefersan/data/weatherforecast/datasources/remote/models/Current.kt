@@ -1,7 +1,7 @@
 package com.jeefersan.data.weatherforecast.datasources.remote.models
 
 
-import com.jeefersan.data.unused.currentweather.datasources.remote.models.Weather
+
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -28,7 +28,7 @@ data class Current(
     @Json(name = "uvi")
     val uvi: Double,
     @Json(name = "visibility")
-    val visibility: Int,
+    val visibility: Int? = 0,
     @Json(name = "weather")
     val weather: List<Weather>,
     @Json(name = "wind_deg")

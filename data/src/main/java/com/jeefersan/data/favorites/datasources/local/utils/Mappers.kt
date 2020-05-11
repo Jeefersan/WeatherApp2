@@ -8,7 +8,7 @@ import com.jeefersan.domain.Favorite
  */
 
 fun Favorite.mapToLocal() : FavoriteEntity =
-    FavoriteEntity(favoriteId, cityName, latitude, longitude, lastUpdateTime)
+    FavoriteEntity(favoriteId, cityName, latitude, longitude, lastCurrentUpdate, lastForecastUpdate)
 
 //fun FavoriteEntity.mapToDomain() : Favorite =
 //    Favorite(id, cityName, latitude, longitude, lastUpdateTime)

@@ -20,7 +20,6 @@ class DailyWeatherAdapter() : RecyclerView.Adapter<DailyWeatherAdapter.DailyWeat
     inner class DailyWeatherViewHolder(private val binding: ListItemDailyWeatherBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(dailyWeatherModel: DailyWeatherModel) {
-
             binding.apply {
                 weatherModel = dailyWeatherModel
                 executePendingBindings()
