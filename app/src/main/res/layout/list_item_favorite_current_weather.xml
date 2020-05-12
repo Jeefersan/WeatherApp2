@@ -13,6 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:clickable="true"
+        app:rippleColor="#cfd8dc"
         android:layout_marginBottom="24dp"
         android:background="?attr/selectableItemBackground"
         android:backgroundTint="@color/semiTransparentWhite"
@@ -29,14 +31,14 @@
             <ImageView
                 android:id="@+id/iv_icon"
                 android:layout_width="128dp"
-                android:layout_height="64dp"
+                android:layout_height="80dp"
                 android:layout_marginTop="4dp"
+                android:contentDescription="@string/weather_condition"
                 app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/linearLayout"
                 app:layout_constraintTop_toTopOf="parent"
                 app:setWeatherIcon="@{favorite.icon}"
-                android:contentDescription="@string/weather_condition"
                 tools:srcCompat="@drawable/ic_weather_cloud_bolt_rain" />
 
             <TextView
@@ -158,6 +160,7 @@
                         android:layout_height="wrap_content"
                         android:background="#0000"
                         android:clickable="false"
+                        android:backgroundTint="@color/white"
                         android:src="@drawable/ic_delete_black_24dp" />
 
                     <TextView

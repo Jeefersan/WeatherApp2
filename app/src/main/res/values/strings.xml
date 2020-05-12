@@ -13,7 +13,7 @@
     <string name="binding_clouds">Cloudiness: %s %</string>
     <string name="binding_celsius">%s °C</string>
 
-    <string name="binding_temp">%s°</string>
+    <string name="binding_temp">%s°C</string>
     <string name="binding_temp_min">▼ %s °</string>
     <string name="binding_temp_max">△ %s °</string>
 
@@ -34,5 +34,16 @@
     <string name="show_details">Show details</string>
     <string name="weather_condition">Weather condition</string>
     <string name="remove">Remove</string>
-
+    <string name="search_for_a_location">Search for a location</string>
+    <string name="placeholder_humidity">Humidity: 40%</string>
+    <string name="placeholder_description">Cloudy with a bit of sun</string>
+    <string-array name="hourly_detail_names">
+        <item>Temperature</item>
+        <item>Rain</item>
+        <item>Humidity</item>
+    </string-array>
+    <string-array name="daily_detail_names">
+        <item>Weekly Forecast</item>
+        <item>Forecast Graph</item>
+    </string-array>
 </resources>

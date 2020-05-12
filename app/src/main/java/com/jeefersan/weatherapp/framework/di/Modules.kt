@@ -36,10 +36,6 @@ import com.jeefersan.usecases.weatherforecast.GetCompleteWeatherForecastForFavor
 import com.jeefersan.weatherapp.framework.db.LocalDatabase
 import com.jeefersan.weatherapp.framework.location.LocationProviderImpl
 import com.jeefersan.weatherapp.framework.location.LocationRemoteDataSourceImpl
-import com.jeefersan.weatherapp.framework.network.api.provideApiService
-import com.jeefersan.weatherapp.framework.network.api.provideInterceptor
-import com.jeefersan.weatherapp.framework.network.api.provideOkHttpClient
-import com.jeefersan.weatherapp.framework.network.api.provideRetrofit
 import com.jeefersan.weatherapp.models.WeeklyForecastModel
 import com.jeefersan.weatherapp.presentation.favorites.viewmodels.FavoritesViewModelImpl
 import com.jeefersan.weatherapp.presentation.favoriteweatherforecast.viewmodels.FavoriteForecastViewModelImpl

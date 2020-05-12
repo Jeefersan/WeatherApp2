@@ -35,7 +35,7 @@ fun WeeklyForecast.mapToWeeklyForecastModel(): WeeklyForecastModel =
     WeeklyForecastModel(weeklyForecast.map { it.mapToDailyWeatherModel() })
 
 fun HourlyWeather.mapToHourlyWeatherModel(): HourlyWeatherModel =
-    HourlyWeatherModel(temperature, timeStamp, weatherIcon, humidity, windSpeed, weatherCode)
+    HourlyWeatherModel(temperature, timeStamp, weatherIcon, humidity, windSpeed, weatherCode, rain)
 
 fun DailyWeather.mapToDailyWeatherModel(): DailyWeatherModel =
     DailyWeatherModel(minTemp, maxTemp, date, wind, humidity, icon, description)

@@ -17,7 +17,7 @@ fun List<PlaceLanguage>.mapToDomain(): List<Location> =
 fun PlaceLanguage.mapToDomain(): Location =
     Location(
         cityId = null,
-        cityName = localNamesOrNull?.first() ?: "",
+        cityName = localNamesOrNull?.first() ?: city.first(),
         country = countryOrNull,
         coordinates = geolocation.mapToCoordinates()
     )

@@ -21,7 +21,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/bg_default"
         app:isSunset="@{vm.isSunset()}"
-        tools:background="@drawable/bg_night">
+        tools:background="@drawable/bg_sunny">
 
         <TextView
             android:id="@+id/tv_city"
@@ -79,7 +79,8 @@
             android:text="@{`Humidity: ` + currentWeatherModel.humidity + `%`}"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
             app:layout_constraintTop_toBottomOf="@+id/tv_temperature"
-            tools:text="Humidity: 12%" />
+            tools:text="Humidity: 12%"
+            tools:textColor="#303C3E" />
 
         <ProgressBar
             android:id="@+id/progressBar"

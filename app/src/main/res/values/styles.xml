@@ -19,6 +19,14 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="MaterialCardView.Default" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="android:clickable">true</item>
+        <item name="rippleColor">#e3f2fd</item>
+        <item name="cardElevation">3dp</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
     <style name="LayoutPageTheme" parent="MyTheme">
         <item name="windowActionBarOverlay">true</item>
         <item name="android:windowActionBarOverlay">true</item>
@@ -50,6 +58,20 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="DialogStyle"
+        parent="Theme.MaterialComponents.DayNight.Dialog.Bridge">
+        <item name="android:windowNoTitle">true</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="android:windowEnterAnimation">@anim/anim_slide_up</item>
+        <item name="android:windowExitAnimation">@anim/anim_slide_down</item>
+    </style>
+
+    <style name="DialogAnimation">
+    <item name="android:windowEnterAnimation">@anim/anim_slide_up</item>
+        <item name="android:windowExitAnimation">@anim/anim_slide_down</item>
+    </style>
+
     <style name="style_tv_favorite_current_attributes">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -59,9 +81,12 @@
         <item name="android:textSize">18sp</item>
     </style>
 
-
-
-
+    <style name="style_current_weather_attributes">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">serif-monospace</item>
+        <item name="android:textSize">20sp</item>
+    </style>
 
 
 </resources>

@@ -13,5 +13,6 @@ data class HourlyWeather(
     val weatherIcon: String,
     val humidity: Int,
     val windSpeed: Int,
-    val weatherCode: Int
+    val weatherCode: Int,
+    val rain: Double? = 0.0
 )

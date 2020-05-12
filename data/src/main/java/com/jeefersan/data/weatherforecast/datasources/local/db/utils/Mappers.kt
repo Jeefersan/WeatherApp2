@@ -64,7 +64,7 @@ import com.jeefersan.domain.*
 
 fun HourlyWeatherEntity.mapToHourlyWeather(): HourlyWeather =
     HourlyWeather(
-        favoriteId, temperature, timeStamp, weatherIcon, humidity, windSpeed, weatherCode
+        favoriteId, temperature, timeStamp, weatherIcon, humidity, windSpeed, weatherCode, rain
     )
 
 //fun WeeklyForecastWithFavoriteEntity.mapToWeeklyForecast(): WeeklyForecast =

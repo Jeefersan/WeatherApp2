@@ -8,6 +8,7 @@ import com.algolia.instantsearch.helper.android.list.autoScrollToStart
 import com.jeefersan.domain.Location
 import com.jeefersan.weatherapp.R
 import com.jeefersan.weatherapp.databinding.FragmentSearchBinding
+import com.jeefersan.weatherapp.misc.hideKeyboard
 import com.jeefersan.weatherapp.models.LocationModel
 import com.jeefersan.weatherapp.presentation.base.BaseFragment
 import com.jeefersan.weatherapp.presentation.base.BaseViewModel
@@ -33,6 +34,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(), LocationsAdapter.L
     }
 
     override fun onItemClick(item: Location) {
+        requireContext().hideKeyboard(getBinding().etInput)
        viewModel.onLocationSelect(item)
     }
 

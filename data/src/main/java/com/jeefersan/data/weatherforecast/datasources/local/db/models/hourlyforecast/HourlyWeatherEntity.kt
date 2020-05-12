@@ -30,5 +30,6 @@ data class HourlyWeatherEntity(
     val weatherIcon: String,
     val humidity: Int,
     val windSpeed: Int,
-    val weatherCode: Int
+    val weatherCode: Int,
+    val rain: Double?
 )

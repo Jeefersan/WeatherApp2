@@ -22,7 +22,8 @@ fun Hourly.mapToHourlyWeather(): HourlyWeather =
         weatherIcon = weather.first().icon,
         humidity = humidity,
         windSpeed = windSpeed.roundToInt(),
-        weatherCode = weather.first().id
+        weatherCode = weather.first().id,
+        rain = rain?.h
     )
 
 fun Daily.mapToDailyWeather(): DailyWeather =

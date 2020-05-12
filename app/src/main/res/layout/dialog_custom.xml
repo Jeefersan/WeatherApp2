@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="dailyWeather"
+            type="com.jeefersan.weatherapp.models.DailyWeatherModel" />
+    </data>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="240dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@color/colorPrimary">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape_custom_dialog">
+
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/iv_icon"
+                    android:layout_width="128dp"
+                    android:layout_height="128dp"
+                    app:srcCompat="@drawable/ic_10d"
+                    app:weatherIcon="@{dailyWeather.icon}" />
+
+                <TextView
+                    android:id="@+id/tv_wind"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="sans-serif-condensed-light"
+                    android:text="@{`Windspeed: ` + dailyWeather.wind}"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_humidity"
+                    tools:text="Windspeed: 6" />
+
+                <TextView
+                    android:id="@+id/tv_humidity"
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/white"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="11dp"
+                    android:fontFamily="sans-serif-condensed-light"
+                    android:text="@{`Humidity: ` + dailyWeather.humidity + `%`}"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_icon"
+                    tools:text="Humidity: 60%" />
+
+                <TextView
+                    android:id="@+id/tv_cloud"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@{dailyWeather.description}"
+                    android:textAllCaps="true"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_wind"
+                    tools:text="A bit cloudy!" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/tv_temp_max"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:gravity="center"
+                android:text="@{`△ ` + dailyWeather.maxTemp + ` °C`}"
+                android:textColor="#51CC56"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/tv_temp_min"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/linearLayout3"
+                tools:text="@string/placeholder_temp_max" />
+
+            <TextView
+                android:id="@+id/tv_temp_min"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:gravity="center"
+                android:text="@{`▼ ` + dailyWeather.minTemp + ` °C`}"
+                android:textColor="#D54242"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/linearLayout3"
+                tools:text="@string/placeholder_temp_min" />
+
+            <ImageButton
+                android:id="@+id/btn_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:background="@color/transparent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

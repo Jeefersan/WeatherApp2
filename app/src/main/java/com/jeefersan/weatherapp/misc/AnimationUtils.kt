@@ -18,7 +18,7 @@ import android.view.animation.Transformation
 fun View.setRotateAnimation() {
     val rotater = ObjectAnimator.ofFloat(this, View.ROTATION, -360f, 0f)
         .apply {
-            duration = 1000
+            duration = 600
             disableButtonDuringAnimation(this@setRotateAnimation)
             start()
         }

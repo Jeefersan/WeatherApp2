@@ -44,7 +44,8 @@ fun HourlyWeather.mapToLocalWithId(id: Int): HourlyWeatherEntity =
         weatherIcon = weatherIcon,
         humidity = humidity,
         windSpeed = windSpeed,
-        weatherCode = weatherCode
+        weatherCode = weatherCode,
+        rain = rain
     )
 
 

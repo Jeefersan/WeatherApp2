@@ -35,20 +35,7 @@ class SearchViewModelImpl(private val searchLocationsUseCase: SearchLocationsUse
 
 
     override fun onLocationSelect(location: Location) {
-      navigate(SearchFragmentDirections.actionSearchFragmentToNavFavorites(LocationModel(location.cityName,location.country?:"",location.coordinates.lat, location.coordinates.long )))
+      navigate(SearchFragmentDirections.actionSearchFragmentToNavFavorites(LocationModel(location.cityName,location.country?: "",location.coordinates.lat, location.coordinates.long )))
     }
 }
 
-//override val locationSuggestions: LiveData<List<Location>> =
-//    searchInputText.switchMap { input ->
-//        liveData {
-//            searchLocationsUseCase(input)
-//                .collect {
-//                    if (it is Result.Success) {
-//                        emit(it.data)
-//                    } else {
-//                        emit(emptyList<Location>())
-//                    }
-//                }
-//        }
-//    }

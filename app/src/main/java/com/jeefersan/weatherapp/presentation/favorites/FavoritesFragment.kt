@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.jeefersan.weatherapp.databinding.FragmentFavoritesBinding
 import com.jeefersan.weatherapp.presentation.base.BaseFragment
 import com.jeefersan.weatherapp.presentation.base.BaseViewModel
@@ -39,6 +38,7 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(),
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         args.location?.let { viewModel.onNewLocationSelected(it) }
         return super.onCreateView(inflater, container, savedInstanceState)
     }

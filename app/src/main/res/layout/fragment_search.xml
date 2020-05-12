@@ -17,31 +17,26 @@
         android:layout_height="match_parent">
 
 
-        <ImageView
-            android:id="@+id/iv_search"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginBottom="32dp"
-            android:background="@drawable/ic_search_black_24dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline5"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout2"
             android:layout_width="0dp"
             android:layout_height="50dp"
+            android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="32dp"
+            android:hint="@string/search_for_a_location"
             app:layout_constraintBottom_toTopOf="@+id/guideline5"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/iv_search">
+            app:layout_constraintStart_toStartOf="parent"
+            app:startIconDrawable="@drawable/ic_search_black_24dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_input"
                 android:layout_width="match_parent"
-                android:layout_height="38dp"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
                 android:text="@={vm.searchInputText}"
+                android:textColor="@android:color/darker_gray"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iv_search"
                 tools:layout_editor_absoluteY="5dp" />

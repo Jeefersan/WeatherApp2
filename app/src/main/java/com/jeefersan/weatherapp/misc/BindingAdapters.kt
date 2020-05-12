@@ -1,6 +1,5 @@
 package com.jeefersan.weatherapp.misc
 
-import android.animation.ObjectAnimator
 import android.graphics.Color
 import android.view.View
 import android.widget.ImageView
@@ -8,11 +7,8 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.jeefersan.domain.Location
 import com.jeefersan.weatherapp.R.drawable
 import com.jeefersan.weatherapp.presentation.base.LoadingStatus
-import java.lang.String.format
-import java.text.DateFormat
 import java.util.*
 
 /**
@@ -30,14 +26,17 @@ object BindingAdapters {
 
     @BindingAdapter("weatherIcon")
     @JvmStatic
-    fun setWeatherIcon(view: ImageView, icon: String) {
-
-        Glide.with(view.context)
-            .load(getOpenWeatherIconRes(icon))
-            .centerCrop()
-            .into(view)
+    fun setWeatherIcon(view: ImageView, icon: String?) {
+        if (icon != null) {
+            Glide.with(view.context)
+                .load(getOpenWeatherIconRes(icon))
+                .centerCrop()
+                .into(view)
+        }
 
     }
+
+
 
     @BindingAdapter("setWeatherIcon")
     @JvmStatic
@@ -55,7 +54,7 @@ object BindingAdapters {
         if (isSunset) {
             textView.setTextColor(Color.parseColor("#FFFFFF"))
         } else {
-            textView.setTextColor(Color.parseColor("#A6A4A4"))
+            textView.setTextColor(Color.parseColor("#303C3E"))
         }
     }
 
@@ -90,28 +89,28 @@ object BindingAdapters {
     @BindingAdapter("visibleIfEmpty")
     @JvmStatic
     fun visibleIf(view: View, list: List<Any>) {
-        if(list.isNullOrEmpty()){ view.visibility = View.VISIBLE}
-        else {
+        if (list.isNullOrEmpty()) {
+            view.visibility = View.VISIBLE
+        } else {
             view.visibility = View.GONE
         }
     }
 
 
+}
+
+object Converter {
+
+    @BindingAdapter("dateToWeekDay")
+    @JvmStatic
+    fun dateToWeekDay(tv: TextView, timestamp: Long) {
+        tv.text = String.format(Locale.getDefault(), "%tA", timestamp * 1000L).subSequence(0, 3)
+
+    }
+
 
 }
 
-    object Converter {
-
-        @BindingAdapter("dateToWeekDay")
-        @JvmStatic
-        fun dateToWeekDay(tv: TextView, timestamp: Long) {
-            tv.text = String.format(Locale.getDefault(), "%tA", timestamp * 1000L).subSequence(0,3)
-
-        }
-
-
-    }
-
-    interface BindableAdapter<T> {
-        fun setData(models: List<T>)
-    }
+interface BindableAdapter<T> {
+    fun setData(models: List<T>)
+}

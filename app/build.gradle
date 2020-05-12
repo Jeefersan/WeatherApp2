@@ -44,7 +44,7 @@ android {
         }
     }
     packagingOptions{
-    exclude 'META-INF/*.kotlin_module'
+        exclude 'META-INF/*.kotlin_module'
     }
     kotlinOptions {
         jvmTarget = "1.8"
@@ -88,7 +88,9 @@ dependencies {
 
     implementation 'com.github.MatteoBattilana:WeatherView:3.0.0'
 
-    implementation 'com.jjoe64:graphview:4.2.2'
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
+    implementation 'com.google.android.material:material:1.2.0-alpha06'
+
 
     implementation 'com.balysv:material-ripple:1.0.2'
 
