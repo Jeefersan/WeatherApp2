@@ -23,6 +23,7 @@ import org.koin.core.parameter.parametersOf
 /**
  * Created by JeeferSan on 8-5-20.
  */
+
 class FavoriteForecastFragment : BaseFragment<FragmentFavoriteWeatherForecastBinding>() {
     private val args: FavoriteForecastFragmentArgs by navArgs()
 

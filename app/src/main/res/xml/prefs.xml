@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:key="notifications_category"
+        app:title="Notifications">
+
+        <SwitchPreferenceCompat
+            app:icon="@drawable/ic_access_alarm_black_24dp"
+            app:key="notification"
+            app:title="Enable daily notifications" />
+
+        <MultiSelectListPreference
+            android:icon="@drawable/ic_favorite_24dp"
+            app:key="favorites_select"
+            app:title="Select favorite locations"
+            app:summary="Choose from your favorites"/>
+
+
+
+    </PreferenceCategory>
+
+
+</PreferenceScreen>

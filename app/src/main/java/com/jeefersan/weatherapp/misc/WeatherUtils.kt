@@ -1,6 +1,5 @@
 package com.jeefersan.weatherapp.misc
 
-import com.github.matteobattilana.weather.PrecipType
 import com.jeefersan.weatherapp.R
 
 /**
@@ -61,11 +60,6 @@ fun getOpenWeatherIconRes(icon: String) = when (icon) {
     else -> -1
 }
 
-fun getPrecipType(icon: String) = when (icon) {
-    "01d", "02d", "03d" -> PrecipType.CLEAR
-    "09d", "09n", "10d", "10n", "11d", "11n" -> PrecipType.RAIN
-    "13d", "13n" -> PrecipType.SNOW
-    else -> PrecipType.CUSTOM
-}
+
 
 

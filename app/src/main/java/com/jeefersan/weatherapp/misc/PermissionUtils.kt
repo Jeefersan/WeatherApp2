@@ -3,36 +3,45 @@ package com.jeefersan.weatherapp.misc
 import android.Manifest
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.LocationManager
-import android.provider.Settings
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.jeefersan.weatherapp.R
 
 /**
  * Created by JeeferSan on 27-4-20.
  */
 
 
-fun requestAccessCoarseLocationPermission(activity: Activity, requestId: Int) {
+fun requestAccessPermissions(activity: Activity, requestId: Int) {
     ActivityCompat.requestPermissions(
         activity,
-        arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION),
+        arrayOf(
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ),
         requestId
     )
 }
 
-fun isAccessCoarseLocationGranted(context: Context): Boolean {
-    return ContextCompat
-        .checkSelfPermission(
-            context,
-            Manifest.permission.ACCESS_COARSE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED
+@RequiresApi(Build.VERSION_CODES.P)
+fun isForegroundPermissionApproved(context: Context): Boolean {
+    return PackageManager.PERMISSION_GRANTED == ActivityCompat.checkSelfPermission(
+        context,
+        Manifest.permission.FOREGROUND_SERVICE
+    )
 }
+
+@RequiresApi(Build.VERSION_CODES.P)
+fun requestForegroundPermission(activity: Activity, requestId: Int) =
+    ActivityCompat.requestPermissions(
+        activity,
+        arrayOf(Manifest.permission.FOREGROUND_SERVICE),
+        requestId
+    )
+
 
 fun isAccessFineLocationGranted(context: Context): Boolean {
     return ContextCompat.checkSelfPermission(
@@ -40,6 +49,7 @@ fun isAccessFineLocationGranted(context: Context): Boolean {
         Manifest.permission.ACCESS_FINE_LOCATION
     ) == PackageManager.PERMISSION_GRANTED
 }
+
 
 fun isLocationEnabled(context: Context): Boolean {
     val locationManager: LocationManager =

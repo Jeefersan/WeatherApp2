@@ -1,9 +1,7 @@
 package com.jeefersan.weatherapp.presentation.favoriteweatherforecast.viewmodels
 
-import androidx.databinding.ObservableField
+
 import androidx.lifecycle.LiveData
-import com.github.matteobattilana.weather.PrecipType
-import com.github.matteobattilana.weather.WeatherData
 import com.jeefersan.weatherapp.misc.SingleLiveEvent
 import com.jeefersan.weatherapp.models.*
 
