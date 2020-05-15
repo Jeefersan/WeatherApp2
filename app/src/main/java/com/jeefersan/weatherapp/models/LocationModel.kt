@@ -1,7 +1,6 @@
 package com.jeefersan.weatherapp.models
 
 import android.os.Parcelable
-import com.jeefersan.domain.Coordinates
 import kotlinx.android.parcel.Parcelize
 
 /**
@@ -15,5 +14,4 @@ data class LocationModel(
     val lat: Double,
     val long: Double
 )
-
     : Parcelable

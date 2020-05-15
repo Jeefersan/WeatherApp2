@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">WeatherApp</string>
     <string name="home">Home</string>
     <string name="favorites">Favorites</string>
@@ -29,6 +29,18 @@
     <string name="ALGOLIA_API_KEY">94134bf29dd613c3f1052eb7888d8158</string>
     <string name="ALGOLIA_INDEX_NAME">Locations</string>
 
+    <string name="key_notifications_daily">notifications_enabled</string>
+    <string name="key_notifications_rain">notifications_rain</string>
+    <string name="key_setting_daily">setting_daily</string>
+    <string name="key_select_favorites">select_favorites</string>
+    <string name="key_notification_time">notification_time</string>
+    <string name="key_favorite_id">favorite_id</string>
+    <string name="key_rain_interval">rain_interval</string>
+    <string name="key_dark_theme">dark_theme</string>
+
+    <string name="channel_daily_description">Notification channel for daily updates</string>
+    <string name="channel_rain_description">Notification channel for rain checks</string>
+
     <string name="search_for_a_location_and_add_it_to_your_favorites_by_clicking_the_button">Search for a location and add it to your favorites by clicking the + button</string>
     <string name="uh_oh_much_emptiness">uh-oh much emptiness</string>
     <string name="show_details">Show details</string>
@@ -37,13 +49,38 @@
     <string name="search_for_a_location">Search for a location</string>
     <string name="placeholder_humidity">Humidity: 40%</string>
     <string name="placeholder_description">Cloudy with a bit of sun</string>
+    <string name="enabled">Enabled</string>
+    <string name="disabled">Disabled</string>
+    <string name="select_a_location">Select a location</string>
+    <string name="update_interval">Update interval</string>
+
     <string-array name="hourly_detail_names">
         <item>Temperature</item>
         <item>Rain</item>
         <item>Humidity</item>
     </string-array>
+
     <string-array name="daily_detail_names">
         <item>Weekly Forecast</item>
         <item>Forecast Graph</item>
     </string-array>
+
+    <string-array name="array_interval_entries">
+        <item>1 hour</item>
+        <item>2 hours</item>
+        <item>3 hours</item>
+        <item>4 hours</item>
+        <item>5 hours</item>
+
+    </string-array>
+    <string-array name="array_interval_values">
+        <item>1</item>
+        <item>2 </item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+
+
 </resources>

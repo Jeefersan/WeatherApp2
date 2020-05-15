@@ -5,7 +5,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.jeefersan.data.favorites.datasources.local.models.FavoriteEntity
-import kotlinx.coroutines.flow.Flow
 
 /**
  * Created by JeeferSan on 3-5-20.
@@ -20,7 +19,7 @@ interface FavoritesDao {
     @Query("SELECT * FROM favorites WHERE id = :favoriteId")
     suspend fun getFavoriteById(favoriteId: Int): FavoriteEntity
 
-    @Query("SELECT * FROM favorites")
+    @Query("SELECT * FROM favorites ORDER BY id")
     suspend fun getAllFavorites(): List<FavoriteEntity>
 
     @Query("UPDATE favorites SET lastCurrentUpdate=:lastCurrentUpdate WHERE id = :favoriteId ")

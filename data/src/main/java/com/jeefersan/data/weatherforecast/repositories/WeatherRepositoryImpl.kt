@@ -2,7 +2,10 @@ package com.jeefersan.data.weatherforecast.repositories
 
 import com.jeefersan.data.weatherforecast.datasources.local.WeatherLocalDataSource
 import com.jeefersan.data.weatherforecast.datasources.remote.WeatherRemoteDataSource
-import com.jeefersan.domain.*
+import com.jeefersan.domain.Coordinates
+import com.jeefersan.domain.CurrentWeather
+import com.jeefersan.domain.Forecast
+import com.jeefersan.domain.WeatherForecast
 import com.jeefersan.util.Result
 
 class WeatherRepositoryImpl(
@@ -18,31 +21,43 @@ class WeatherRepositoryImpl(
         coordinates: Coordinates,
         shouldUpdate: Boolean
     ): Result<CurrentWeather> {
-        return try {
+        try {
             if (shouldUpdate) {
                 val currentWeather = kotlin.run {
                     val currentWeatherResult = fetchCurrentWeatherFromRemote(coordinates)
                     if (currentWeatherResult is Result.Failure) return currentWeatherResult
                     (currentWeatherResult as Result.Success).data
                 }
-                when (val result =
+                return when (val result =
                     saveCurrentWeatherToLocal(id = id, currentWeather = currentWeather)) {
-                    is Result.Failure -> return result
-                    is Result.Success -> Result.Success(currentWeather)
+                    is Result.Failure -> result
+                    is Result.Success -> {
+                        Result.Success(
+                            CurrentWeather(
+                                id = id,
+                                humidity = currentWeather.humidity,
+                                currentTemp = currentWeather.currentTemp,
+                                cloudiness = currentWeather.cloudiness,
+                                timestamp = currentWeather.timestamp,
+                                sunset = currentWeather.sunset,
+                                windSpeed = currentWeather.windSpeed,
+                                icon = currentWeather.icon,
+                                description = currentWeather.description
+                            )
+                        )
+                    }
                 }
-
+            } else {
+                return when (val result = weatherLocalDataSource.getCurrentWeatherById(id)) {
+                    is Result.Failure -> result
+                    is Result.Success -> Result.Success(result.data)
+                }
             }
-
-            when (val result = weatherLocalDataSource.getCurrentWeatherById(id)) {
-                is Result.Failure -> result
-                is Result.Success -> Result.Success(result.data)
-            }
-
         } catch (throwable: Throwable) {
-            Result.Failure(throwable)
+            return Result.Failure(throwable)
         }
-    }
 
+    }
 
     override suspend fun getForecast(
         id: Int,
@@ -59,11 +74,11 @@ class WeatherRepositoryImpl(
                 is Result.Failure -> result
                 is Result.Success -> Result.Success(forecast)
             }
-        }
-
-        return when (val result = weatherLocalDataSource.getForecastById(id)) {
-            is Result.Failure -> result
-            is Result.Success -> Result.Success(result.data)
+        } else {
+            return when (val result = weatherLocalDataSource.getForecastById(id)) {
+                is Result.Failure -> result
+                is Result.Success -> Result.Success(result.data)
+            }
         }
     }
 
@@ -113,7 +128,6 @@ class WeatherRepositoryImpl(
         } catch (throwable: Throwable) {
             return Result.Failure(throwable)
         }
-
     }
 
     override suspend fun removeAllById(id: Int): Result<Unit> =
@@ -127,24 +141,43 @@ class WeatherRepositoryImpl(
         }
 
     private suspend fun fetchCurrentWeatherFromRemote(coordinates: Coordinates): Result<CurrentWeather> =
-        weatherRemoteDataSource.getCurrentWeather(coordinates)
+        try {
+            when (val result = weatherRemoteDataSource.getCurrentWeather(coordinates)) {
+                is Result.Failure -> result
+                is Result.Success -> Result.Success(result.data)
+            }
+        } catch (throwable: Throwable) {
+            Result.Failure(throwable)
+        }
+
 
     private suspend fun fetchForecastFromRemote(coordinates: Coordinates): Result<Forecast> =
-        weatherRemoteDataSource.getForecast(coordinates)
+        try {
+            when (val result = weatherRemoteDataSource.getForecast(coordinates)) {
+                is Result.Failure -> result
+                is Result.Success -> Result.Success(result.data)
+            }
+        } catch (throwable: Throwable) {
+            Result.Failure(throwable)
+        }
 
     private suspend fun saveCurrentWeatherToLocal(
         id: Int,
         currentWeather: CurrentWeather
     ): Result<Unit> = try {
-        weatherLocalDataSource.saveCurrentWeatherById(id, currentWeather)
-        Result.Success(Unit)
+        when (val result = weatherLocalDataSource.saveCurrentWeatherById(id, currentWeather)) {
+            is Result.Success -> Result.Success(Unit)
+            is Result.Failure -> result
+        }
     } catch (throwable: Throwable) {
         Result.Failure(throwable)
     }
 
     private suspend fun saveForecastToLocal(id: Int, forecast: Forecast): Result<Unit> = try {
-        weatherLocalDataSource.saveForecastById(id, forecast)
-        Result.Success(Unit)
+        when (val result = weatherLocalDataSource.saveForecastById(id, forecast)) {
+            is Result.Success -> Result.Success(Unit)
+            is Result.Failure -> result
+        }
     } catch (throwable: Throwable) {
         Result.Failure(throwable)
     }

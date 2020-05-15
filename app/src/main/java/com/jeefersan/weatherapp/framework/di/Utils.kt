@@ -4,8 +4,6 @@ import com.algolia.search.client.ClientPlaces
 import com.algolia.search.model.APIKey
 import com.algolia.search.model.ApplicationID
 import com.jeefersan.data.weatherforecast.datasources.remote.api.WeatherApiService
-import com.jeefersan.weatherapp.framework.network.api.WEATHER_API_KEY
-import com.jeefersan.weatherapp.framework.network.api.WEATHER_BASE_URL
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.Interceptor
@@ -25,7 +23,9 @@ fun providePlacesClient(): ClientPlaces {
 }
 
 fun provideInterceptor() = Interceptor { chain ->
-    val url = chain.request().url.newBuilder().addQueryParameter("appid", WEATHER_API_KEY)
+    val url = chain.request().url.newBuilder().addQueryParameter("appid",
+        WEATHER_API_KEY
+    )
         .build()
     val request = chain.request()
         .newBuilder()
@@ -53,3 +53,7 @@ fun provideRetrofit(client: OkHttpClient): Retrofit {
 
 fun provideApiService(retrofit: Retrofit): WeatherApiService =
     retrofit.create(WeatherApiService::class.java)
+
+const val WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5/"
+const val WEATHER_API_KEY = "53dbdc6dc33c76c3ee1472abba72fdb3"
+

@@ -12,7 +12,6 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:clickable="true"
         app:rippleColor="#cfd8dc"
         android:layout_marginBottom="24dp"
@@ -30,15 +29,15 @@
 
             <ImageView
                 android:id="@+id/iv_icon"
+                setIcon="@{favorite.icon}"
                 android:layout_width="128dp"
-                android:layout_height="80dp"
-                android:layout_marginTop="4dp"
+                android:layout_height="96dp"
+                android:layout_marginTop="8dp"
                 android:contentDescription="@string/weather_condition"
-                app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btn_expand"
                 app:layout_constraintStart_toEndOf="@+id/linearLayout"
+
                 app:layout_constraintTop_toTopOf="parent"
-                app:setWeatherIcon="@{favorite.icon}"
                 tools:srcCompat="@drawable/ic_weather_cloud_bolt_rain" />
 
             <TextView
@@ -57,15 +56,15 @@
 
             <LinearLayout
                 android:id="@+id/linearLayout"
-                android:layout_width="wrap_content"
+                android:layout_width="191dp"
 
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_height="134dp"
+                android:layout_marginStart="16dp"
                 android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/layout_expander"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.225">
 
                 <TextView
                     android:id="@+id/tv_city"
@@ -77,8 +76,8 @@
                     android:text="@{favorite.cityName}"
                     android:textColor="#808080"
                     android:textSize="24sp"
-                    tools:text="The Hague"
-                    tools:ignore="RtlSymmetry" />
+                    tools:ignore="RtlSymmetry"
+                    tools:text="The Hague" />
 
                 <View
                     android:layout_width="180dp"
@@ -159,8 +158,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="#0000"
-                        android:clickable="false"
                         android:backgroundTint="@color/white"
+                        android:clickable="false"
                         android:src="@drawable/ic_delete_black_24dp" />
 
                     <TextView

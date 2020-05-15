@@ -1,22 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <PreferenceCategory
-        app:key="notifications_category"
+        android:title="Theme">
+
+        <SwitchPreferenceCompat
+            android:key="@string/key_dark_theme"
+            android:title="Enable dark theme"
+            android:summaryOff="@string/disabled"
+            android:summaryOn="@string/enabled"
+            />
+
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
+        app:key="category__notifications"
         app:title="Notifications">
 
         <SwitchPreferenceCompat
+            android:summaryOff="@string/disabled"
+            android:summaryOn="@string/enabled"
             app:icon="@drawable/ic_access_alarm_black_24dp"
-            app:key="notification"
-            app:title="Enable daily notifications" />
+            app:key="@string/key_notifications_daily"
+            app:summary="Receive a daily weather update"
+            app:title="Enable daily notification" />
 
-        <MultiSelectListPreference
-            android:icon="@drawable/ic_favorite_24dp"
-            app:key="favorites_select"
-            app:title="Select favorite locations"
-            app:summary="Choose from your favorites"/>
 
+        <ListPreference
+            android:dialogIcon="@drawable/ic_favorite_24dp"
+            android:dialogTitle="@string/select_a_location"
+            app:isPreferenceVisible="false"
+            app:key="@string/key_select_favorites"
+            app:summary="Choose from your favorites"
+            app:title="Location"
+            tools:isPreferenceVisible="true" />
+
+        <Preference
+            android:enabled="false"
+            android:summary="Pick a time"
+            android:title="Time"
+            app:isPreferenceVisible="false"
+            app:key="@string/key_notification_time"
+            tools:isPreferenceVisible="true" />
+
+
+        <SwitchPreferenceCompat
+            android:icon="@drawable/ic_warning_grey_24dp"
+            android:key="@string/key_notifications_rain"
+            android:summary="Receive rain alerts at an interval"
+            android:summaryOff="@string/disabled"
+            android:summaryOn="@string/enabled"
+            android:title="Enable rain alerts" />
+
+        <DropDownPreference
+            android:defaultValue="1"
+            android:entries="@array/array_interval_entries"
+            android:entryValues="@array/array_interval_values"
+            android:title="@string/update_interval"
+            app:key="@string/key_rain_interval" />
 
 
     </PreferenceCategory>

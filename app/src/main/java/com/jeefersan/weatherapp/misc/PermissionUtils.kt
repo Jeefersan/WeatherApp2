@@ -5,8 +5,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.LocationManager
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
@@ -25,22 +23,6 @@ fun requestAccessPermissions(activity: Activity, requestId: Int) {
         requestId
     )
 }
-
-@RequiresApi(Build.VERSION_CODES.P)
-fun isForegroundPermissionApproved(context: Context): Boolean {
-    return PackageManager.PERMISSION_GRANTED == ActivityCompat.checkSelfPermission(
-        context,
-        Manifest.permission.FOREGROUND_SERVICE
-    )
-}
-
-@RequiresApi(Build.VERSION_CODES.P)
-fun requestForegroundPermission(activity: Activity, requestId: Int) =
-    ActivityCompat.requestPermissions(
-        activity,
-        arrayOf(Manifest.permission.FOREGROUND_SERVICE),
-        requestId
-    )
 
 
 fun isAccessFineLocationGranted(context: Context): Boolean {

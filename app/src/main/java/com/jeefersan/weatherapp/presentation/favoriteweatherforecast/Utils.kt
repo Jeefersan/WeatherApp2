@@ -2,7 +2,6 @@ package com.jeefersan.weatherapp.presentation.favoriteweatherforecast
 
 import android.content.Context
 import android.graphics.Color
-import androidx.core.content.ContextCompat
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.AxisBase
@@ -14,13 +13,8 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.jeefersan.weatherapp.R
 import com.jeefersan.weatherapp.misc.toAbbreviatedWeekDay
 import com.jeefersan.weatherapp.misc.toHourlyDate
-import com.jeefersan.weatherapp.misc.toWeekDay
 import com.jeefersan.weatherapp.models.DailyWeatherModel
 import com.jeefersan.weatherapp.models.HourlyWeatherModel
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
-import kotlinx.serialization.json.Json.Default.context
 import java.util.*
 
 /**
@@ -31,7 +25,8 @@ import java.util.*
 fun setDataHourlyTemperature(
     hourlyForecast: List<HourlyWeatherModel>,
     lineChart: LineChart,
-    cityName: String
+    cityName: String,
+    context: Context
 ) {
     val entries = mutableListOf<Entry>()
     var maxTemp: Int = Int.MIN_VALUE
@@ -46,14 +41,18 @@ fun setDataHourlyTemperature(
         if (temp < minTemp) minTemp = temp
     }
 
+
+
+
     val dataSet = LineDataSet(entries, "Temperature")
         .apply {
             lineWidth = 4f
             circleRadius = 7f
+
             isHighlightEnabled = false
             setCircleColor(R.color.colorAccent)
+            valueTextColor = context.getColor(R.color.colorPrimaryDark)
             valueTextSize = 12f
-            valueTextColor = Color.GRAY
             mode = LineDataSet.Mode.LINEAR
             valueFormatter = object : ValueFormatter() {
                 override fun getFormattedValue(value: Float): String {
@@ -67,9 +66,10 @@ fun setDataHourlyTemperature(
     lineChart.apply {
         description.text = "Hourly temperatures for $cityName"
         description.textSize = 14f
-        description.textColor = context.getColor(R.color.colorPrimary)
+        description.textColor = context.getColor(R.color.redColor)
         description.isEnabled = true
         axisLeft.setDrawLabels(false)
+        legend.textColor = context.getColor(R.color.colorPrimaryDark)
         axisRight.setDrawLabels(false)
         legend.isEnabled = true
         legend.textSize = 14f
@@ -82,8 +82,10 @@ fun setDataHourlyTemperature(
         .apply {
             setDrawLabels(true)
             textSize = 12f
+            textColor = context.getColor(R.color.colorPrimary)
             setDrawGridLines(false)
-            labelCount = entries.size
+            textColor = context.getColor(R.color.colorPrimaryDark)
+            labelCount = entries.size /2
             axisMaximum = hourlyForecast.last().timeStamp + 1500.toFloat()
             axisMinimum = hourlyForecast.first().timeStamp - 1500.toFloat()
             position = XAxis.XAxisPosition.BOTTOM
@@ -99,6 +101,7 @@ fun setDataHourlyTemperature(
         .apply {
             axisMaximum = maxTemp + 3.toFloat()
             axisMinimum = minTemp - 3.toFloat()
+            textColor = context.getColor(R.color.colorPrimary)
             setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART)
             valueFormatter = object : ValueFormatter() {
                 override fun getFormattedValue(value: Float, axis: AxisBase?): String {
@@ -115,7 +118,8 @@ fun setDataHourlyTemperature(
 fun setDataHumidity(
     hourlyForecast: List<HourlyWeatherModel>,
     lineChart: LineChart,
-    cityName: String
+    cityName: String,
+    context: Context
 ) {
     val entries = mutableListOf<Entry>()
 
@@ -130,10 +134,8 @@ fun setDataHumidity(
             lineWidth = 4f
             circleRadius = 7f
             isHighlightEnabled = false
-            color = R.color.redColor
-            setCircleColor(R.color.redColor)
+            valueTextColor = context.getColor(R.color.colorPrimary)
             valueTextSize = 12f
-            valueTextColor = Color.DKGRAY
             mode = LineDataSet.Mode.LINEAR
             valueFormatter = object : ValueFormatter() {
                 override fun getFormattedValue(value: Float): String {
@@ -154,6 +156,7 @@ fun setDataHumidity(
         axisRight.setDrawLabels(false)
         legend.isEnabled = true
         legend.textSize = 14f
+        legend.textColor = context.getColor(R.color.colorPrimaryDark)
         setScaleEnabled(false)
         data = lineData
         animateX(900)
@@ -163,8 +166,9 @@ fun setDataHumidity(
         .apply {
             setDrawLabels(true)
             setDrawGridLines(false)
+    textColor = context.getColor(R.color.redColor)
             textSize = 12f
-            labelCount = entries.size
+            labelCount = entries.size /2
             axisMaximum = hourlyForecast.last().timeStamp + 1500.toFloat()
             axisMinimum = hourlyForecast.first().timeStamp - 1500.toFloat()
             position = XAxis.XAxisPosition.BOTTOM
@@ -183,6 +187,7 @@ fun setDataHumidity(
         .apply {
             axisMaximum = 100f
             axisMinimum = 0f
+            textColor = context.getColor(R.color.redColor)
             setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART)
             valueFormatter = object : ValueFormatter() {
                 override fun getFormattedValue(value: Float, axis: AxisBase?): String {
@@ -199,7 +204,8 @@ fun setDataHumidity(
 fun setDataHourlyRainVolume(
     hourlyForecast: List<HourlyWeatherModel>,
     barChart: BarChart,
-    cityName: String
+    cityName: String,
+    context: Context
 ) {
     val entries = mutableListOf<BarEntry>()
     val maxRainVolume = hourlyForecast.maxBy { it.rain ?: 0.0 }?.rain ?: 0.0
@@ -215,9 +221,8 @@ fun setDataHourlyRainVolume(
         .apply {
             barBorderWidth = 0.4f
             isHighlightEnabled = false
-            color = R.color.blue
+            color = R.color.redColor
             valueTextSize = 12f
-            valueTextColor = Color.DKGRAY
             valueFormatter = object : ValueFormatter() {
                 override fun getFormattedValue(value: Float): String {
                     if (value == 0f) return ""
@@ -237,6 +242,7 @@ fun setDataHourlyRainVolume(
         setFitBars(true)
         animateY(800)
         legend.isEnabled = true
+        legend.textColor = context.getColor(R.color.colorPrimaryDark)
         legend.textSize = 14f
         setScaleEnabled(false)
         description.text = "Rain volume per hour for $cityName"
@@ -250,8 +256,9 @@ fun setDataHourlyRainVolume(
         setDrawLabels(true)
         setDrawGridLines(false)
         position = XAxis.XAxisPosition.BOTTOM
+        textColor = context.getColor(R.color.redColor)
         textSize = 12f
-        labelCount = entries.size
+        labelCount = entries.size /2
         axisMaximum = hourlyForecast.last().timeStamp + 1500.toFloat()
         axisMinimum = hourlyForecast.first().timeStamp - 1500.toFloat()
         position = XAxis.XAxisPosition.BOTTOM
@@ -271,6 +278,7 @@ fun setDataHourlyRainVolume(
             setDrawAxisLine(false)
             setDrawLabels(true)
             setDrawGridLines(false)
+            textColor = context.getColor(R.color.redColor)
             axisMinimum = 0f
             axisMaximum = maxRainVolume.toFloat() + 4f
             valueFormatter = object : ValueFormatter() {
@@ -287,7 +295,8 @@ fun setDataHourlyRainVolume(
 
 fun setDataDaily(
     weeklyForecast: List<DailyWeatherModel>,
-    lineChart: LineChart
+    lineChart: LineChart,
+    context: Context
 ) {
     val minTempEntries = mutableListOf<Entry>()
     val maxTempEntries = mutableListOf<Entry>()
@@ -315,10 +324,10 @@ fun setDataDaily(
             lineWidth = 4f
             circleRadius = 7f
             valueTextSize = 12f
+            valueTextColor = context.getColor(R.color.redColor)
             setCircleColor(Color.GRAY)
             isHighlightEnabled = true
             color = Color.RED
-            valueTextColor = Color.GRAY
             mode = LineDataSet.Mode.CUBIC_BEZIER
             valueFormatter = object : ValueFormatter() {
                 override fun getFormattedValue(value: Float): String {
@@ -332,6 +341,7 @@ fun setDataDaily(
             lineWidth = 4f
             circleRadius = 7f
             valueTextSize = 12f
+            valueTextColor = context.getColor(R.color.colorPrimary)
             isHighlightEnabled = true
             setCircleColor(Color.GRAY)
             valueTextColor = Color.GRAY
@@ -358,6 +368,7 @@ fun setDataDaily(
         description.textColor = context.getColor(R.color.colorPrimary)
         description.isEnabled = true
         maxHighlightDistance = 12f
+        legend.textColor = context.getColor(R.color.colorPrimaryDark)
         axisRight.setDrawLabels(false)
         legend.isEnabled = true
         setScaleEnabled(false)
@@ -371,8 +382,9 @@ fun setDataDaily(
         .apply {
             setDrawLabels(true)
             setDrawGridLines(false)
+            textColor = context.getColor(R.color.redColor)
             textSize = 12f
-            labelCount = maxTempEntries.size
+            labelCount = maxTempEntries.size /2
             axisMaximum = weeklyForecast.last().date + 1500.toFloat()
             axisMinimum = weeklyForecast.first().date - 1500.toFloat()
             position = XAxis.XAxisPosition.BOTTOM
@@ -391,6 +403,7 @@ fun setDataDaily(
         .apply {
             axisMaximum = maxTmp + 3.toFloat()
             axisMinimum = minTmp - 3.toFloat()
+            textColor = context.getColor(R.color.colorPrimary)
             setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART)
             valueFormatter = object : ValueFormatter() {
                 override fun getFormattedValue(value: Float, axis: AxisBase?): String {

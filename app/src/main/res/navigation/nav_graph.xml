@@ -6,18 +6,21 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.jeefersan.weatherapp.presentation.home.HomeFragment">
+        android:name="com.jeefersan.weatherapp.presentation.home.HomeFragment"
+        android:label="Home">
         <action
             android:id="@+id/action_homeFragment_to_weeklyForecastFragment"
             app:destination="@id/nav_weekly_forecast"
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right"
             app:popEnterAnim="@android:anim/slide_in_left"
-            app:popExitAnim="@android:anim/slide_out_right" />
+            app:popExitAnim="@android:anim/slide_out_right"
+            app:popUpTo="@id/nav_home" />
     </fragment>
     <fragment
         android:id="@+id/nav_weekly_forecast"
-        android:name="com.jeefersan.weatherapp.presentation.weeklyforecast.WeeklyForecastFragment">
+        android:name="com.jeefersan.weatherapp.presentation.weeklyforecast.WeeklyForecastFragment"
+        android:label="Weekly Forecast">
         <argument
             android:name="weeklyForecastModel"
             app:argType="com.jeefersan.weatherapp.models.WeeklyForecastModel" />
@@ -30,57 +33,66 @@
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right"
             app:popEnterAnim="@android:anim/slide_in_left"
-            app:popExitAnim="@android:anim/slide_out_right" />
+            app:popExitAnim="@android:anim/slide_out_right"
+            app:popUpTo="@id/nav_home"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
-        android:id="@+id/nav_settings"
-        android:name="com.jeefersan.weatherapp.presentation.settings.SettingsFragment" />
-    <fragment
         android:id="@+id/nav_favorites"
-        android:name="com.jeefersan.weatherapp.presentation.favorites.FavoritesFragment" >
+        android:name="com.jeefersan.weatherapp.presentation.favorites.FavoritesFragment"
+        android:label="@string/favorites">
         <action
             android:id="@+id/action_nav_favorites_to_searchFragment"
             app:destination="@id/nav_search"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/enter_from_left"
+            app:exitAnim="@anim/exit_to_left"
+            app:launchSingleTop="false"
             app:popEnterAnim="@anim/fragment_fade_enter"
             app:popExitAnim="@anim/fragment_fade_exit"
             app:popUpTo="@id/nav_favorites"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="false" />
         <argument
             android:name="location"
+            android:defaultValue="@null"
             app:argType="com.jeefersan.weatherapp.models.LocationModel"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
         <action
             android:id="@+id/action_nav_favorites_to_nav_favorite_forecast"
             app:destination="@id/nav_favorite_forecast"
             app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit" />
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/nav_search"
-        android:name="com.jeefersan.weatherapp.presentation.search.SearchFragment" >
+        android:name="com.jeefersan.weatherapp.presentation.search.SearchFragment"
+        android:label="Search">
         <action
             android:id="@+id/action_searchFragment_to_nav_favorites"
             app:destination="@id/nav_favorites"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_right"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"
             app:popUpTo="@id/nav_favorites" />
     </fragment>
     <fragment
         android:id="@+id/nav_favorite_forecast"
-        android:name="com.jeefersan.weatherapp.presentation.favoriteweatherforecast.FavoriteForecastFragment" >
+        android:name="com.jeefersan.weatherapp.presentation.favoriteweatherforecast.FavoriteForecastFragment"
+        android:label="Favorite Forecast">
         <action
             android:id="@+id/action_nav_favorite_forecast_to_nav_favorites"
             app:destination="@id/nav_favorites"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit" />
+            app:enterAnim="@anim/enter_from_left"
+            app:exitAnim="@anim/exit_to_left" />
         <argument
             android:name="favoriteId"
             app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/nav_settings"
-        android:name="com.jeefersan.weatherapp.presentation.settings.SettingsFrag" />
+        android:name="com.jeefersan.weatherapp.presentation.settings.SettingsFrag"
+        android:label="@string/settings" />
 </navigation>

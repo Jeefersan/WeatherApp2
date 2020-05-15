@@ -24,6 +24,5 @@ class GetCurrentLocationUseCaseImpl(private val locationProvider: LocationProvid
         }
             .distinctUntilChanged()
             .catch { t -> emit(Result.Failure(t)) }
-            .flowOn(Dispatchers.IO)
-
+            .flowOn(Dispatchers.Main)
 }

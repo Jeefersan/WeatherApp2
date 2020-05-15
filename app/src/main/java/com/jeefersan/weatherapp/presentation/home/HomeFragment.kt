@@ -1,22 +1,17 @@
 package com.jeefersan.weatherapp.presentation.home
 
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.lifecycle.Observer
-import com.google.android.material.snackbar.Snackbar
+import androidx.lifecycle.lifecycleScope
 import com.jeefersan.weatherapp.R
 import com.jeefersan.weatherapp.databinding.FragmentHomeBinding
-import com.jeefersan.weatherapp.misc.*
+import com.jeefersan.weatherapp.misc.getOpenWeatherIconRes
+import com.jeefersan.weatherapp.misc.setAnimation
 import com.jeefersan.weatherapp.presentation.base.BaseFragment
 import com.jeefersan.weatherapp.presentation.base.BaseViewModel
 import com.jeefersan.weatherapp.presentation.home.adapters.HourlyWeatherAdapter
 import com.jeefersan.weatherapp.presentation.home.viewmodels.HomeViewModelImpl
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -47,29 +42,35 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override fun initObservers() {
         super.initObservers()
-        viewModel.currentWeather.observe(viewLifecycleOwner, Observer {
-            getBinding().apply {
-                currentWeatherModel = it
-                Log.d("Home", "icon = ${it.icon}")
-                ivWeather.setImageResource(getOpenWeatherIconRes(it.icon))
-            }
-        })
 
-        viewModel.loadingStatus.observe(viewLifecycleOwner, Observer {
-            getBinding().apply {
-                tvCity.setAnimation(requireContext(), R.anim.anim_translate)
-                tvTemperature.setAnimation(requireContext(), R.anim.anim_translate)
-                ivWeather.setAnimation(requireContext(), R.anim.anim_scale)
-            }
-        })
+        lifecycleScope.launchWhenCreated {
 
-        viewModel.hourlyForecast.observe(
-            viewLifecycleOwner,
-            Observer
-            {
-                getBinding().rvHourlyWeather.adapter = HourlyWeatherAdapter(it.hourlyForecast)
+            viewModel.currentWeather.observe(viewLifecycleOwner, Observer {
+                getBinding().apply {
+                    currentWeatherModel = it
+                    ivWeather.setImageResource(getOpenWeatherIconRes(it.icon))
+                }
             })
-    }
 
+            viewModel.loadingStatus.observe(viewLifecycleOwner, Observer {
+
+                getBinding().apply {
+                    tvCity.setAnimation(requireContext(), R.anim.translate)
+                    tvTemperature.setAnimation(requireContext(), R.anim.translate)
+                    ivWeather.setAnimation(requireContext(), R.anim.scale)
+                }
+
+            })
+
+            viewModel.hourlyForecast.observe(
+                viewLifecycleOwner,
+                Observer
+                {
+                    getBinding().rvHourlyWeather.adapter = HourlyWeatherAdapter(it.hourlyForecast)
+                })
+
+        }
+
+    }
 
 }

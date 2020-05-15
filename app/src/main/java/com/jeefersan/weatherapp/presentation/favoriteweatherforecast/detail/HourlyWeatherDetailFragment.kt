@@ -14,9 +14,9 @@ import com.jeefersan.weatherapp.presentation.favoriteweatherforecast.setDataHour
 import com.jeefersan.weatherapp.presentation.favoriteweatherforecast.setDataHourlyTemperature
 import com.jeefersan.weatherapp.presentation.favoriteweatherforecast.setDataHumidity
 import com.jeefersan.weatherapp.presentation.favoriteweatherforecast.viewmodels.FavoriteForecastViewModelImpl
-import kotlinx.android.synthetic.main.fragment_detail_hourly.*
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.getViewModel
+
 
 /**
  * Created by JeeferSan on 11-5-20.
@@ -52,6 +52,7 @@ class HourlyWeatherDetailFragment : Fragment() {
         val position = requireArguments().getInt(ARG_POSITION)
         var cityName = ""
 
+
         viewModel.cityName.observe(viewLifecycleOwner, Observer { name ->
             cityName = name
         })
@@ -60,17 +61,17 @@ class HourlyWeatherDetailFragment : Fragment() {
             when (position) {
                 0 -> {
                     binding.barChart.visibility = View.GONE
-                    lifecycleScope.launch {  setDataHourlyTemperature(it, binding.lineChart, cityName) }
+                    lifecycleScope.launch {  setDataHourlyTemperature(it, binding.lineChart, cityName, requireContext()) }
                 }
                 1 -> {
                     binding.barChart.visibility = View.VISIBLE
                     binding.lineChart.visibility = View.GONE
-                    lifecycleScope.launch {  setDataHourlyRainVolume(it, binding.barChart, cityName) }
+                    lifecycleScope.launch {  setDataHourlyRainVolume(it, binding.barChart, cityName, requireContext()) }
                 }
                 else -> {
                     binding.lineChart.visibility = View.VISIBLE
                     binding.barChart.visibility = View.GONE
-                    lifecycleScope.launch { setDataHumidity(it, binding.lineChart, cityName) }
+                    lifecycleScope.launch { setDataHumidity(it, binding.lineChart, cityName, requireContext()) }
                 }
             }
 

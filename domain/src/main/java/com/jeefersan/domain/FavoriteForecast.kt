@@ -5,9 +5,6 @@ package com.jeefersan.domain
  */
 
 
-data class FavoriteForecast(
-    val favorite: Favorite,
-    val hourlyForecast: HourlyForecast)
 
 data class FavoriteCurrentWeather(
     val favorite: Favorite,

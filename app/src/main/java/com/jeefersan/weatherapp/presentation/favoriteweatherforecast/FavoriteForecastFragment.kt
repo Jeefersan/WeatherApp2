@@ -1,7 +1,5 @@
 package com.jeefersan.weatherapp.presentation.favoriteweatherforecast
 
-import android.R.layout
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
@@ -27,7 +25,7 @@ import org.koin.core.parameter.parametersOf
 class FavoriteForecastFragment : BaseFragment<FragmentFavoriteWeatherForecastBinding>() {
     private val args: FavoriteForecastFragmentArgs by navArgs()
 
-    private val viewModel: FavoriteForecastViewModelImpl by viewModel { parametersOf(args.favoriteId) }
+    private val viewModel: FavoriteForecastViewModelImpl by viewModel { parametersOf(args.favoriteId ) }
 
     override val layoutId: Int = R.layout.fragment_favorite_weather_forecast
 
@@ -57,7 +55,6 @@ class FavoriteForecastFragment : BaseFragment<FragmentFavoriteWeatherForecastBin
         viewModel.cityName.observe(this, Observer { getBinding().current.cityName = it })
         viewModel.currentWeather.observe(this, Observer { getBinding().current.currentWeather = it })
         viewModel.showDialog.observe(this, Observer {
-
             showDailyCustomDialog(it) })
 
     }
@@ -91,6 +88,7 @@ class FavoriteForecastFragment : BaseFragment<FragmentFavoriteWeatherForecastBin
             tab.text = dailyDetailsArray[position]
         }.attach()
     }
+
 
 
     override fun onDestroy() {

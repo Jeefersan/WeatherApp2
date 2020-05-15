@@ -56,7 +56,6 @@
                         android:gravity="center_horizontal"
                         android:text="@{cityName}"
                         android:textAllCaps="true"
-                        android:textColor="#C104254A"
                         android:textSize="28sp"
                         tools:text="The Hague" />
 
@@ -65,8 +64,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="@{@string/binding_temp(currentWeather.currentTemp)}"
-                        android:textColor="#AB151313"
+                        app:tempAnimation="@{currentWeather.currentTemp}"
                         android:textSize="36sp"
                         tools:text="@string/placeholder_temp" />
                 </LinearLayout>

@@ -14,12 +14,10 @@ import com.jeefersan.data.weatherforecast.datasources.remote.WeatherRemoteDataSo
 import com.jeefersan.data.weatherforecast.datasources.remote.WeatherRemoteDataSourceImpl
 import com.jeefersan.data.weatherforecast.repositories.WeatherRepository
 import com.jeefersan.data.weatherforecast.repositories.WeatherRepositoryImpl
-import com.jeefersan.usecases.favorites.GetCurrentWeathersForFavorites
-import com.jeefersan.usecases.favorites.GetCurrentWeathersForFavoritesImpl
+import com.jeefersan.usecases.favorites.GetCurrentWeathersForFavoritesUseCase
+import com.jeefersan.usecases.favorites.GetCurrentWeathersForFavoritesUseCaseImpl
 import com.jeefersan.usecases.favorites.addfavorite.AddFavoriteUseCase
 import com.jeefersan.usecases.favorites.addfavorite.AddFavoriteUseCaseImpl
-import com.jeefersan.usecases.favorites.getallfavorites.GetAllFavoritesUseCase
-import com.jeefersan.usecases.favorites.getallfavorites.GetAllFavoritesUseCaseImpl
 import com.jeefersan.usecases.favorites.removefavorite.RemoveFavoriteUseCase
 import com.jeefersan.usecases.favorites.removefavorite.RemoveFavoriteUseCaseImpl
 import com.jeefersan.usecases.location.getcurrentlocation.GetCurrentLocationUseCase
@@ -32,11 +30,11 @@ import com.jeefersan.usecases.weatherforecast.GetCompleteWeatherForecastForFavor
 import com.jeefersan.usecases.weatherforecast.GetCompleteWeatherForecastForFavoriteUseCaseImpl
 import com.jeefersan.usecases.weatherforecast.GetCompleteWeatherForecastUseCase
 import com.jeefersan.usecases.weatherforecast.GetCompleteWeatherForecastUseCaseUsecaseImpl
+import com.jeefersan.weatherapp.framework.configs.ConfigsManager
 import com.jeefersan.weatherapp.framework.db.LocalDatabase
 import com.jeefersan.weatherapp.framework.location.LocationProviderImpl
 import com.jeefersan.weatherapp.framework.location.LocationRemoteDataSourceImpl
 import com.jeefersan.weatherapp.framework.location.LocationRepositoryImpl
-import com.jeefersan.weatherapp.framework.preferences.PreferenceManager
 import com.jeefersan.weatherapp.models.WeeklyForecastModel
 import com.jeefersan.weatherapp.presentation.favorites.viewmodels.FavoritesViewModelImpl
 import com.jeefersan.weatherapp.presentation.favoriteweatherforecast.viewmodels.FavoriteForecastViewModelImpl
@@ -57,7 +55,7 @@ import org.koin.dsl.module
 
 
 val applicationModule = module {
-    single { PreferenceManager(get()) }
+    single { ConfigsManager(get(), get()) }
 }
 
 val networkModule = module {
@@ -86,8 +84,7 @@ val useCaseModule = module {
             get()
         )
     }
-    factory<GetCurrentWeathersForFavorites> { GetCurrentWeathersForFavoritesImpl(get(), get()) }
-    factory<GetAllFavoritesUseCase> { GetAllFavoritesUseCaseImpl(get()) }
+    factory<GetCurrentWeathersForFavoritesUseCase> { GetCurrentWeathersForFavoritesUseCaseImpl(get(), get()) }
     factory<SearchLocationsUseCase> {
         SearchLocationsUseCaseImpl(
             get()
@@ -108,7 +105,6 @@ val useCaseModule = module {
 }
 
 val weatherModule = module {
-//    single<CurrentWeatherRemoteDataSource> { CurrentWeatherRemoteDataSourceImpl(get()) }
     single<WeatherRepository> {
         WeatherRepositoryImpl(
             get(),
@@ -168,7 +164,6 @@ val viewModelModule = module {
     viewModel { SettingsViewModelImpl() }
     viewModel {
         FavoritesViewModelImpl(
-            get(),
             get(),
             get(),
             get()

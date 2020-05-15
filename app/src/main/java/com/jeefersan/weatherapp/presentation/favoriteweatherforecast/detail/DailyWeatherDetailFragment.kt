@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
@@ -15,19 +14,11 @@ import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.jeefersan.weatherapp.R
 import com.jeefersan.weatherapp.databinding.FragmentDetailDailyBinding
-import com.jeefersan.weatherapp.databinding.FragmentDetailHourlyBinding
 import com.jeefersan.weatherapp.models.DailyWeatherModel
 import com.jeefersan.weatherapp.presentation.favoriteweatherforecast.setDataDaily
-import com.jeefersan.weatherapp.presentation.favoriteweatherforecast.setDataHourlyRainVolume
-import com.jeefersan.weatherapp.presentation.favoriteweatherforecast.setDataHourlyTemperature
-import com.jeefersan.weatherapp.presentation.favoriteweatherforecast.setDataHumidity
 import com.jeefersan.weatherapp.presentation.favoriteweatherforecast.viewmodels.FavoriteForecastViewModelImpl
 import com.jeefersan.weatherapp.presentation.weeklyforecast.DailyWeatherAdapter
 import kotlinx.android.synthetic.main.fragment_detail_daily.*
-import kotlinx.android.synthetic.main.fragment_detail_hourly.*
-import kotlinx.android.synthetic.main.fragment_detail_hourly.line_chart
-import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.getViewModel
 
@@ -68,20 +59,24 @@ class DailyWeatherDetailFragment : Fragment(), OnChartValueSelectedListener {
         viewModel.weeklyForecastModel.observe(viewLifecycleOwner, Observer { list ->
             when (position) {
                 0 -> {
-                    binding.rvDaily.visibility = View.VISIBLE
-                    binding.lineChart.visibility = View.GONE
-                    dailyWeatherAdapter = DailyWeatherAdapter()
-                    dailyWeatherAdapter.setData(list)
-                    rv_daily.adapter = dailyWeatherAdapter
+                    lifecycleScope.launch {
+                        binding.rvDaily.visibility = View.VISIBLE
+                        binding.lineChart.visibility = View.GONE
+                        dailyWeatherAdapter = DailyWeatherAdapter()
+                        dailyWeatherAdapter.setData(list)
+                        rv_daily.adapter = dailyWeatherAdapter
+                    }
                 }
                 else -> {
-                    binding.rvDaily.visibility = View.GONE
-                    dailyWeatherList = list
-
-                    binding.lineChart.visibility = View.VISIBLE
                     lifecycleScope.launch {
-                        setDataDaily(list, binding.lineChart)
-                        binding.lineChart.setOnChartValueSelectedListener(this@DailyWeatherDetailFragment)
+                        binding.rvDaily.visibility = View.GONE
+                        dailyWeatherList = list
+
+                        binding.lineChart.visibility = View.VISIBLE
+                        lifecycleScope.launch {
+                            setDataDaily(list, binding.lineChart, requireContext())
+                            binding.lineChart.setOnChartValueSelectedListener(this@DailyWeatherDetailFragment)
+                        }
                     }
                 }
             }

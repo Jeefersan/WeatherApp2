@@ -1,5 +1,6 @@
 package com.jeefersan.weatherapp.misc
 
+import android.animation.ValueAnimator
 import android.graphics.Color
 import android.view.View
 import android.widget.ImageView
@@ -36,6 +37,20 @@ object BindingAdapters {
 
     }
 
+    //android:text="@{@string/binding_temp(currentWeather.currentTemp)}"
+
+    @BindingAdapter("tempAnimation")
+    @JvmStatic
+    fun setAnimation(textView: TextView, finalValue: Int){
+        val startValue = (finalValue / 3)
+        ValueAnimator.ofInt(startValue, finalValue)
+            .apply {
+                duration = 2000
+                addUpdateListener { textView.text = it.animatedValue.toString() + "°C" }
+                start()
+            }
+    }
+
 
 
     @BindingAdapter("setWeatherIcon")
@@ -45,6 +60,13 @@ object BindingAdapters {
             .load(getWeatherIconResFromInt(icon))
             .centerCrop()
             .into(view)
+    }
+
+
+    @BindingAdapter("setIcon")
+    @JvmStatic
+    fun setIconDefault(view: ImageView, icon: String) {
+        view.setImageResource(getWeatherIconResFromInt(icon))
     }
 
 

@@ -15,7 +15,6 @@ class AddFavoriteUseCaseImpl(
     AddFavoriteUseCase {
     override suspend fun invoke(location: Location): Result<Unit> =
         try {
-
             val favorite = Favorite(
                 favoriteId = 0,
                 cityName = location.cityName,

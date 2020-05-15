@@ -40,8 +40,6 @@ fun HourlyWeather.mapToHourlyWeatherModel(): HourlyWeatherModel =
 fun DailyWeather.mapToDailyWeatherModel(): DailyWeatherModel =
     DailyWeatherModel(minTemp, maxTemp, date, wind, humidity, icon, description)
 
-fun Favorite.mapToPresentation(): FavoriteModel =
-    FavoriteModel(favoriteId, cityName)
 
 fun FavoriteCurrentWeather.mapToPresentation() =
     FavoriteCurrentWeatherModel(

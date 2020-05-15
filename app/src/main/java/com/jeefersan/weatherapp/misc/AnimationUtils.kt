@@ -3,12 +3,14 @@ package com.jeefersan.weatherapp.misc
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.animation.Transformation
+import android.widget.TextView
 
 /**
  * Created by JeeferSan on 30-4-20.
@@ -16,7 +18,7 @@ import android.view.animation.Transformation
 
 
 fun View.setRotateAnimation() {
-    val rotater = ObjectAnimator.ofFloat(this, View.ROTATION, -360f, 0f)
+    ObjectAnimator.ofFloat(this, View.ROTATION, -360f, 0f)
         .apply {
             duration = 600
             disableButtonDuringAnimation(this@setRotateAnimation)
@@ -25,6 +27,14 @@ fun View.setRotateAnimation() {
 
 }
 
+fun TextView.increaseAnimate(startValue: Int, finalValue: Int, textView: TextView) {
+    val valueAnimator = ValueAnimator.ofInt(startValue, finalValue)
+        .apply {
+            duration = 2800
+            addUpdateListener { textView.text = it.animatedValue.toString() }
+            start()
+        }
+}
 
 private fun ObjectAnimator.disableButtonDuringAnimation(view: View) {
     addListener(object : AnimatorListenerAdapter() {

@@ -43,6 +43,7 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(),
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
+
     override fun initObservers() {
         super.initObservers()
         viewModel.favoriteCurrentWeatherModels.observe(viewLifecycleOwner, Observer { favorites ->
@@ -50,6 +51,7 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(),
                 setHasFixedSize(true)
                 adapter = FavoriteCurrentWeatherAdapter(this@FavoritesFragment, favorites)
             }
+
         })
     }
 

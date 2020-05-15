@@ -3,16 +3,19 @@ package com.jeefersan.weatherapp.presentation.home.viewmodels
 import android.util.Log
 import androidx.lifecycle.*
 import com.jeefersan.domain.Location
-import com.jeefersan.usecases.weatherforecast.GetCompleteWeatherForecastUseCase
 import com.jeefersan.usecases.location.getcurrentlocation.GetCurrentLocationUseCase
+import com.jeefersan.usecases.weatherforecast.GetCompleteWeatherForecastUseCase
 import com.jeefersan.util.Result
+import com.jeefersan.weatherapp.misc.mapToPresentation
+import com.jeefersan.weatherapp.models.CurrentWeatherModel
+import com.jeefersan.weatherapp.models.HourlyForecastModel
+import com.jeefersan.weatherapp.models.WeatherForecastModel
+import com.jeefersan.weatherapp.models.WeeklyForecastModel
 import com.jeefersan.weatherapp.presentation.base.BaseViewModel
 import com.jeefersan.weatherapp.presentation.base.LoadingStatus
 import com.jeefersan.weatherapp.presentation.home.HomeFragmentDirections
-import com.jeefersan.weatherapp.models.*
-import com.jeefersan.weatherapp.misc.mapToPresentation
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 /**
@@ -22,7 +25,6 @@ import kotlinx.coroutines.launch
 @ExperimentalCoroutinesApi
 class HomeViewModelImpl
     (
-//    private val getCurrentWeatherForCurrentLocationUseCase: GetWeatherForCurrentLocationUseCase,
     private val getCurrentLocationUseCase: GetCurrentLocationUseCase,
     private val getCompleteWeatherForecastUseCase: GetCompleteWeatherForecastUseCase
 ) : HomeViewModel, BaseViewModel() {

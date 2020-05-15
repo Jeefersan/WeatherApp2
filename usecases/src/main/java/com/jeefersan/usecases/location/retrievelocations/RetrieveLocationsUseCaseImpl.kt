@@ -2,7 +2,6 @@ package com.jeefersan.usecases.location.retrievelocations
 
 import com.jeefersan.data.location.repositories.LocationRepository
 import com.jeefersan.domain.Location
-import com.jeefersan.usecases.location.retrievelocations.RetrieveLocationsUseCase
 import com.jeefersan.util.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -24,6 +23,6 @@ class RetrieveLocationsUseCaseImpl(private val locationRepository: LocationRepos
                 }
             }
             .catch { t -> emit(Result.Failure(t)) }
-            .flowOn(Dispatchers.Default)
+            .flowOn(Dispatchers.Main)
 
 }
