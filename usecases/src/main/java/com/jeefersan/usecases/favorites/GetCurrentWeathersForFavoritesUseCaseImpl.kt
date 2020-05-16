@@ -19,14 +19,13 @@ class GetCurrentWeathersForFavoritesUseCaseImpl(
     private val favoritesRepository: FavoritesRepository,
     private val weatherRepository: WeatherRepository
 ) : GetCurrentWeathersForFavoritesUseCase {
-    override suspend operator fun invoke(): Result<List<FavoriteCurrentWeather>> {
-        val favorites = kotlin.run {
-            val favoritesResult = favoritesRepository.getAllFavorites()
-            if (favoritesResult is Result.Failure) return favoritesResult
-            (favoritesResult as Result.Success).data
-        }
+    override suspend operator fun invoke(): Result<List<FavoriteCurrentWeather>> =
         try {
-
+            val favorites = kotlin.run {
+                val favoritesResult = favoritesRepository.getAllFavorites()
+                if (favoritesResult is Result.Failure) return favoritesResult
+                (favoritesResult as Result.Success).data
+            }
             val favoriteCurrentWeatherList = coroutineScope {
                 async {
                     val list = mutableListOf<FavoriteCurrentWeather>()
@@ -41,15 +40,17 @@ class GetCurrentWeathersForFavoritesUseCaseImpl(
                                 list.add(FavoriteCurrentWeather(favorite, result.data))
                                 launch { favoritesRepository.setCurrentUpdate(favorite.favoriteId) }
                             }
+                            else{
+                               Result.Failure(Throwable("Failed"))
+                            }
                         }
                     }.awaitAll()
                     list
                 }
             }.await()
-            return Result.Success(favoriteCurrentWeatherList.toList())
+            Result.Success(favoriteCurrentWeatherList.toList())
         } catch (throwable: Throwable) {
             Result.Failure(throwable)
         }
-        return Result.Failure(throwable = Throwable("Failed at usecase"))
-    }
+
 }

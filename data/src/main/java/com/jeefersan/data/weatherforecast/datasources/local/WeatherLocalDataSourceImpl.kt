@@ -29,7 +29,7 @@ class WeatherLocalDataSourceImpl(
             hourlyForecastDao.deleteHourlyForecastsById(id)
             weeklyForecastDao.deleteWeeklyForecastById(id)
             Result.Success(Unit)
-        }catch (throwable: Throwable){
+        } catch (throwable: Throwable) {
             Result.Failure(throwable)
         }
 
