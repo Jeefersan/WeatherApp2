@@ -25,11 +25,11 @@ data class HourlyWeatherEntity(
     @PrimaryKey
     @ColumnInfo(name="favorite_id")
     val favoriteId: Int,
-    val temperature: Int,
-    val timeStamp: Long,
-    val weatherIcon: String,
-    val humidity: Int,
-    val windSpeed: Int,
-    val weatherCode: Int,
+    val temperature: Int?,
+    val timeStamp: Long?,
+    val weatherIcon: String?,
+    val humidity: Int?,
+    val windSpeed: Int?,
+    val weatherCode: Int?,
     val rain: Double?
 )

@@ -8,11 +8,11 @@ data class HourlyForecast(val hourlyForecast: List<HourlyWeather>)
 
 data class HourlyWeather(
     val id: Int,
-    val temperature: Int,
-    val timeStamp: Long,
-    val weatherIcon: String,
-    val humidity: Int,
-    val windSpeed: Int,
-    val weatherCode: Int,
-    val rain: Double? = 0.0
+    val temperature: Int?,
+    val timeStamp: Long?,
+    val weatherIcon: String?,
+    val humidity: Int?,
+    val windSpeed: Int?,
+    val weatherCode: Int?,
+    val rain: Double?
 )

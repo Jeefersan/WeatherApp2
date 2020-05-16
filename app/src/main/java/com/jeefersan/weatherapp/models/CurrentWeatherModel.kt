@@ -9,13 +9,13 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class CurrentWeatherModel(
-    val id: Int,
-    val currentTemp: Int,
-    val timestamp: Long,
-    val sunset: Long,
-    val windSpeed: Int,
-    val humidity: Int,
-    val cloudiness: Int,
-    val icon: String,
-    val description: String
+    val id: Int?=0,
+    val currentTemp: Int?=0,
+    val timestamp: Long?=0,
+    val sunset: Long?=0,
+    val windSpeed: Int?=0,
+    val humidity: Int?=0,
+    val cloudiness: Int?=0,
+    val icon: String?,
+    val description: String?=""
 ) : Parcelable

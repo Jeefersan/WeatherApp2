@@ -57,7 +57,7 @@ class HomeViewModelImpl
         }
 
     override val isSunset: LiveData<Boolean> = currentWeather.map { currentWeather ->
-        System.currentTimeMillis() <= currentWeather.sunset
+        System.currentTimeMillis() <= currentWeather.sunset!!
     }
 
     init {

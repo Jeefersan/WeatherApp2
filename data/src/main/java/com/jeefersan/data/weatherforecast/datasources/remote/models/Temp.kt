@@ -7,15 +7,15 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class Temp(
     @Json(name = "day")
-    val day: Double,
+    val day: Double? = 0.0,
     @Json(name = "eve")
-    val eve: Double,
+    val eve: Double? = 0.0,
     @Json(name = "max")
-    val max: Double,
+    val max: Double? = 0.0,
     @Json(name = "min")
-    val min: Double,
+    val min: Double? = 0.0,
     @Json(name = "morn")
-    val morn: Double,
+    val morn: Double? = 0.0,
     @Json(name = "night")
-    val night: Double
+    val night: Double? = 0.0
 )

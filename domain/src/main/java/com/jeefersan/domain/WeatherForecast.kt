@@ -5,7 +5,7 @@ package com.jeefersan.domain
  */
 
 data class WeatherForecast(
-    val id: Long ?= 0,
+    val id: Long?,
     val currentWeather: CurrentWeather,
     val hourlyForecast: HourlyForecast,
     val weeklyForecast: WeeklyForecast

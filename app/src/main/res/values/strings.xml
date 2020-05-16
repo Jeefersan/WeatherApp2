@@ -29,6 +29,9 @@
     <string name="ALGOLIA_API_KEY">94134bf29dd613c3f1052eb7888d8158</string>
     <string name="ALGOLIA_INDEX_NAME">Locations</string>
 
+    <string name="my_email">ksng.ge@gmail.com</string>
+    <string name="my_subject">About: WeatherApp</string>
+
     <string name="key_notifications_daily">notifications_enabled</string>
     <string name="key_notifications_rain">notifications_rain</string>
     <string name="key_setting_daily">setting_daily</string>
@@ -83,6 +86,13 @@
     <string name="appwidget_text">EXAMPLE</string>
     <string name="configure">Configure</string>
     <string name="add_widget">Add widget</string>
+    <string name="key_build_version">build_version</string>
+    <string name="key_version_name">version_name</string>
+    <string name="key_email_me">email_me</string>
+    <string name="key_github">github</string>
+    <string name="key_about_this_app">about_this_app</string>
+    <string name="weather_app">Weather App</string>
+    <string name="contact_me">Contact me</string>
 
 
 </resources>

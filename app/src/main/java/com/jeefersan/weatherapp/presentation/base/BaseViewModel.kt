@@ -1,5 +1,6 @@
 package com.jeefersan.weatherapp.presentation.base
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavDirections
@@ -14,7 +15,7 @@ enum class LoadingStatus { LOADING, ERROR, DONE }
 
 abstract class BaseViewModel : ViewModel() {
     private val _loadingStatus = MutableLiveData<LoadingStatus>()
-    val loadingStatus = _loadingStatus
+    val loadingStatus : LiveData<LoadingStatus> = _loadingStatus
 
     val navigation = SingleLiveEvent<NavigationCommand>()
     val snackbar = SingleLiveEvent<String>()

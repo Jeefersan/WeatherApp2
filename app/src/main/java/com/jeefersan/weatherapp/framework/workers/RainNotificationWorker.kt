@@ -53,15 +53,15 @@ class RainNotificationWorker(
             }
             .flowOn(Dispatchers.IO)
             .map { list ->
-                val result = list.take(12).filter { hourly ->
-                    hourly.weather.first().description.contains("rain", true)
+                val result = list?.take(12)?.filter { hourly ->
+                    hourly!!.weather!!.first()!!.description!!.contains("rain", true)
                 }
                 result
             }
             .flowOn(Dispatchers.Default)
             .onCompletion { Log.d("RainNotificationWorker", "onCompletion") }
             .collect { list ->
-                if (list.isEmpty()) {
+                if (list.isNullOrEmpty()) {
                     return@collect
                 } else {
                     applicationContext.showRainNotification(list, cityName)

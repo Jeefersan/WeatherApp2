@@ -20,12 +20,17 @@ class GetCurrentWeathersForFavoritesUseCaseImpl(
     private val weatherRepository: WeatherRepository
 ) : GetCurrentWeathersForFavoritesUseCase {
     override suspend operator fun invoke(): Result<List<FavoriteCurrentWeather>> =
+
         try {
             val favorites = kotlin.run {
                 val favoritesResult = favoritesRepository.getAllFavorites()
-                if (favoritesResult is Result.Failure) return favoritesResult
+                if (favoritesResult is Result.Failure) favoritesResult
                 (favoritesResult as Result.Success).data
             }
+            if (favorites.isEmpty()) {
+                Result.Failure(Throwable("FavoritesList is empty"))
+            }
+
             val favoriteCurrentWeatherList = coroutineScope {
                 async {
                     val list = mutableListOf<FavoriteCurrentWeather>()
@@ -48,6 +53,10 @@ class GetCurrentWeathersForFavoritesUseCaseImpl(
                     list
                 }
             }.await()
+            if (favoriteCurrentWeatherList.isEmpty()) {
+                Result.Failure(Throwable("favoriteCurrentWeatherList is empty"))
+            }
+
             Result.Success(favoriteCurrentWeatherList.toList())
         } catch (throwable: Throwable) {
             Result.Failure(throwable)

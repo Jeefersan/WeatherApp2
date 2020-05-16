@@ -49,7 +49,7 @@ class FavoritesViewModelImpl(
             when (val result = getCurrentWeathersForFavoritesUseCase()) {
                 is Result.Failure -> {
                     setStatus(LoadingStatus.ERROR)
-                    Log.d("FavoritesViewModel", "retrieveForecasts failed + ${result.throwable}")
+                    Log.d("FavoritesViewModel", "retrieveForecasts failed + ${result.throwable.toString()}")
                 }
                 is Result.Success -> {
                     setStatus(LoadingStatus.DONE)
@@ -89,7 +89,7 @@ class FavoritesViewModelImpl(
                     showSnackbar("Added ${location.cityName} to your favorites")
                     Log.d(
                         "FavoritesViewModel",
-                        "New favorite location = ${location.cityName} and id"
+                        "New favorite location = ${location.cityName}"
                     )
                     retrieveForecasts()
                 }

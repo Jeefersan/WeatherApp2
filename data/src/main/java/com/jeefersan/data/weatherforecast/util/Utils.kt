@@ -4,7 +4,10 @@ import com.jeefersan.data.favorites.datasources.local.models.FavoriteEntity
 import com.jeefersan.data.weatherforecast.datasources.local.db.models.currentweather.CurrentWeatherEntity
 import com.jeefersan.data.weatherforecast.datasources.local.db.models.hourlyforecast.HourlyWeatherEntity
 import com.jeefersan.data.weatherforecast.datasources.local.db.models.weeklyforecast.DailyWeatherEntity
-import com.jeefersan.domain.*
+import com.jeefersan.domain.CurrentWeather
+import com.jeefersan.domain.DailyWeather
+import com.jeefersan.domain.Favorite
+import com.jeefersan.domain.HourlyWeather
 
 /**
  * Created by JeeferSan on 3-5-20.
@@ -26,12 +29,12 @@ fun CurrentWeather.mapToLocalWithId(id: Int): CurrentWeatherEntity = CurrentWeat
 fun CurrentWeatherEntity.mapToDomain(): CurrentWeather = CurrentWeather(
     id = favoriteId,
     description = description,
-    icon = icon,
+    icon = icon!!,
     humidity = humidity,
     windSpeed = windSpeed,
-    sunset = sunset,
-    currentTemp = currentTemp,
-    timestamp = timestamp,
+    sunset = sunset!!,
+    currentTemp = currentTemp!!,
+    timestamp = timestamp!!,
     cloudiness = cloudiness
 )
 

@@ -34,9 +34,6 @@ class DailyCustomDialog(private val dailyWeatherModel: DailyWeatherModel) : Dial
             .setCancelable(true)
 
 
-
-
-
         return builder.create()
     }
 }

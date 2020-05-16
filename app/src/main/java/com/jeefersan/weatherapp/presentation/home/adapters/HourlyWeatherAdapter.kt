@@ -5,7 +5,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.jeefersan.weatherapp.databinding.ListItemHourlyWeatherBinding
-import com.jeefersan.weatherapp.misc.*
+import com.jeefersan.weatherapp.misc.setRotateAnimation
+import com.jeefersan.weatherapp.misc.toHourlyDate
 import com.jeefersan.weatherapp.models.HourlyWeatherModel
 import com.jeefersan.weatherapp.models.getIconRes
 
@@ -34,7 +35,7 @@ class HourlyWeatherAdapter(private val items: List<HourlyWeatherModel>) :
         @SuppressLint("SetTextI18n")
         fun bind(hourlyWeather: HourlyWeatherModel) {
             binding.apply {
-                tvTime.text = hourlyWeather.timeStamp.toHourlyDate()
+                tvTime.text = hourlyWeather.timeStamp?.toHourlyDate()
                 ivWeatherIcon.setImageResource(hourlyWeather.getIconRes())
                 ivWeatherIcon.setOnClickListener { it.setRotateAnimation() }
                 tvTemperature.text = """${hourlyWeather.temperature}°C"""

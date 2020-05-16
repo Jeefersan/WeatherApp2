@@ -3,11 +3,14 @@ package com.jeefersan.weatherapp.misc
 import android.animation.ValueAnimator
 import android.graphics.Color
 import android.view.View
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.jeefersan.weatherapp.R
 import com.jeefersan.weatherapp.R.drawable
 import com.jeefersan.weatherapp.presentation.base.LoadingStatus
 import java.util.*
@@ -99,6 +102,24 @@ object BindingAdapters {
         }
     }
 
+    @BindingAdapter("webStatus")
+    @JvmStatic
+    fun bindWebStatus(statusImageView: ImageView, status: LoadingStatus?) {
+        when (status) {
+            LoadingStatus.LOADING -> {
+                statusImageView.visibility = View.VISIBLE
+                statusImageView.setImageResource(R.drawable.loading_web)
+            }
+            LoadingStatus.ERROR -> {
+                statusImageView.visibility = View.VISIBLE
+                statusImageView.setImageResource(R.drawable.ic_error_black_24dp)
+            }
+            LoadingStatus.DONE -> {
+                statusImageView.visibility = View.GONE
+            }
+        }
+    }
+
     @BindingAdapter("viewVisibility")
     @JvmStatic
     fun setVisible(view: View, status: LoadingStatus) {
@@ -116,6 +137,19 @@ object BindingAdapters {
         } else {
             view.visibility = View.GONE
         }
+    }
+
+    @BindingAdapter("webViewClient")
+    @JvmStatic
+    fun setWebViewClient(webView: WebView, webViewClient: WebViewClient) {
+        webView.webViewClient = webViewClient
+    }
+
+
+    @BindingAdapter("webUri")
+    @JvmStatic
+    fun WebView.loadRepoUrl(url: String) {
+        run { loadUrl(url) }
     }
 
 

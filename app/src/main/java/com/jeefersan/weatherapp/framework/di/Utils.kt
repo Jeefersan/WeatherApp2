@@ -26,6 +26,7 @@ fun provideInterceptor() = Interceptor { chain ->
     val url = chain.request().url.newBuilder().addQueryParameter("appid",
         WEATHER_API_KEY
     )
+
         .build()
     val request = chain.request()
         .newBuilder()

@@ -84,4 +84,6 @@ class ConfigsManager(
 
     fun isDarkThemeEnabled()= sharedPreferences.getBoolean(context.resources.getString(R.string.key_dark_theme), true)
 
+
+
 }

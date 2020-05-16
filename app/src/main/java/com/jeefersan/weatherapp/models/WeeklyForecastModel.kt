@@ -12,11 +12,11 @@ data class WeeklyForecastModel(val weeklyForecast: List<DailyWeatherModel>) : Pa
 
 @Parcelize
 data class DailyWeatherModel(
-    val minTemp: Int,
-    val maxTemp: Int,
-    val date: Long,
-    val wind: Int,
-    val humidity: Int,
-    val icon: String,
-    val description: String
+    val minTemp: Int?=0,
+    val maxTemp: Int?=0,
+    val date: Long?=0,
+    val wind: Int?=0,
+    val humidity: Int?=0,
+    val icon: String?,
+    val description: String?=""
 ) : Parcelable

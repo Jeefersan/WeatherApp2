@@ -35,10 +35,12 @@ fun setDataHourlyTemperature(
     for (i in hourlyForecast.indices) {
         val temp = hourlyForecast[i].temperature
         entries.add(
-            Entry(hourlyForecast[i].timeStamp.toFloat(), hourlyForecast[i].temperature.toFloat())
+            Entry(hourlyForecast[i].timeStamp!!.toFloat(), hourlyForecast[i].temperature!!.toFloat())
         )
-        if (temp > maxTemp) maxTemp = temp
-        if (temp < minTemp) minTemp = temp
+        if (temp != null) {
+            if (temp > maxTemp) maxTemp = temp
+            if (temp < minTemp) minTemp = temp
+        }
     }
 
 
@@ -86,8 +88,8 @@ fun setDataHourlyTemperature(
             setDrawGridLines(false)
             textColor = context.getColor(R.color.colorPrimaryDark)
             labelCount = entries.size /2
-            axisMaximum = hourlyForecast.last().timeStamp + 1500.toFloat()
-            axisMinimum = hourlyForecast.first().timeStamp - 1500.toFloat()
+            axisMaximum = hourlyForecast.last().timeStamp!! + 1500.toFloat()
+            axisMinimum = hourlyForecast.first().timeStamp!! - 1500.toFloat()
             position = XAxis.XAxisPosition.BOTTOM
             valueFormatter = object : ValueFormatter() {
                 override fun getFormattedValue(value: Float): String {
@@ -125,7 +127,7 @@ fun setDataHumidity(
 
     for (i in hourlyForecast.indices) {
         entries.add(
-            Entry(hourlyForecast[i].timeStamp.toFloat(), hourlyForecast[i].humidity.toFloat())
+            Entry(hourlyForecast[i].timeStamp!!.toFloat(), hourlyForecast[i].humidity!!.toFloat())
         )
     }
 
@@ -169,8 +171,8 @@ fun setDataHumidity(
     textColor = context.getColor(R.color.redColor)
             textSize = 12f
             labelCount = entries.size /2
-            axisMaximum = hourlyForecast.last().timeStamp + 1500.toFloat()
-            axisMinimum = hourlyForecast.first().timeStamp - 1500.toFloat()
+            axisMaximum = hourlyForecast.last().timeStamp!! + 1500.toFloat()
+            axisMinimum = hourlyForecast.first().timeStamp!! - 1500.toFloat()
             position = XAxis.XAxisPosition.BOTTOM
             valueFormatter = object : ValueFormatter() {
                 override fun getFormattedValue(value: Float): String {
@@ -212,7 +214,7 @@ fun setDataHourlyRainVolume(
 
     for (i in hourlyForecast.indices) {
         entries.add(
-            BarEntry(hourlyForecast[i].timeStamp.toFloat(), hourlyForecast[i].rain?.toFloat() ?: 0f)
+            BarEntry(hourlyForecast[i].timeStamp!!.toFloat(), hourlyForecast[i].rain?.toFloat() ?: 0f)
         )
     }
 
@@ -259,8 +261,8 @@ fun setDataHourlyRainVolume(
         textColor = context.getColor(R.color.redColor)
         textSize = 12f
         labelCount = entries.size /2
-        axisMaximum = hourlyForecast.last().timeStamp + 1500.toFloat()
-        axisMinimum = hourlyForecast.first().timeStamp - 1500.toFloat()
+        axisMaximum = hourlyForecast.last().timeStamp!! + 1500.toFloat()
+        axisMinimum = hourlyForecast.first().timeStamp!! - 1500.toFloat()
         position = XAxis.XAxisPosition.BOTTOM
         valueFormatter = object : ValueFormatter() {
             override fun getFormattedValue(value: Float): String {
@@ -308,11 +310,11 @@ fun setDataDaily(
         val minTemp = weeklyForecast[i].minTemp
         val maxTemp = weeklyForecast[i].maxTemp
         minTempEntries.add(
-            Entry(weeklyForecast[i].date.toFloat(), minTemp.toFloat(), i)
+            Entry(weeklyForecast[i].date!!.toFloat(), minTemp!!.toFloat(), i)
         )
 
         maxTempEntries.add(
-            Entry(weeklyForecast[i].date.toFloat(), maxTemp.toFloat(), i)
+            Entry(weeklyForecast[i].date!!.toFloat(), maxTemp!!.toFloat(), i)
         )
 
         if (maxTemp > maxTmp) maxTmp = maxTemp
@@ -385,8 +387,8 @@ fun setDataDaily(
             textColor = context.getColor(R.color.redColor)
             textSize = 12f
             labelCount = maxTempEntries.size /2
-            axisMaximum = weeklyForecast.last().date + 1500.toFloat()
-            axisMinimum = weeklyForecast.first().date - 1500.toFloat()
+            axisMaximum = weeklyForecast.last().date!! + 1500.toFloat()
+            axisMinimum = weeklyForecast.first().date!! - 1500.toFloat()
             position = XAxis.XAxisPosition.BOTTOM
             valueFormatter = object : ValueFormatter() {
                 override fun getFormattedValue(value: Float): String {

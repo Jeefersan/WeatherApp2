@@ -1,6 +1,9 @@
 package com.jeefersan.data.weatherforecast.datasources.local.db.dao
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.jeefersan.data.weatherforecast.datasources.local.db.models.currentweather.CurrentWeatherEntity
 
 
@@ -16,6 +19,8 @@ interface CurrentWeatherDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOrUpdateCurrentWeather(currentWeatherEntity: CurrentWeatherEntity)
+
+
 
     @Query("DELETE FROM current_weathers WHERE favorite_id = :favoriteId")
     suspend fun deleteCurrentWeather(favoriteId: Int)

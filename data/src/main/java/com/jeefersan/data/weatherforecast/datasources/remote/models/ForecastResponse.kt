@@ -17,5 +17,5 @@ data class ForecastResponse(
     @Json(name = "lon")
     val lon: Double,
     @Json(name = "timezone")
-    val timezone: String
+    val timezone: String? = ""
 )

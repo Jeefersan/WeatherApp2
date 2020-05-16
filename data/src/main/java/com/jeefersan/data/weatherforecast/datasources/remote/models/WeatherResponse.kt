@@ -1,36 +1,33 @@
 package com.jeefersan.data.weatherforecast.datasources.remote.models
 
 
-
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class WeatherResponse(
     @Json(name = "base")
-    val base: String,
+    val base: String? = "",
     @Json(name = "clouds")
-    val clouds: Clouds,
+    val clouds: Clouds? = Clouds(),
     @Json(name = "cod")
-    val cod: Int,
+    val cod: Int? = 0,
     @Json(name = "coord")
-    val coord: Coord,
+    val coord: Coord? = Coord(),
     @Json(name = "dt")
-    val dt: Long,
+    val dt: Int? = 0,
     @Json(name = "id")
-    val id: Long,
+    val id: Int? = 0,
     @Json(name = "main")
-    val main: Main,
+    val main: Main? = Main(),
     @Json(name = "name")
-    val name: String,
+    val name: String? = "",
     @Json(name = "sys")
-    val sys: Sys,
+    val sys: Sys? = Sys(),
     @Json(name = "timezone")
-    val timezone: Int,
-    @Json(name = "visibility")
-    val visibility: Int,
+    val timezone: Int? = 0,
     @Json(name = "weather")
-    val weather: List<Weather>,
+    val weather: List<Weather>? = listOf(),
     @Json(name = "wind")
-    val wind: Wind
+    val wind: Wind? = Wind()
 )

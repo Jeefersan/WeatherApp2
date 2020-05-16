@@ -7,15 +7,15 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class Main(
     @Json(name = "feels_like")
-    val feelsLike: Double,
+    val feelsLike: Double? = 0.0,
     @Json(name = "humidity")
-    val humidity: Int,
+    val humidity: Int? = 0,
     @Json(name = "pressure")
-    val pressure: Int,
+    val pressure: Int? = 0,
     @Json(name = "temp")
-    val temp: Double,
+    val temp: Double? = 0.0,
     @Json(name = "temp_max")
-    val tempMax: Double,
+    val tempMax: Double? = 0.0,
     @Json(name = "temp_min")
-    val tempMin: Double
+    val tempMin: Double? = 0.0
 )

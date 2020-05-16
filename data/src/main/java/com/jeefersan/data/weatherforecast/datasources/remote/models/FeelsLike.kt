@@ -7,11 +7,11 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class FeelsLike(
     @Json(name = "day")
-    val day: Double,
+    val day: Double? = 0.0,
     @Json(name = "eve")
-    val eve: Double,
+    val eve: Double? = 0.0,
     @Json(name = "morn")
-    val morn: Double,
+    val morn: Double? = 0.0,
     @Json(name = "night")
-    val night: Double
+    val night: Double? = 0.0
 )

@@ -24,11 +24,11 @@ data class DailyWeatherEntity(
     @PrimaryKey
     @ColumnInfo(name = "favorite_id")
     val favoriteId: Int,
-    val minTemp: Int,
-    val maxTemp: Int,
-    val date: Long,
-    val wind: Int,
-    val humidity: Int,
-    val icon: String,
-    val description: String
+    val minTemp: Int?,
+    val maxTemp: Int?,
+    val date: Long?,
+    val wind: Int?,
+    val humidity: Int?,
+    val icon: String?,
+    val description: String?
 )

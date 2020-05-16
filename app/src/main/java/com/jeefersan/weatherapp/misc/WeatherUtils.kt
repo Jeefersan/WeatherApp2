@@ -38,7 +38,7 @@ fun getWeatherIconResFromInt(icon: String) = when (icon) {
     else -> R.drawable.ic_weather_clouds
 }
 
-fun getOpenWeatherIconRes(icon: String) = when (icon) {
+fun getOpenWeatherIconRes(icon: String?) = when (icon) {
     "01d" -> R.drawable.ic_01d
     "01n" -> R.drawable.ic_01n
     "02d" -> R.drawable.ic_02d

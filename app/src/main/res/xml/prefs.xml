@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <PreferenceCategory
-        android:title="Theme">
+    <PreferenceCategory android:title="Theme">
 
         <SwitchPreferenceCompat
             android:key="@string/key_dark_theme"
-            android:title="Enable dark theme"
             android:summaryOff="@string/disabled"
             android:summaryOn="@string/enabled"
-            />
+            android:title="Enable dark theme" />
 
 
     </PreferenceCategory>
@@ -63,6 +62,17 @@
             android:title="@string/update_interval"
             app:key="@string/key_rain_interval" />
 
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory android:title="Info">
+
+        <Preference
+            android:key="@string/key_about_this_app"
+            android:summary="About this app"
+            android:title="About"
+            app:icon="@drawable/ic_info_outline_black_24dp" />
 
     </PreferenceCategory>
 

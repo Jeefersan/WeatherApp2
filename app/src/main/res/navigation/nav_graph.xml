@@ -94,5 +94,25 @@
     <fragment
         android:id="@+id/nav_settings"
         android:name="com.jeefersan.weatherapp.presentation.settings.SettingsFrag"
-        android:label="@string/settings" />
+        android:label="@string/settings" >
+        <action
+            android:id="@+id/action_nav_settings_to_aboutFragment"
+            app:destination="@id/nav_about" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_web"
+        android:name="com.jeefersan.weatherapp.presentation.about.webview.WebFragment"
+        android:label="WebView" >
+        <argument
+            android:name="url"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_about"
+        android:name="com.jeefersan.weatherapp.presentation.about.AboutFragment"
+        android:label="About" >
+        <action
+            android:id="@+id/action_nav_about_to_nav_web"
+            app:destination="@id/nav_web" />
+    </fragment>
 </navigation>

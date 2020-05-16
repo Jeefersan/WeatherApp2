@@ -60,8 +60,8 @@ fun createNotificationChannel(
 
 
 fun Context.showDailyNotification(daily: Daily, cityName: String, id: Int) {
-    val todaysWeather = daily.weather.first()
-    val icon = getOpenWeatherIconRes(todaysWeather.icon)
+    val todaysWeather = daily.weather?.first()
+    val icon = getOpenWeatherIconRes(todaysWeather?.icon!!)
 
     val intent = Intent(this, MainActivity::class.java)
     intent.action = ACTION_CODE
@@ -82,7 +82,7 @@ fun Context.showDailyNotification(daily: Daily, cityName: String, id: Int) {
                 setContentTitle("Today's weather for $cityName")
                 setAutoCancel(true)
                 setSmallIcon(icon)
-                setContentText("Feels like ${daily.feelsLike.day.roundToInt()}, ${todaysWeather.description}")
+                setContentText("Feels like ${daily.feelsLike?.day?.roundToInt()}, ${todaysWeather.description}")
                 setContentIntent(pendingIntent)
                 priority = NotificationCompat.PRIORITY_HIGH
                 setDefaults(NotificationCompat.DEFAULT_ALL)
@@ -120,6 +120,6 @@ fun Context.showRainNotification(hourlyForecast: List<Hourly>, cityName: String)
 
 fun getRainContentText(hourlyForecast: List<Hourly>): String =
     when (hourlyForecast.size) {
-        1 -> "${hourlyForecast.first().weather.first().description.capitalize()} at ${hourlyForecast.first().dt.toReadableDate()}!"
-        else -> "There will be rain from ${hourlyForecast.first().dt.toReadableDate()} to ${hourlyForecast.last().dt.toReadableDate()}!"
+        1 -> "${hourlyForecast.first().weather.first().description?.capitalize()} at ${hourlyForecast.first().dt?.toReadableDate()}!"
+        else -> "There will be rain from ${hourlyForecast.first().dt?.toReadableDate()} to ${hourlyForecast.last().dt?.toReadableDate()}!"
     }

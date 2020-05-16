@@ -36,6 +36,8 @@ import com.jeefersan.weatherapp.framework.location.LocationProviderImpl
 import com.jeefersan.weatherapp.framework.location.LocationRemoteDataSourceImpl
 import com.jeefersan.weatherapp.framework.location.LocationRepositoryImpl
 import com.jeefersan.weatherapp.models.WeeklyForecastModel
+import com.jeefersan.weatherapp.presentation.about.AboutViewModelImpl
+import com.jeefersan.weatherapp.presentation.about.webview.WebViewModelImpl
 import com.jeefersan.weatherapp.presentation.favorites.viewmodels.FavoritesViewModelImpl
 import com.jeefersan.weatherapp.presentation.favoriteweatherforecast.viewmodels.FavoriteForecastViewModelImpl
 import com.jeefersan.weatherapp.presentation.home.viewmodels.HomeViewModelImpl
@@ -176,6 +178,8 @@ val viewModelModule = module {
         )
     }
     viewModel { (id: Int) -> FavoriteForecastViewModelImpl(get(), id) }
+    viewModel { (uri: String) -> WebViewModelImpl(uri) }
+    viewModel { AboutViewModelImpl() }
 }
 
 val databaseModule = module {

@@ -12,16 +12,16 @@ data class HourlyForecastModel(val hourlyForecast: List<HourlyWeatherModel>) : P
 
 @Parcelize
 data class HourlyWeatherModel(
-    val temperature: Int,
-    val timeStamp: Long,
-    val weatherIcon: String,
-    val humidity: Int,
-    val windSpeed: Int,
-    val weatherCode: Int,
-    val rain: Double?= 0.0
+    val temperature: Int?=0,
+    val timeStamp: Long?=0,
+    val weatherIcon: String ?= "",
+    val humidity: Int? = 0,
+    val windSpeed: Int? = 0,
+    val weatherCode: Int? = 801,
+    val rain: Double? = 0.0
 ) : Parcelable
 
 
 fun HourlyWeatherModel.getIconRes(): Int =
-    getWeatherIconRes(weatherCode)
+    getWeatherIconRes(weatherCode?: 801)
 

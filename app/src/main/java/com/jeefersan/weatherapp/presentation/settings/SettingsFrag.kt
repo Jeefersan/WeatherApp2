@@ -4,6 +4,7 @@ import android.app.TimePickerDialog
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.preference.*
 import com.jeefersan.data.favorites.datasources.local.db.FavoritesDao
 import com.jeefersan.weatherapp.R
@@ -28,13 +29,12 @@ class SettingsFrag : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.prefs)
 
-
         initSwitches()
         initFavorites()
         initTimePicker()
         initUpdateInterval()
+        initInfoCategory()
     }
-
 
     private fun initSwitches() {
         (findPreference<SwitchPreferenceCompat>(getString(R.string.key_dark_theme)) as SwitchPreferenceCompat).apply {
@@ -160,5 +160,14 @@ class SettingsFrag : PreferenceFragmentCompat() {
         }
     }
 
+    private fun initInfoCategory() {
 
+        findPreference<Preference>(getString(R.string.key_about_this_app))
+            ?.setOnPreferenceClickListener {
+                findNavController().navigate(SettingsFragDirections.actionNavSettingsToAboutFragment())
+                true
+            }
+
+
+    }
 }
