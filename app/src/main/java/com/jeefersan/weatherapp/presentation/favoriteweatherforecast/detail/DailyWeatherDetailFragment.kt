@@ -49,8 +49,8 @@ class DailyWeatherDetailFragment : Fragment(), OnChartValueSelectedListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_detail_daily, container, true)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail_daily, container, true)
+        binding.lifecycleOwner = this@DailyWeatherDetailFragment
         return binding.root
     }
 
@@ -84,11 +84,10 @@ class DailyWeatherDetailFragment : Fragment(), OnChartValueSelectedListener {
     }
 
     override fun onNothingSelected() {
-        Log.d("Ok", "Do Nothing")
+        Log.i("Ok", "Do Nothing")
     }
 
     override fun onValueSelected(e: Entry?, h: Highlight?) {
-        Log.d("DailyDetail", "entry selected value is ${e?.data}")
         viewModel.onDailyWeatherclick(e?.data as Int)
     }
 }

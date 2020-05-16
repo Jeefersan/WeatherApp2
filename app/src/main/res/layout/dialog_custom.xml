@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="dailyWeather"
             type="com.jeefersan.weatherapp.models.DailyWeatherModel" />
@@ -27,8 +28,8 @@
             <LinearLayout
                 android:id="@+id/linearLayout3"
                 android:layout_width="0dp"
-                android:background="@android:color/transparent"
                 android:layout_height="match_parent"
+                android:background="@android:color/transparent"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -129,6 +130,30 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/maven_pro_bold"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/linearLayout3"
+                app:layout_constraintTop_toBottomOf="@+id/btn_close"
+                app:toWeekDay="@{dailyWeather.date}"
+                tools:text="Monday" />
+
+            <TextView
+                android:id="@+id/textView7"
+                app:toWeekDate="@{dailyWeather.date}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/linearLayout3"
+                app:layout_constraintTop_toBottomOf="@+id/textView8"
+                tools:text="5 August" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

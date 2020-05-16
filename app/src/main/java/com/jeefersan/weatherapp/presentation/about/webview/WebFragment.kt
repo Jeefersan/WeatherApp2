@@ -23,7 +23,10 @@ class WebFragment : BaseFragment<FragmentWebviewBinding>(){
     override fun getViewModel(): BaseViewModel = viewModel
 
     override fun setupBinding() {
-        getBinding().vm = viewModel
+        getBinding().apply {
+            vm = viewModel
+            lifecycleOwner = this@WebFragment
+        }
     }
 
 }

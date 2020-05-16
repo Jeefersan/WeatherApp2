@@ -53,8 +53,8 @@ class RainNotificationWorker(
             }
             .flowOn(Dispatchers.IO)
             .map { list ->
-                val result = list?.take(12)?.filter { hourly ->
-                    hourly!!.weather!!.first()!!.description!!.contains("rain", true)
+                val result = list.take(12).filter { hourly ->
+                    hourly.weather.first().description!!.contains("rain", true)
                 }
                 result
             }

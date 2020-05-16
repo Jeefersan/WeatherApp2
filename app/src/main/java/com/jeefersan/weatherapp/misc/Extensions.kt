@@ -61,6 +61,11 @@ fun Location?.toText(): String {
     }
 }
 
+fun Fragment.showSnackbar(view: View, message: String) = Snackbar.make(
+    view,
+    message,
+    Snackbar.LENGTH_SHORT
+)
 
 
 fun Fragment.showDailyCustomDialog(dailyWeatherModel: DailyWeatherModel) {

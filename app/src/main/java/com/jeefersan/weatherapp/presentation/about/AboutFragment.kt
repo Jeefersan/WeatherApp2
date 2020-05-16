@@ -16,12 +16,16 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class AboutFragment : BaseFragment<FragmentAboutBinding>(){
     private val viewModel: AboutViewModelImpl by viewModel()
 
-    override val layoutId: Int = com.jeefersan.weatherapp.R.layout.fragment_about
+    override val layoutId: Int = R.layout.fragment_about
 
     override fun getViewModel(): BaseViewModel = viewModel
 
     override fun setupBinding() {
-        getBinding().vm = viewModel
+        getBinding().apply {
+            vm = viewModel
+            lifecycleOwner = this@AboutFragment
+        }
+
     }
 
     override fun initObservers() {

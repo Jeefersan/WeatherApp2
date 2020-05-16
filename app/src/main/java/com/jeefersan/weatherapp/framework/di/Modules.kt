@@ -42,7 +42,6 @@ import com.jeefersan.weatherapp.presentation.favorites.viewmodels.FavoritesViewM
 import com.jeefersan.weatherapp.presentation.favoriteweatherforecast.viewmodels.FavoriteForecastViewModelImpl
 import com.jeefersan.weatherapp.presentation.home.viewmodels.HomeViewModelImpl
 import com.jeefersan.weatherapp.presentation.search.viewmodels.SearchViewModelImpl
-import com.jeefersan.weatherapp.presentation.settings.SettingsViewModelImpl
 import com.jeefersan.weatherapp.presentation.weeklyforecast.viewmodels.WeeklyForecastViewModelImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -163,7 +162,6 @@ val viewModelModule = module {
             forecast, locationName
         )
     }
-    viewModel { SettingsViewModelImpl() }
     viewModel {
         FavoritesViewModelImpl(
             get(),

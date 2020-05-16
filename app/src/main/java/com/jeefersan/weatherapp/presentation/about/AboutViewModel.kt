@@ -1,5 +1,6 @@
 package com.jeefersan.weatherapp.presentation.about
 
+import androidx.lifecycle.LiveData
 import com.jeefersan.weatherapp.misc.SingleLiveEvent
 
 /**
@@ -7,6 +8,7 @@ import com.jeefersan.weatherapp.misc.SingleLiveEvent
  */
 interface AboutViewModel {
 
+    val versionName: LiveData<String>
     val isEmailClicked: SingleLiveEvent<Unit>
 
     fun onFindOutClick()

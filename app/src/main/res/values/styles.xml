@@ -125,7 +125,12 @@
         <item name="android:layout_marginTop">16dp</item>
         <item name="android:layout_marginStart">16dp</item>
         <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:clickable">true</item>
+        <item name="rippleColor">#e3f2fd</item>
+        <item name="cornerSize">8dp</item>
     </style>
+
+
 
 
 </resources>

@@ -82,7 +82,7 @@ fun Context.showDailyNotification(daily: Daily, cityName: String, id: Int) {
                 setContentTitle("Today's weather for $cityName")
                 setAutoCancel(true)
                 setSmallIcon(icon)
-                setContentText("Feels like ${daily.feelsLike?.day?.roundToInt()}, ${todaysWeather.description}")
+                setContentText("Feels like ${daily.feelsLike?.day?.roundToInt()}°C, ${todaysWeather.description?.capitalize()}")
                 setContentIntent(pendingIntent)
                 priority = NotificationCompat.PRIORITY_HIGH
                 setDefaults(NotificationCompat.DEFAULT_ALL)

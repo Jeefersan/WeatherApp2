@@ -1,6 +1,7 @@
 package com.jeefersan.weatherapp.misc
 
 import android.animation.ValueAnimator
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.View
 import android.webkit.WebView
@@ -150,6 +151,22 @@ object BindingAdapters {
     @JvmStatic
     fun WebView.loadRepoUrl(url: String) {
         run { loadUrl(url) }
+    }
+
+    @BindingAdapter("toWeekDay")
+    @JvmStatic
+    fun toWeekday(tv: TextView, timestamp: Long) {
+        tv.text = String.format(Locale.getDefault(), "%tA", timestamp * 1000L)
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    @BindingAdapter("toWeekDate")
+    @JvmStatic
+    fun toWeekDate(tv: TextView, timestamp: Long) {
+
+        val sdf = java.text.SimpleDateFormat("d MMMM")
+        val date = java.util.Date(timestamp * 1000)
+        tv.text = sdf.format(date)
     }
 
 
