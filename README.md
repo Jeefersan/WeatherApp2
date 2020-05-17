@@ -1,8 +1,8 @@
 # WeatherApp
 
-Tested on:
-Huawei P20 (Android P) - works flawless
-Emulator (Android P) - works flawless
-Xiaomi Mi9 (LineageOS, Android Q) - works flawless
+Tested on:<br />
+Huawei P20 (Android P) - works flawless<br />
+Emulator (Android P) - works flawless<br />
+Xiaomi Mi9 (LineageOS, Android Q) - works flawless<br />
 
-Emulator (Android P) - Location seems to be bugged sometimes.
+Emulator (Android P) - Location seems to be bugged sometimes.<br />
