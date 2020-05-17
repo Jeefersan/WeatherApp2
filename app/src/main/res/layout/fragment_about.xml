@@ -85,7 +85,7 @@
                         android:fontFamily="sans-serif-condensed-light"
                         android:paddingStart="24dp"
                         android:paddingEnd="24dp"
-                        android:text="@string/about_app_text"
+                        android:text="@string/about_app_txt"
                         android:textSize="18sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

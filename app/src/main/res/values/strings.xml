@@ -96,7 +96,8 @@
     <string name="gps_disabled">GPS is disabled :(</string>
     <string name="weather_app">Weather App</string>
     <string name="about_this_app">About this App</string>
-    <string name="about_app_text">This weather app is written in Kotlin for the purpose of practicing the concepts of Clean Architecture. This app has only been tested on my emulator and smartphone (Android P). If you don\'t know what Clean architecture is and want to know more about it, click the button below.</string>
+    <string name="about_app_txt">This weather app is written in Kotlin for the purpose of practicing the concepts of Clean Architecture. Thus far, this app has been tested on my emulator and smartphone (Android P). It also works very well on my newer mobile device which I flashed with LineageOS (based on Android Q) For now, the only known issue is that the location provider is bugged in my emulator when running API 29. If you don\'t know what Clean architecture is and want to know more about it, click the button below.</string>
+
     <string name="find_out_more">Find out more</string>
     <string name="email_me">Email me</string>
     <string name="go_to_my_github">Go to my github</string>
