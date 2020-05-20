@@ -86,7 +86,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
             Log.d("SettingsFragment", "favorites: $favoriteList")
             val entries = favoriteList.map { it.cityName }.toTypedArray()
             val entryValues = favoriteList.map { it.id.toString() }.toTypedArray()
-            val id = configsManager.getIdForDailyNotification()
+            var id = configsManager.getIdForDailyNotification()
+            favoriteList.find { it.id == id }.let { if(it == null) id = -1 }
             favoriteListPreference
                 .apply {
                     summary = entry
@@ -104,6 +105,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                         summary =
                             "No favorites to select from"
                         isEnabled = false
+                        return@apply
                     }
                     if (id != -1) {
                         val savedEntry = entries[entryValues.indexOf(id.toString())]
