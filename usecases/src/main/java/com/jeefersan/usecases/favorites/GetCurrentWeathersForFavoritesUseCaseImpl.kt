@@ -35,16 +35,19 @@ class GetCurrentWeathersForFavoritesUseCaseImpl(
             val currentWeatherFailures = mutableListOf<Result<CurrentWeather>>()
 
             val favoriteCurrentWeatherList = coroutineScope {
-                async {
+                async{
                     val list = mutableListOf<FavoriteCurrentWeather>()
                     favorites.map { favorite ->
-                        async {
-                            when(                            val result = weatherRepository.getCurrentWeather(
+                        async foo@{
+                            when (val result = weatherRepository.getCurrentWeather(
                                 id = favorite.favoriteId,
                                 coordinates = Coordinates(favorite.latitude, favorite.longitude),
                                 shouldUpdate = shouldUpdateCurrent(favorite.lastCurrentUpdate)
-                            )){
-                                is Result.Failure -> currentWeatherFailures.add(result)
+                            )) {
+                                is Result.Failure -> {
+                                    currentWeatherFailures.add(result)
+                                    return@foo
+                                }
                                 is Result.Success -> {
                                     list.add(FavoriteCurrentWeather(favorite, result.data))
                                     launch { favoritesRepository.setCurrentUpdate(favorite.favoriteId) }
@@ -56,7 +59,7 @@ class GetCurrentWeathersForFavoritesUseCaseImpl(
                 }
             }.await()
 
-            if(currentWeatherFailures.isNotEmpty()){
+            if (currentWeatherFailures.isNotEmpty()) {
                 Result.Failure(Throwable(currentWeatherFailures.first().toString()))
             }
 

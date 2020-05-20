@@ -56,7 +56,6 @@ class FavoritesViewModelImpl(
                     _favoriteCurrentWeatherModels.value =
                         result.data.map { it.mapToPresentation() }
                     isLoading.set(false)
-                    Log.d("FavoritesViewModel", "result is ${result.data}")
                 }
             }
         }
