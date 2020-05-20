@@ -7,7 +7,7 @@ import com.jeefersan.weatherapp.R
  */
 
 
-fun getWeatherIconRes(id: Int) = when (id) {
+fun getWeatherIconFromWeatherCode(id: Int?) = when (id) {
     in 200..232 -> R.drawable.ic_weather_cloud_bolt_rain
     in 300..321 -> R.drawable.ic_weather_cloud_rain
     in 500..504 -> R.drawable.ic_weather_cloud_sun_rain
@@ -20,10 +20,10 @@ fun getWeatherIconRes(id: Int) = when (id) {
     801 -> R.drawable.ic_weather_cloud_sun
     in 802..804 -> R.drawable.ic_weather_clouds
 
-    else -> -1
+    else -> R.drawable.ic_weather_cloud_sun
 }
 
-fun getWeatherIconResFromInt(icon: String) = when (icon) {
+fun getWeatherIconRes(icon: String?) = when (icon) {
    "11d", "11n" -> R.drawable.ic_weather_cloud_bolt_rain
     "09d", "09n" -> R.drawable.ic_weather_cloud_rain
     "10d" -> R.drawable.ic_weather_cloud_sun_rain

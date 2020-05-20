@@ -14,9 +14,9 @@ data class WeeklyForecastModel(val weeklyForecast: List<DailyWeatherModel>) : Pa
 data class DailyWeatherModel(
     val minTemp: Int?=0,
     val maxTemp: Int?=0,
-    val date: Long?=0,
-    val wind: Int?=0,
-    val humidity: Int?=0,
-    val icon: String?,
+    override val timestamp: Long?=0,
+    override val windSpeed: Int?=0,
+    override val humidity: Int?=0,
+    override val icon: String?,
     val description: String?=""
-) : Parcelable
+) : Parcelable, WeatherModel

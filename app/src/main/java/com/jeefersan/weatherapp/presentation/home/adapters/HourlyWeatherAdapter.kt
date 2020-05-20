@@ -8,7 +8,7 @@ import com.jeefersan.weatherapp.databinding.ListItemHourlyWeatherBinding
 import com.jeefersan.weatherapp.misc.setRotateAnimation
 import com.jeefersan.weatherapp.misc.toHourlyDate
 import com.jeefersan.weatherapp.models.HourlyWeatherModel
-import com.jeefersan.weatherapp.models.getIconRes
+import com.jeefersan.weatherapp.models.getIconFromWeatherCode
 
 /**
  * Created by JeeferSan on 28-4-20.
@@ -35,8 +35,8 @@ class HourlyWeatherAdapter(private val items: List<HourlyWeatherModel>) :
         @SuppressLint("SetTextI18n")
         fun bind(hourlyWeather: HourlyWeatherModel) {
             binding.apply {
-                tvTime.text = hourlyWeather.timeStamp?.toHourlyDate()
-                ivWeatherIcon.setImageResource(hourlyWeather.getIconRes())
+                tvTime.text = hourlyWeather.timestamp?.toHourlyDate()
+                ivWeatherIcon.setImageResource(hourlyWeather.getIconFromWeatherCode())
                 ivWeatherIcon.setOnClickListener { it.setRotateAnimation() }
                 tvTemperature.text = """${hourlyWeather.temperature}°C"""
                 executePendingBindings()

@@ -13,5 +13,3 @@ data class WeatherForecastModel(
     val hourlyForecast: HourlyForecastModel,
     val weeklyForecast: WeeklyForecastModel
 ) : Parcelable
-
-data class FavoriteWeatherForecastModel(val cityName: String, val weatherForecastModel: WeatherForecastModel)

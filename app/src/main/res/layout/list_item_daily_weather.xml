@@ -35,7 +35,7 @@
                 android:layout_marginStart="8dp"
                 android:gravity="center_vertical"
                 android:textSize="20sp"
-                app:dateToWeekDay="@{weatherModel.date}"
+                app:dateToWeekDay="@{weatherModel.timestamp}"
                 android:textAllCaps="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -50,7 +50,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
                 android:fontFamily="sans-serif-condensed-medium"
-                android:text="@{`Windspeed: ` + weatherModel.wind}"
+                android:text="@{`Windspeed: ` + weatherModel.windSpeed}"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Windspeed: 3" />

@@ -15,7 +15,9 @@ import com.jeefersan.weatherapp.presentation.base.BaseViewModel
 import com.jeefersan.weatherapp.presentation.base.LoadingStatus
 import com.jeefersan.weatherapp.presentation.home.HomeFragmentDirections
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.launch
 
 /**
@@ -41,16 +43,19 @@ class HomeViewModelImpl
     override val weeklyForecast: LiveData<WeeklyForecastModel> =
         currentLocationForecast.map { it.weeklyForecast }
 
+    @FlowPreview
     override val currentLocationLiveData: LiveData<Location> =
         liveData {
-            getCurrentLocationUseCase().collect { result ->
+            getCurrentLocationUseCase()
+                .distinctUntilChangedBy { (it as Result.Success).data == (it).data }
+                .collect { result ->
                 if (result is Result.Success) {
                     Log.d("HomeViewModel", " Success + ${result.data.cityName}")
                     emit(result.data)
                     retrieveWeatherForecast(result.data)
                 }
                 else{
-//                    setStatus(LoadingStatus.ERROR)
+                    setStatus(LoadingStatus.ERROR)
                     Log.d("HomeViewModel", "Failure")
                 }
             }
@@ -82,6 +87,7 @@ class HomeViewModelImpl
 
     }
 
+    @FlowPreview
     override fun onShowForecastButtonClick() {
         navigate(
             HomeFragmentDirections.actionHomeFragmentToWeeklyForecastFragment(

@@ -61,7 +61,7 @@ object BindingAdapters {
     @JvmStatic
     fun setIcon(view: ImageView, icon: String) {
         Glide.with(view.context)
-            .load(getWeatherIconResFromInt(icon))
+            .load(getWeatherIconRes(icon))
             .centerCrop()
             .into(view)
     }
@@ -70,7 +70,7 @@ object BindingAdapters {
     @BindingAdapter("setIcon")
     @JvmStatic
     fun setIconDefault(view: ImageView, icon: String) {
-        view.setImageResource(getWeatherIconResFromInt(icon))
+        view.setImageResource(getWeatherIconRes(icon))
     }
 
 

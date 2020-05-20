@@ -3,7 +3,6 @@ package com.jeefersan.weatherapp.presentation.favorites.viewmodels
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LiveData
 import com.jeefersan.weatherapp.models.FavoriteCurrentWeatherModel
-import com.jeefersan.weatherapp.models.FavoriteModel
 
 /**
  * Created by JeeferSan on 25-4-20.

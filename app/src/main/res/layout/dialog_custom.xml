@@ -49,7 +49,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:fontFamily="sans-serif-condensed-light"
-                    android:text="@{`Windspeed: ` + dailyWeather.wind}"
+                    android:text="@{`Windspeed: ` + dailyWeather.windSpeed}"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
                     app:layout_constraintStart_toStartOf="parent"
@@ -141,12 +141,12 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/linearLayout3"
                 app:layout_constraintTop_toBottomOf="@+id/btn_close"
-                app:toWeekDay="@{dailyWeather.date}"
+                app:toWeekDay="@{dailyWeather.timestamp}"
                 tools:text="Monday" />
 
             <TextView
                 android:id="@+id/textView7"
-                app:toWeekDate="@{dailyWeather.date}"
+                app:toWeekDate="@{dailyWeather.timestamp}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"

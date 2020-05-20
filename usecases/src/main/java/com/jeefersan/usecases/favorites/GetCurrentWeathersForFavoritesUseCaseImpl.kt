@@ -3,6 +3,7 @@ package com.jeefersan.usecases.favorites
 import com.jeefersan.data.favorites.repositories.FavoritesRepository
 import com.jeefersan.data.weatherforecast.repositories.WeatherRepository
 import com.jeefersan.domain.Coordinates
+import com.jeefersan.domain.CurrentWeather
 import com.jeefersan.domain.FavoriteCurrentWeather
 import com.jeefersan.usecases.shouldUpdateCurrent
 import com.jeefersan.util.Result
@@ -31,30 +32,32 @@ class GetCurrentWeathersForFavoritesUseCaseImpl(
                 Result.Failure(Throwable("FavoritesList is empty"))
             }
 
+            val currentWeatherFailures = mutableListOf<Result<CurrentWeather>>()
+
             val favoriteCurrentWeatherList = coroutineScope {
                 async {
                     val list = mutableListOf<FavoriteCurrentWeather>()
                     favorites.map { favorite ->
                         async {
-                            val result = weatherRepository.getCurrentWeather(
+                            when(                            val result = weatherRepository.getCurrentWeather(
                                 id = favorite.favoriteId,
                                 coordinates = Coordinates(favorite.latitude, favorite.longitude),
                                 shouldUpdate = shouldUpdateCurrent(favorite.lastCurrentUpdate)
-                            )
-                            if (result is Result.Success) {
-                                list.add(FavoriteCurrentWeather(favorite, result.data))
-                                launch { favoritesRepository.setCurrentUpdate(favorite.favoriteId) }
-                            }
-                            else{
-                               Result.Failure(Throwable("Failed"))
+                            )){
+                                is Result.Failure -> currentWeatherFailures.add(result)
+                                is Result.Success -> {
+                                    list.add(FavoriteCurrentWeather(favorite, result.data))
+                                    launch { favoritesRepository.setCurrentUpdate(favorite.favoriteId) }
+                                }
                             }
                         }
                     }.awaitAll()
                     list
                 }
             }.await()
-            if (favoriteCurrentWeatherList.isEmpty()) {
-                Result.Failure(Throwable("favoriteCurrentWeatherList is empty"))
+
+            if(currentWeatherFailures.isNotEmpty()){
+                Result.Failure(Throwable(currentWeatherFailures.first().toString()))
             }
 
             Result.Success(favoriteCurrentWeatherList.toList())
